@@ -1,0 +1,82 @@
+<ng-include src="'./app/event/modalGameScores.htm'"></ng-include>
+<ng-include src="'./app/event/modalMultiGameLeaderboard.htm'"></ng-include>
+<ng-include src="'./app/event/modalPlayer.htm'"></ng-include>
+<ng-include src="'./app/event/modalRules.htm'"></ng-include>
+<ng-include src="'./app/event/modalBadges.htm'"></ng-include>
+<ng-include src="'./app/event/modalSubmit.htm'"></ng-include>
+
+<div class="container" style="margin-top: -50px;" ng-init="event.initEvent()">
+	
+	<div class="card grey lighten-4 z-depth-2">
+
+		<nav>
+			<div class="nav-wrapper grey-text text-lighten-4" 
+			     ng-class="event.eventProperties.color" 
+			     style="padding-left: 20px; padding-right: 20px;">
+				<a ng-click="" class="brand-logo truncate" style="font-size: 1.6rem;">
+					<i class="mdi-action-turned-in-not small" 
+					   style="display: inline-block; vertical-align: sub;"
+					   ng-if="event.eventProperties.premier"></i>
+				    {{ event.eventProperties.name }}
+				</a>
+
+				<ul class="right">
+					<li>
+					    <a class="waves-effect waves-light" 
+					       ng-click="event.openRulesModal()" 
+					       style="cursor: pointer;">
+					        <span class="grey-text text-lighten-4">Rules</span>
+					    </a>
+					</li>
+					<li ng-if="event.eventProperties.premier">
+					    <a class="waves-effect waves-light"
+					       ng-click="event.openBadgesModal()"
+					       style="cursor: pointer;">
+					        <span class="grey-text text-lighten-4">Badges</span>
+					    </a>
+					</li>
+					<li ng-if="event.eventProperties.state === 'inprogress'">
+					    <a class="waves-effect waves-light" href="#">
+					        <span class="grey-text text-lighten-4">Submit</span>
+					    </a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="card-content">
+
+			<!-- Sticky Message -->
+			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
+
+			<!-- Leaderboard -->
+			<div ng-if="!event.eventProperties.format.multiGame">
+				<vg-single-game-leaderboard data="event.summarizedLeaderboard"
+				                            avatar-data="event.avatarData"
+				                            complete-length="event.leaderboardLength"
+				                            open-leaderboard-function="event.openSingleGameLeaderboardModal">
+				</vg-single-game-leaderboard>
+			</div>
+
+			<div ng-if="event.eventProperties.format.multiGame">
+				<vg-multi-game-leaderboard data="event.summarizedLeaderboard" 
+				                           avatar-data="event.avatarData"
+				                           complete-length="event.leaderboardLength"
+				                           open-player-function="event.openPlayerModal"
+				                           open-leaderboard-function="event.openMultiGameLeaderboardModal">
+				</vg-multi-game-leaderboard>
+			</div>
+
+			<!-- Games List -->
+			<div ng-if="event.eventProperties.format.multiGame">
+				<vg-games-list event-name="event.eventName"
+				               data="event.gameList"
+				               open-game-function="event.openGameModal">
+				</vg-games-list>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

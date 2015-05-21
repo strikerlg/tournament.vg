@@ -1,0 +1,35 @@
+{
+  "name": "RetroContests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.12.0",
+    "compression": "^1.4.1",
+    "express": "^4.11.2",
+    "firebase": "^2.2.0",
+    "gulp-watch": "^4.2.4",
+    "serve-static": "^1.8.1"
+  },
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-jshint": "^1.10.0",
+    "gulp-karma": "0.0.4",
+    "gulp-ng-annotate": "^0.5.3",
+    "gulp-notify": "^2.2.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.2.4",
+    "jasmine-core": "^2.3.2",
+    "jshint-stylish": "^1.0.2",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.10",
+    "karma-jasmine": "^0.3.5"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "RetroContests",
+  "version": "1.0.0",
+  "authors": [
+    "Wes Copeland <wlcopeland1@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "http://tournament.vg",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15",
+    "angular-animate": "~1.3.15",
+    "angularfire": "~1.1.1",
+    "firebase": "~2.2.4",
+    "fontawesome": "~4.3.0",
+    "jquery": "~2.1.4",
+    "materialize": "~0.96.1",
+    "nz-animate": "~1.0.0",
+    "angular-ui-router": "~0.2.14",
+    "angular-validation-match": "~1.4.1",
+    "angularjs-ordinal-filter": "*",
+    "ng-file-upload": "~4.2.1",
+    "ng-imgur": "~0.1.5"
+  }
+}

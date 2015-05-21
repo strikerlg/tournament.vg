@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="vg.app">
+
+<head>
+
+	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="materialize/dist/js/materialize.min.js"></script>
+	<script type="text/javascript" src="angular/angular.min.js"></script>
+
+	<!-- Materalize.css -->
+	<link rel="stylesheet" href="materialize/dist/css/materialize.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="fontawesome/css/font-awesome.css">
+
+	<!-- nzAnimate -->
+	<link rel="stylesheet" href="nz-animate/dist/nzAnimate.min.css">
+
+	<!-- Site Stylesheet -->
+	<link rel="stylesheet" href="tournaments.css">
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+	<title>tournament.vg</title>
+
+</head>
+
+<body class="animate fadeIn">
+
+	<header>
+		<div ui-view="header"></div>
+	</header>
+
+	<main>
+		<div id="contentView" ui-view="content" class="animate enter-fadeInDown exit-fadeOut" style="position: absolute; width: 100%;"></div>
+	</main>
+
+	<script type="text/javascript" src="dist/js/vendor.js"></script>
+	<script type="text/javascript" src="dist/js/app.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<div id="rulesModal" class="modal modal-fixed-footer">
+	<div id="rulesModalContent" class="modal-content">
+		<h4 class="truncate">Rules</h4>
+
+		<div class="divider"></div>
+
+		<div class="section" ng-if="event.eventProperties.rules.length > 0">
+			<span class="flow-text grey-text text-darken-4" ng-repeat-start="rule in event.eventProperties.rules">
+				{{ rule.title }}
+			</span>
+			<p class="grey-text text-darken-4">
+				{{ rule.content }}
+			</p>
+			<div class="divider" style="margin-bottom: 24px; margin-top: 30px;" ng-if="!$last" ng-repeat-end></div>
+		</div>
+
+		<div class="section" ng-if="event.eventProperties.length === 0">
+			<span class="flow-text text-darken-4" ng-if="event.eventProperties.rules.length === 0">
+				The rules for this competition have not yet been posted.
+			</span>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>

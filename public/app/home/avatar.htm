@@ -1,0 +1,56 @@
+<div class="container" style="margin-top: -50px;" ng-init="avatar.initAvatar()">
+	
+	<div class="card grey lighten-4 z-depth-2">
+		<div class="card-content">
+
+			<div class="row">
+				<div class="col s12">
+					<span class="col s12 flow-text grey-text text-darken-4">
+						Customize Avatar
+					</span>
+					<p class="col s12 grey-text text-darken-1">
+						If your profile score is at least 20, you can upload a custom avatar that others will see throughout the site.
+						Simply drag and drop your image into the dotted circle below. Your avatar will automatically
+						be converted into a circle. Please ensure your file is less than or equal to 300kb in size.
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s12">
+					<div class="drop-avatar center" ngf-drag-over-class="dragover"
+					     ngf-drop ngf-select ng-model="avatar.file" ngf-multiple="false" ngf-allow-dir="false"
+					     ngf-accept="'image/*'" ngf-max-size='300000'>
+
+					     <img ng-if="!avatar.file[0]" ng-attr-src="{{ avatar.avatarData[$root.profile.userName] }}"
+					          class="drop-avatar" style="margin-left: -3px; margin-top: -3px; padding: 3px;">
+
+					     <img ng-if="avatar.file[0]" ngf-src="avatar.file[0]" class="drop-avatar"
+					          style="margin-left: -3px; margin-top: -3px; padding: 3px;">
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row" ng-if="avatar.badgesData.profileScore >= 20">
+				<div class="col s12 center">
+					<button class="waves-effect waves-light btn" 
+					        ng-disabled="!avatar.file[0] || avatar.disableButton" 
+					        ng-click="avatar.uploadAvatar()">
+					    Upload
+					</button>
+				</div>
+			</div>
+
+			<div class="row" ng-if="avatar.badgesData.profileScore < 20 || !avatar.badgesData.profileScore">
+				<div class="col s12 center">
+					<p class="blue-grey-text">
+						You need a profile score of 20 or higher to use a custom avatar.
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

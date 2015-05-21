@@ -1,0 +1,73 @@
+<div id="playerModal" class="modal modal-fixed-footer">
+	<div id="playerModalContent" class="modal-content">
+		<a class="grey-text text-darken-4 hoverable" ng-click="event.goToPlayerProfile(event.focusPlayer)" style="cursor: pointer;">
+			<h4 class="truncate" style="line-height: 2.9rem;">
+			    <img ng-src="{{event.avatarData[event.focusPlayer]}}"
+			         class="circle z-depth-1"
+			         style="width: 42px; vertical-align: sub; height: 42px; margin-right: 9px;">
+			    {{ event.focusPlayer }}
+			</h4>
+		</a>
+
+		<div class="divider"></div>
+
+		<div class="section">
+			<span class="flow-text text-darken-4" ng-if="event.playerScores.length === 0">
+				This player has not yet submitted any scores in the competition.
+			</span>
+
+			<table class="responsive-table hoverable" ng-if="event.playerScores.length > 0">
+
+				<thead>
+					<tr class="grey-text text-darken-1" style="font-weight: normal;">
+						<th>Position</th>
+						<th>Game</th>
+						<th>Score</th>
+						<th>Points Earned</th>
+						<th>Links</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="scoreData in event.playerScores | orderBy:['position', 'name']" 
+					    class="grey-text"
+					    ng-class="{'text-lighten-1': scoreData.pointsEarned === 0,
+					               'text-darken-4':  scoreData.pointsEarned > 0}">
+						<td>{{ scoreData.position }}</td>
+						<td>
+						    <a ng-click="event.openGameModalFromPlayerModal(scoreData.camelName)" class="hoverable" style="cursor: pointer;">
+						        {{ scoreData.name }}
+						    </a>
+						</td>
+						<td>{{ scoreData.score | number }}</td>
+						<td>{{ scoreData.pointsEarned }}</td>
+						<td>
+							<a ng-attr-href="{{ 'http://' + scoreData.twitchUrl }}" 
+							   class="grey-text hoverable"
+							   style="cursor: pointer;" 
+							   ng-class="{'text-lighten-1': scoreData.pointsEarned === 0,
+					                      'text-darken-4':  scoreData.pointsEarned > 0}"
+							   ng-show="scoreData.twitchUrl">
+						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
+						    </a>
+
+						    <a ng-attr-href="{{ 'http://' + scoreData.inpUrl }}" 
+						       class="grey-text hoverable" 
+						       style="cursor: pointer;"
+						       ng-class="{'text-lighten-1': scoreData.pointsEarned === 0,
+					                      'text-darken-4':  scoreData.pointsEarned > 0}"
+						       ng-show="scoreData.inpUrl">
+						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ scoreData.mameVersion | lowercase }}</span>
+						    </a>
+						</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>

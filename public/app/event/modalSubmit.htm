@@ -1,0 +1,38 @@
+<div id="submitModal" class="modal modal-fixed-footer">
+	<div id="submitModalContent" class="modal-content">
+		<h4 class="truncate">Submit</h4>
+
+		<div class="divider"></div>
+
+		<p class="grey-text text-darken-4">
+			Badges can be won during any <em>premier</em> competition and are a way to log your
+			achievements across multiple tournaments. After they have been won, badges permanently
+			appear on your site profile and raise your profile score, which can be used in a number of
+			ways throughout the site. 
+		</p>
+
+		<div class="section" ng-if="event.eventProperties.badges.length > 0">
+			<ul class="collection z-depth-1">
+				<li class="waves-effect waves-teal collection-item avatar hoverable" 
+				    style="height: 62px; width: 100%"
+				    ng-repeat="badge in event.eventProperties.badges | orderBy:'-points'">
+				    <img ng-attr-src="{{ './images/badges/' + badge.image }}" class="tournament-badge z-depth-1">
+				    <span class="image-badge">{{ badge.points }}</span>
+					<span class="title grey-text text-darken-4">{{ badge.title }}</span><br>
+					<span class="grey-text text-darken-1">{{ badge.description }}</span>
+				</li>
+			</ul>
+			<div class="divider" style="margin-bottom: 24px; margin-top: 30px;" ng-if="!$last" ng-repeat-end></div>
+		</div>
+
+		<div class="section" ng-if="event.eventProperties.badges.length === 0">
+			<span class="flow-text text-darken-4" ng-if="event.eventProperties.rules.length === 0">
+				This event does not have any badges.
+			</span>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>

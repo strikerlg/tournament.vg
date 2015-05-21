@@ -1,0 +1,29 @@
+<div id="multiGameLeaderboardModal" class="modal modal-fixed-footer">
+	<div id="multiGameLeaderboardModalContent" class="modal-content">
+		<h4 class="truncate">Leaderboard</h4>
+
+		<div class="divider"></div>
+
+		<div class="section">
+			<span class="flow-text text-darken-4" ng-if="event.completeLeaderboard.length === 0">
+				There are no scores yet for this competition.
+			</span>
+
+			<ul class="collection z-depth-1">
+				<a ng-click="event.openPlayerModalFromLeaderboardModal(playerData.key)" 
+				   ng-repeat="playerData in event.completeLeaderboard">
+				<li class="waves-effect waves-teal collection-item avatar hoverable" 
+				    style="height: 62px; width: 100%">
+				    <img ng-attr-src="{{ event.avatarData[playerData.key] }}" class="circle z-depth-1">
+					<span class="title grey-text text-darken-4">{{ playerData.key }}</span><br>
+					<span class="grey-text text-darken-1">{{ playerData.position | ordinal }} &ndash; {{ playerData.points }}</span>
+				</li>
+				</a>
+			</ul>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>
