@@ -4,11 +4,12 @@
   "description": "",
   "main": "server.js",
   "engines": {
-    "node": "0.12.0"
+    "node": "0.12.0",
+    "npm": "2.5.1",
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "bower cache clean && bower install"
   },
   "license": "MIT",
   "dependencies": {
