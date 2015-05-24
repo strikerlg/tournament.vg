@@ -5,7 +5,13 @@
         .module('vg.app')
         .run(run);
 
-    function run($rootScope, $location, $firebaseObject, AuthWrapper) {
+    function run($rootScope, $location, $state, $firebaseObject, AuthWrapper) {
+
+        $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+            if (error === 'AUTH_REQUIRED') {
+                $state.go('registerOrLogin');
+            }
+        });
 
         $rootScope.$on('$stateChangeSuccess', function() {
 

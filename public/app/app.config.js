@@ -99,6 +99,12 @@
 		    			templateUrl: '/app/home/avatar.htm',
 		    			controller: 'AvatarController as avatar'
 		    		}
+		    	},
+
+		    	resolve: {
+		    		'currentAuth': ['AuthWrapper', function(AuthWrapper) {
+		    			return AuthWrapper.$requireAuth();
+		    		}]
 		    	}
 		    })
 
@@ -117,6 +123,12 @@
 		    			templateUrl: '/app/home/passwordChange.htm',
 		    			controller: 'PasswordChangeController as pwchange'
 		    		}
+		    	},
+
+		    	resolve: {
+		    		'currentAuth': ['AuthWrapper', function(AuthWrapper) {
+		    			return AuthWrapper.$requireAuth();
+		    		}]
 		    	}
 		    })
 
