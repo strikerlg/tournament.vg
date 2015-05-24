@@ -1,0 +1,56 @@
+<div class="container" style="margin-top: -50px;">
+	
+	<div class="card grey lighten-4 z-depth-2">
+		<div class="card-content">
+
+			<div class="row">
+				<div class="col s12">
+					<span class="col s12 flow-text grey-text text-darken-4">
+						Leaderboard
+					</span>
+					<p class="col s12 grey-text text-darken-1">
+						These are the top ten users in profile score on the site. Profile score can be increased by
+						playing in premier events (designated with a ribbon), and is a way of tracking player performance
+						across a wide array of competitions.
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s12">
+
+					<table class="responsive-table hoverable" ng-if="leaderboard.avatarData && leaderboard.profileScoreData">
+
+						<thead>
+							<tr class="grey-text text-darken-1" style="font-weight: normal;">
+								<th>Position</th>
+								<th>Player</th>
+								<th>Score</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="scoreData in leaderboard.profileScoreData | orderBy:'-profileScore' | limitTo:10" 
+							    class="grey-text text-darken-4">
+								<td>{{ $index + 1 }}</td>
+								<td>
+									<img ng-attr-src="{{ leaderboard.avatarData[scoreData.$id] }}" class="avatar circle z-depth-1">
+								    <a class="hoverable"
+								       style="cursor: pointer;"
+								       ng-href="{{ '#/profile/' + scoreData.$id }}">
+								        {{ scoreData.$id }}
+								    </a>
+								</td>
+								<td>{{ scoreData.profileScore | number }}</td>
+							</tr>
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

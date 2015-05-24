@@ -23,7 +23,6 @@
             $timeout(function() {
                 profileService.getBadgesData($rootScope.profile.userName).then(function then(model) {
                     vm.badgesData = model;
-                    console.debug(vm.badgesData);
                 });
             }, 500);
         }

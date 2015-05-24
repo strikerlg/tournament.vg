@@ -66,6 +66,24 @@
 		    	}
 		    })
 
+		    .state('leaderboard', {
+		    	url: '/leaderboard',
+
+		    	views: {
+		    		'header': {
+		    			templateUrl: '/app/header/homeHeader.htm',
+		    			controller: 'HeaderController as header',
+		    			data: {
+		    				headerType: 'tall'
+		    			}
+		    		},
+		    		'content': {
+		    			templateUrl: '/app/home/leaderboard.htm',
+		    			controller: 'LeaderboardController as leaderboard'
+		    		}
+		    	}
+		    })
+
 		    .state('eventMain', {
 		    	url: '/event/:eventName/main',
 
@@ -99,6 +117,12 @@
 		    			templateUrl: '/app/home/avatar.htm',
 		    			controller: 'AvatarController as avatar'
 		    		}
+		    	},
+
+		    	resolve: {
+		    		'currentAuth': ['AuthWrapper', function(AuthWrapper) {
+		    			return AuthWrapper.$requireAuth();
+		    		}]
 		    	}
 		    })
 
@@ -117,6 +141,12 @@
 		    			templateUrl: '/app/home/passwordChange.htm',
 		    			controller: 'PasswordChangeController as pwchange'
 		    		}
+		    	},
+
+		    	resolve: {
+		    		'currentAuth': ['AuthWrapper', function(AuthWrapper) {
+		    			return AuthWrapper.$requireAuth();
+		    		}]
 		    	}
 		    })
 

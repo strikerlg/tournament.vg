@@ -66,6 +66,7 @@ gulp.task('clean', function(cb) {
 
 // Default task
 gulp.task('default', ['clean'], function() {
+	gulp.start('vendor');
 	gulp.start('scripts');
 });
 
