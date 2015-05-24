@@ -66,6 +66,24 @@
 		    	}
 		    })
 
+		    .state('leaderboard', {
+		    	url: '/leaderboard',
+
+		    	views: {
+		    		'header': {
+		    			templateUrl: '/app/header/homeHeader.htm',
+		    			controller: 'HeaderController as header',
+		    			data: {
+		    				headerType: 'tall'
+		    			}
+		    		},
+		    		'content': {
+		    			templateUrl: '/app/home/leaderboard.htm',
+		    			controller: 'LeaderboardController as leaderboard'
+		    		}
+		    	}
+		    })
+
 		    .state('eventMain', {
 		    	url: '/event/:eventName/main',
 
