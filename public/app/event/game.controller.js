@@ -14,7 +14,6 @@
         	    .css('position', 'inherit');
         }, 410);
 
-        var FBURL = 'https://wolfscontests.firebaseio.com';
         var vm = this;
 
         vm.eventName = $stateParams.eventName;
@@ -42,8 +41,6 @@
                         .child('scores')
                 );
 
-                console.debug(vm.gameData);
-                console.debug(vm.gameScores);
             });
 
         }

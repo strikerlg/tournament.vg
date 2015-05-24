@@ -19,7 +19,7 @@
             if (AuthWrapper.$getAuth()) {
                 
                 var authData = AuthWrapper.$getAuth();
-                var ref = new Firebase('https://wolfscontests.firebaseio.com');
+                var ref = new Firebase(FBURL);
 
                 var profileData = $firebaseObject(ref.child('users').child(authData.uid));
                 profileData.$bindTo($rootScope, 'profile').then(function(unbind) {

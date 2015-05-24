@@ -3,6 +3,7 @@
 
 	angular
 		.module('vg.app')
+		.constant('FBURL', 'https://wolfscontests.firebaseio.com')
 		.config(config);
 
 	/* @ngInject */

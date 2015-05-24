@@ -14,7 +14,6 @@
         	    .css('position', 'inherit');
         }, 410);
 
-        var FBURL = 'https://wolfscontests.firebaseio.com';
         var vm = this;
 
         vm.loginToAccount = loginToAccount;

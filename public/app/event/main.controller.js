@@ -8,7 +8,6 @@
     /* @ngInject */
     function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService) {
 
-        var FBURL = 'https://wolfscontests.firebaseio.com';
         var vm = this;
 
         vm.eventName = $stateParams.eventName;

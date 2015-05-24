@@ -8,8 +8,6 @@
     /* @ngInject */
     function authService($q, $rootScope, $state, $firebaseObject, AuthWrapper) {
         
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
-
     	this.checkIfUserExists = checkIfUserExists;
     	this.createNewUser = createNewUser;
         this.loginToAccount = loginToAccount;

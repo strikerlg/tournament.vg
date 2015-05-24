@@ -18,7 +18,6 @@
             });
         }, 410);
 
-        var FBURL = 'https://wolfscontests.firebaseio.com';
         var vm = this;
 
         vm.initProfile = initProfile;

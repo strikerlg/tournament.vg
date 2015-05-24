@@ -8,8 +8,6 @@
     /* @ngInject */
     function eventService($q, $filter, $firebaseObject, $firebaseArray) {
 
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
-
         this.createMultiGameFinalStandings = createMultiGameFinalStandings;
         this.getEventProperties = getEventProperties;
         this.getGameData = getGameData;
@@ -24,8 +22,6 @@
 
             // Calculate the final standings of the event.
             getMultiGameLeaderboard(inputEvent).then(function(promiseResolution) {
-
-                console.debug(promiseResolution);
 
                 var ref = new Firebase(FBURL);
                 var inputEventStandings = $firebaseObject(

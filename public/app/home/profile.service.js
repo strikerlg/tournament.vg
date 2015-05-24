@@ -8,9 +8,7 @@
     /* @ngInject */
     function profileService($rootScope, $q, $firebaseArray, $firebaseObject, eventService) {
 
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
-
-        this.getAvatarData = getAvatarData;
+    	this.getAvatarData = getAvatarData;
         this.getBadgesData = getBadgesData;
     	this.getTournamentHistory = getTournamentHistory;
         this.getTournamentStandings = getTournamentStandings;

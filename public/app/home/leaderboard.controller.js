@@ -8,9 +8,7 @@
     /* @ngInject */
     function LeaderboardController($q, $timeout, $firebaseArray, profileService) {
 
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
-
-        var vm = this;
+    	var vm = this;
 
         $timeout(function() {
         	angular.element('#contentView')
