@@ -5,7 +5,7 @@
         .module('vg.app')
         .run(run);
 
-    function run($rootScope, $location, $state, $firebaseObject, AuthWrapper) {
+    function run($rootScope, $location, $state, $firebaseObject, AuthWrapper, FIREBASEDATA) {
 
         $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
             if (error === 'AUTH_REQUIRED') {
@@ -19,7 +19,7 @@
             if (AuthWrapper.$getAuth()) {
                 
                 var authData = AuthWrapper.$getAuth();
-                var ref = new Firebase(FBURL);
+                var ref = new Firebase(FIREBASEDATA.FBURL);
 
                 var profileData = $firebaseObject(ref.child('users').child(authData.uid));
                 profileData.$bindTo($rootScope, 'profile').then(function(unbind) {

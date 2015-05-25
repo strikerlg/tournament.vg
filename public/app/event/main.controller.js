@@ -6,7 +6,7 @@
         .controller('EventMainController', EventMainController);
 
     /* @ngInject */
-    function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService) {
+    function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, FIREBASEDATA) {
 
         var vm = this;
 
@@ -119,11 +119,8 @@
 
                         eventService.getSingleGameLeaderboard(vm.eventName).then(function(promiseResolution) {
                             var leaderboard = promiseResolution;
-                            console.debug(leaderboard);
                             vm.leaderboardLength = leaderboard.length;
                             vm.summarizedLeaderboard = leaderboard;
-                            //vm.summarizedLeaderboard = leaderboard.slice(0, 8);
-                            console.debug(vm.summarizedLeaderboard);
                         });
 
                     }
@@ -147,7 +144,7 @@
 
         function openGameModal(inputGameName) {
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             eventService.getGameData(vm.eventName, inputGameName).then(function(promiseResolution) {
                 vm.gameData = promiseResolution;

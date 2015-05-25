@@ -6,7 +6,7 @@
         .service('eventService', eventService);
 
     /* @ngInject */
-    function eventService($q, $filter, $firebaseObject, $firebaseArray) {
+    function eventService($q, $filter, $firebaseObject, $firebaseArray, FIREBASEDATA) {
 
         this.createMultiGameFinalStandings = createMultiGameFinalStandings;
         this.getEventProperties = getEventProperties;
@@ -23,7 +23,7 @@
             // Calculate the final standings of the event.
             getMultiGameLeaderboard(inputEvent).then(function(promiseResolution) {
 
-                var ref = new Firebase(FBURL);
+                var ref = new Firebase(FIREBASEDATA.FBURL);
                 var inputEventStandings = $firebaseObject(
                     ref
                         .child('standings')
@@ -48,7 +48,7 @@
 
             var deferred = $q.defer();
 
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
         	var eventProperties = $firebaseObject(
         		ref
         			.child('contests')
@@ -66,7 +66,7 @@
 
             var deferred = $q.defer();
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             getGamesList(inputEvent).then(function(gamesList) {
 
@@ -88,7 +88,7 @@
 
         	var deferred = $q.defer();
 
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
         	var gamesList = $firebaseArray(
         		ref
         			.child('contests')
@@ -196,7 +196,7 @@
 
             var deferred = $q.defer();
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
             var leaderboardData = $firebaseArray(
                 ref
                     .child('contests')

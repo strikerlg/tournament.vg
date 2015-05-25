@@ -6,7 +6,7 @@
         .controller('LeaderboardController', LeaderboardController);
 
     /* @ngInject */
-    function LeaderboardController($q, $timeout, $firebaseArray, profileService) {
+    function LeaderboardController($q, $timeout, $firebaseArray, profileService, FIREBASEDATA) {
 
     	var vm = this;
 
@@ -29,7 +29,7 @@
         function getProfileScores() {
 
         	var deferred = $q.defer();
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
 
         	var profileScoreData = $firebaseArray(
         		ref

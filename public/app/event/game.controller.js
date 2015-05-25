@@ -6,7 +6,7 @@
         .controller('EventGameController', EventGameController);
 
     /* @ngInject */
-    function EventGameController($scope, $filter, $stateParams, $timeout, $firebaseArray, eventService, authService) {
+    function EventGameController($scope, $filter, $stateParams, $timeout, $firebaseArray, eventService, authService, FIREBASEDATA) {
 
         $timeout(function() {
         	angular.element('#contentView')
@@ -25,7 +25,7 @@
 
         function initGamePage() {
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             vm.eventProperties = eventService.getEventProperties(vm.eventName);
 
