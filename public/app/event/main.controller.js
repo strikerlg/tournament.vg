@@ -6,7 +6,24 @@
         .controller('EventMainController', EventMainController);
 
     /* @ngInject */
-    function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, FIREBASEDATA) {
+    function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, teamService, FIREBASEDATA) {
+
+        // Enable Materialize.css collapsibles.
+        $timeout(function() {
+            $('.collapsible').collapsible({
+                accordion: true
+            });
+
+            $('ul.tabs').tabs();
+        }, 1000);
+
+        $timeout(function() {
+            $('.collapsible').collapsible({
+                accordion: true
+            });
+
+            $('ul.tabs').tabs();
+        }, 3000);
 
         var vm = this;
 
@@ -15,6 +32,7 @@
         vm.closeGameModal = closeGameModal;
         vm.closeMultiGameLeaderboardModal = closeMultiGameLeaderboardModal;
         vm.closePlayerModal = closePlayerModal;
+        vm.createTeam = createTeam;
         vm.determinePoints = determinePoints;
         vm.getFirstPlaceScores = getFirstPlaceScores;
         vm.goToPlayerProfile = goToPlayerProfile;
@@ -22,6 +40,7 @@
         vm.openBadgesModal = openBadgesModal;
         vm.openGameModal = openGameModal;
         vm.openGameModalFromPlayerModal = openGameModalFromPlayerModal;
+        vm.openManagementModal = openManagementModal;
         vm.openMultiGameLeaderboardModal = openMultiGameLeaderboardModal;
         vm.openPlayerModal = openPlayerModal;
         vm.openPlayerModalFromGameModal = openPlayerModalFromGameModal;
@@ -40,6 +59,13 @@
 
         function closePlayerModal() {
             angular.element('#playerModal').closeModal();
+        }
+
+        function createTeam() {
+            teamService.createTeam(vm.eventName, vm.newTeam).then(function() {
+                Materialize.toast('Team ' + vm.newTeam.shortName + ' created.', 4000);
+                vm.newTeam = null;
+            });
         }
 
         function determinePoints(inputScoreData, inputIndex) {
@@ -125,6 +151,15 @@
 
                     }
 
+                    // If this is a team-based event, get the data needed for team event components.
+                    if (vm.eventProperties.format.teamBased) {
+
+                        teamService.getTeamList(vm.eventName).then(function then(model) {
+                            vm.teamList = model;
+                        });
+                        
+                    }
+
                 });
 
             });
@@ -161,6 +196,13 @@
 
             angular.element('#gameModal').openModal();
             angular.element('#gameModalContent').scrollTop(0);
+
+        }
+
+        function openManagementModal() {
+
+            angular.element('#managementModal').openModal();
+            angular.element('#managementModalContent').scrollTop(0);
 
         }
 

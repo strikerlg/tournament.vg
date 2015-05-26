@@ -20,6 +20,18 @@ th {
 	font-weight: normal;
 }
 
+.tabs .tab a {
+	color: #212121;
+}
+
+.tabs .tab a:hover {
+	color: #607d8b;
+}
+
+.tabs .indicator {
+	background-color: #607d8b;
+}
+
 .drop-avatar {
 	width: 100px; 
 	height: 100px; 

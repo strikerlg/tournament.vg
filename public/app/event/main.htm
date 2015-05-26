@@ -4,11 +4,13 @@
 <ng-include src="'./app/event/modalRules.htm'"></ng-include>
 <ng-include src="'./app/event/modalBadges.htm'"></ng-include>
 <ng-include src="'./app/event/modalSubmit.htm'"></ng-include>
+<ng-include src="'./app/event/modalManagement.htm'"></ng-include>
 
 <div class="container" style="margin-top: -50px;" ng-init="event.initEvent()">
 	
 	<div class="card grey lighten-4 z-depth-2">
 
+		<!-- Event Navbar -->
 		<nav>
 			<div class="nav-wrapper grey-text text-lighten-4" 
 			     ng-class="event.eventProperties.color" 
@@ -21,7 +23,14 @@
 				</a>
 
 				<ul class="right">
-					<li>
+					<li ng-if="event.eventProperties.state !== 'concluded'">
+						<a class="waves-effect waves-light"
+						   ng-click="event.openManagementModal()"
+						   style="cursor: pointer;">
+						    <span class="grey-text text-lighten-4">Management</span>
+						</a>
+					</li>
+					<li ng-if="event.eventProperties.state !== 'upcoming'">
 					    <a class="waves-effect waves-light" 
 					       ng-click="event.openRulesModal()" 
 					       style="cursor: pointer;">
@@ -44,7 +53,57 @@
 			</div>
 		</nav>
 
-		<div class="card-content">
+		<div class="card-content" ng-if="event.eventProperties.state === 'upcoming'">
+
+			<!-- Sticky Message -->
+			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
+
+			<!-- Description -->
+			<div class="row">
+				<div class="col s12">
+					<h5 class="grey-text text-darken-4">Which team will claim victory in this year's IGBY?</h5>
+
+					<p class="grey-text text-darken-1">
+						It's that time again. Teams from the most popular classic gaming communities on the internet will 
+						get their chance to duke it out for retro gaming glory in one of the most hyped tournaments of the year. 
+						Returning once again are the powerhouse teams DKF and RU, as well as the newcomer MARP and Twin Galaxies teams. 
+						Register now, pledge to your team, and start competing when the tournament begins on July 1st!
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+			    <div class="col s12">
+			        <div class="divider" style="margin-bottom: 16px; margin-top: 30px;"></div>
+			    </div>
+			</div>
+
+			<!-- Rules -->
+			<div class="row">
+				<div class="col s12 l3">
+					<h5 class="grey-text text-darken-4">Rules</h5>
+				</div>
+				<div class="col s12 l9">
+
+					<ul class="collapsible" data-collapsible="accordion">
+						<li ng-repeat="rule in event.eventProperties.rules">
+							<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
+							    <i ng-class="rule.icon"></i>{{ rule.title }}
+							</div>
+							<div class="collapsible-body grey-text text-darken-1">
+								<p>
+								    {{ rule.content }}
+								</p>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="card-content" ng-if="event.eventProperties.state === 'inprogress' || event.eventProperties.state === 'concluded'">
 
 			<!-- Sticky Message -->
 			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>

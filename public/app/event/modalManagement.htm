@@ -1,0 +1,90 @@
+<div id="managementModal" class="modal modal-fixed-footer">
+	<div id="managementModalContent" class="modal-content">
+		<h4 class="truncate">Management</h4>
+
+		<div class="divider" style="margin-bottom: 1rem;"></div>
+
+		<div class="row">
+			<div class="col s12">
+				<ul class="tabs" style="margin-bottom: 1rem;">
+					<li class="tab col s3"><a class="active waves-effect waves-teal" href="#tabTeams">Teams</a></li>
+					<li class="tab col s3"><a class="waves-effect waves-teal" href="#tabPlayers">Players</a></li>
+					<li class="tab col s3"><a class="waves-effect waves-teal" href="#tabGames">Games</a></li>
+					<li class="tab col s3"><a class="waves-effect waves-teal" href="#tabEvent">Event</a></li>
+				</ul>
+			</div>
+
+			<!-- Teams Tab -->
+			<div id="tabTeams" class="col s12 animate fadeIn">
+
+				<!-- Team Editing -->
+			    <div class="row" style="margin-top: 0.5rem;">
+			    	<span class="s12 flow-text grey-text text-darken-4">Edit Team</span>
+			    	<p class="s12 grey-text text-darken-1" style="margin-top: 0">
+			    	    This is a test description.
+			    	</p>
+			    </div>
+
+			    <div class="row">
+			    	<div class="divider s12" style="margin: 0.5rem 0"></div>
+			    </div>
+
+			    <!-- Team Creation -->
+			    <div class="row">
+
+			    	<span class="s12 flow-text grey-text text-darken-4">Create Team</span>
+
+			    	<p class="s12 grey-text text-darken-1" style="margin-top: 0">
+			    		Use this form to add a team to the event. Once a team has been added, players
+			    		will be able to join the team from the tournament's registration page.
+			    	</p>
+
+			    	<form name="newTeamForm">
+
+				    	<div class="input-field col s12 m6">
+							<input id="newTeamFormalName" 
+							       type="text"
+							       name="newTeamFormalName"
+							       ng-model="event.newTeam.formalName"
+							       required>
+							<label for="newTeamFormalName">Formal Team Name (ie - Donkey Kong Forum)</label>
+						</div>
+
+						<div class="input-field col s12 m6">
+							<input id="newTeamShortName" 
+							       type="text"
+							       name="newTeamShortName"
+							       ng-model="event.newTeam.shortName"
+							       required>
+							<label for="newTeamShortName">Short Name (no spaces allowed. DKF, RU, TG)</label>
+						</div>
+
+						<div class="col s12 right-align">
+							<button class="btn-flat waves-effect" ng-click="event.createTeam()">Create</button>
+						</div>
+
+					</form>
+
+			    </div>
+
+			</div>
+
+		    <div id="tabPlayers" class="col s12 animate fadeIn">
+		        Test 2
+		    </div>
+
+		    <div id="tabGames" class="col s12 animate fadeIn">
+		        Test 3
+		    </div>
+
+		    <div id="tabEvent" class="col s12 animate fadeIn">
+		        Test 4
+		    </div>
+		</div>
+		
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>
