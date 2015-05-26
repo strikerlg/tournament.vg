@@ -111,8 +111,6 @@
         function logOut() {
             AuthWrapper.$unauth();
             $rootScope.unbindFunction();
-
-            $state.go('index');
         }
 
     }

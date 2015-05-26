@@ -37,7 +37,7 @@
         		Materialize.toast('Your avatar was uploaded', 4000);
 
         		$timeout(function() {
-        			$state.go('index');
+        			$state.go('home');
         		}, 1000);
         	});
 

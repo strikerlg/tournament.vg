@@ -21,8 +21,6 @@
         }, 400);
 
         var vm = this;
-        vm.headerType = $state.current.views.header.data.headerType;
-
         vm.logOut = logOut;
 
         //////////////////////////

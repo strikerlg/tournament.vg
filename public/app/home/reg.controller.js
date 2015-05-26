@@ -31,7 +31,7 @@
 
                 if (promiseResolution === 'LOGIN_SUCCESS') {
 
-                    $state.go('index');
+                    $state.go('home');
 
                 } else if (promiseResolution === 'INVALID_USER') {
                     vm.showInvalidUserError = true;
