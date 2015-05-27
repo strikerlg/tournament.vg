@@ -33,6 +33,7 @@
 
     /* @ngInject */
     function SingleGameLeaderboardController() {
+        /* jshint validthis: true */
     	var vm = this;
     }
 })();

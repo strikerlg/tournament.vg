@@ -83,8 +83,10 @@ gulp.task('clean', function(cb) {
 gulp.task('default', ['clean'], function() {
 	gulp.start('vendor');
 	gulp.start('scripts');
+	gulp.start('styles');
 });
 
 gulp.task('watch', function() {
 	gulp.watch('./public/app/**/*.js', ['scripts']);
+	gulp.watch('./public/sass/**/*.scss', ['styles']);
 });

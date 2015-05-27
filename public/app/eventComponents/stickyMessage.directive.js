@@ -30,6 +30,7 @@
 
     /* @ngInject */
     function StickyMessageController($timeout) {
+        /* jshint validthis: true */
     	var vm = this;
     }
 })();

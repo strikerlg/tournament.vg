@@ -31,6 +31,7 @@
 
     /* @ngInject */
     function GamesListController() {
+        /* jshint validthis: true */
     	var vm = this;
     }
 })();

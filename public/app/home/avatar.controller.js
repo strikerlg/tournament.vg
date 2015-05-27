@@ -8,14 +8,15 @@
     /* @ngInject */
     function AvatarController($rootScope, $state, $stateParams, $timeout, Upload, imgur, profileService) {
 
+        /* jshint validthis: true */
         var vm = this;
-
-        vm.initAvatar = initAvatar;
         vm.uploadAvatar = uploadAvatar;
+
+        activate();
 
         ////////////////
 
-        function initAvatar() {
+        function activate() {
         	profileService.getAvatarData().then(function then(model) {
                 vm.avatarData = model;
             });

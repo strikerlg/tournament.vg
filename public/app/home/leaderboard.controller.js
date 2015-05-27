@@ -8,23 +8,28 @@
     /* @ngInject */
     function LeaderboardController($q, $timeout, $firebaseArray, profileService, FIREBASEDATA) {
 
+        /* jshint validthis: true */
     	var vm = this;
 
-        $timeout(function() {
-        	angular.element('#contentView')
-                .css('opacity', '1')
-                .css('position', 'inherit');
-        }, 310);
-
-        getProfileScores().then(function then(model) {
-        	vm.profileScoreData = model;
-        });
-
-        profileService.getAvatarData().then(function then(model) {
-        	vm.avatarData = model;
-        });
+        activate();
 
         ////////////////
+
+        function activate() {
+            $timeout(function() {
+                angular.element('#contentView')
+                    .css('opacity', '1')
+                    .css('position', 'inherit');
+            }, 310);
+
+            getProfileScores().then(function then(model) {
+                vm.profileScoreData = model;
+            });
+
+            profileService.getAvatarData().then(function then(model) {
+                vm.avatarData = model;
+            });
+        }
 
         function getProfileScores() {
 

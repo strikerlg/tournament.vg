@@ -34,6 +34,7 @@
 
     /* @ngInject */
     function MultiGameLeaderboardController() {
+        /* jshint validthis: true */
     	var vm = this;
     }
 })();

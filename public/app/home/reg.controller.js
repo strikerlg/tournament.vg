@@ -8,35 +8,40 @@
     /* @ngInject */
     function RegController($scope, $rootScope, $timeout, $window, $state, $firebaseObject, authService, AuthWrapper) {
 
-        $timeout(function() {
-        	angular.element('#contentView')
-        	    .css('opacity', '1')
-        	    .css('position', 'inherit');
-        }, 410);
-
+        /* jshint validthis: true */
         var vm = this;
 
         vm.loginToAccount = loginToAccount;
         vm.passwordReset = passwordReset;
         vm.submitNewAccount = submitNewAccount;
 
+        activate ();
+
         /////////////////////
+
+        function activate() {
+            $timeout(function() {
+                angular.element('#contentView')
+                    .css('opacity', '1')
+                    .css('position', 'inherit');
+            }, 410);
+        }
 
         function loginToAccount() {
 
-            authService.loginToAccount(vm.loginEmail, vm.loginPassword).then(function(promiseResolution) {
+            authService.loginToAccount(vm.loginEmail, vm.loginPassword).then(function then(model) {
 
                 vm.showInvalidUserError = false;
                 vm.showInvalidPasswordError = false;
 
-                if (promiseResolution === 'LOGIN_SUCCESS') {
+                if (model === 'LOGIN_SUCCESS') {
 
                     $state.go('home');
 
-                } else if (promiseResolution === 'INVALID_USER') {
+                } else if (model === 'INVALID_USER') {
                     vm.showInvalidUserError = true;
                     return;
-                } else if (promiseResolution === 'INVALID_PASSWORD') {
+                } else if (model === 'INVALID_PASSWORD') {
                     vm.showInvalidPasswordError = true;
                 }
 
@@ -76,14 +81,14 @@
                 // Try to create the new user.
                 } else {
 
-                    authService.createNewUser(vm.newEmail, vm.newPassword, vm.newUsername).then(function(promiseResolution) {
+                    authService.createNewUser(vm.newEmail, vm.newPassword, vm.newUsername).then(function then(model) {
 
-                        if (promiseResolution === 'EMAIL_TAKEN') {
+                        if (model === 'EMAIL_TAKEN') {
 
                             vm.showEmailTakenError = true;
                             return;
 
-                        } else if (promiseResolution === 'ACCOUNT_CREATED') {
+                        } else if (model === 'ACCOUNT_CREATED') {
 
                             $state.go('profile', {username: vm.newUsername});
 

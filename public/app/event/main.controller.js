@@ -8,23 +8,7 @@
     /* @ngInject */
     function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, teamService, FIREBASEDATA) {
 
-        // Enable Materialize.css collapsibles.
-        $timeout(function() {
-            $('.collapsible').collapsible({
-                accordion: true
-            });
-
-            $('ul.tabs').tabs();
-        }, 1000);
-
-        $timeout(function() {
-            $('.collapsible').collapsible({
-                accordion: true
-            });
-
-            $('ul.tabs').tabs();
-        }, 3000);
-
+        /* jshint validthis: true */
         var vm = this;
 
         vm.eventName = $stateParams.eventName;
@@ -36,7 +20,6 @@
         vm.determinePoints = determinePoints;
         vm.getFirstPlaceScores = getFirstPlaceScores;
         vm.goToPlayerProfile = goToPlayerProfile;
-        vm.initEvent = initEvent;
         vm.openBadgesModal = openBadgesModal;
         vm.openGameModal = openGameModal;
         vm.openGameModalFromPlayerModal = openGameModalFromPlayerModal;
@@ -46,6 +29,8 @@
         vm.openPlayerModalFromGameModal = openPlayerModalFromGameModal;
         vm.openPlayerModalFromLeaderboardModal = openPlayerModalFromLeaderboardModal;
         vm.openRulesModal = openRulesModal;
+
+        initEvent();
 
         /////////////////////////////////
 
@@ -120,22 +105,39 @@
 
         function initEvent() {
 
-            eventService.getEventProperties(vm.eventName).then(function(promiseResolution) {
+            // Enable Materialize.css collapsibles.
+            $timeout(function() {
+                $('.collapsible').collapsible({
+                    accordion: true
+                });
 
-                vm.eventProperties = promiseResolution;
+                $('ul.tabs').tabs();
+            }, 1000);
+
+            $timeout(function() {
+                $('.collapsible').collapsible({
+                    accordion: true
+                });
+
+                $('ul.tabs').tabs();
+            }, 3000);
+
+            eventService.getEventProperties(vm.eventName).then(function then(model) {
+
+                vm.eventProperties = model;
 
                 vm.eventProperties.$loaded().then(function() {
 
                     // If this is a multigame event, get the data needed for multigame components.
                     if (vm.eventProperties.format.multiGame) {
 
-                        eventService.getGamesList(vm.eventName).then(function(promiseResolution) {
-                            vm.gameList = promiseResolution;
+                        eventService.getGamesList(vm.eventName).then(function then(model) {
+                            vm.gameList = model;
                             getFirstPlaceScores();
                         });
 
-                        eventService.getMultiGameLeaderboard(vm.eventName).then(function(promiseResolution) {
-                            var leaderboard = promiseResolution;
+                        eventService.getMultiGameLeaderboard(vm.eventName).then(function then(model) {
+                            var leaderboard = model;
                             vm.leaderboardLength = leaderboard.length;
                             vm.summarizedLeaderboard = leaderboard.slice(0, 8);
                         });
@@ -143,8 +145,8 @@
                     // If this is a single game event, get the data needed for single game components.
                     } else {
 
-                        eventService.getSingleGameLeaderboard(vm.eventName).then(function(promiseResolution) {
-                            var leaderboard = promiseResolution;
+                        eventService.getSingleGameLeaderboard(vm.eventName).then(function then(model) {
+                            var leaderboard = model;
                             vm.leaderboardLength = leaderboard.length;
                             vm.summarizedLeaderboard = leaderboard;
                         });
@@ -164,8 +166,8 @@
 
             });
 
-            profileService.getAvatarData().then(function(promiseResolution) {
-                vm.avatarData = promiseResolution;
+            profileService.getAvatarData().then(function then(model) {
+                vm.avatarData = model;
             });
 
         }
@@ -181,8 +183,8 @@
 
             var ref = new Firebase(FIREBASEDATA.FBURL);
 
-            eventService.getGameData(vm.eventName, inputGameName).then(function(promiseResolution) {
-                vm.gameData = promiseResolution;
+            eventService.getGameData(vm.eventName, inputGameName).then(function then(model) {
+                vm.gameData = model;
 
                 vm.gameScores = $firebaseArray(
                     ref
@@ -208,8 +210,8 @@
 
         function openMultiGameLeaderboardModal() {
 
-            eventService.getMultiGameLeaderboard(vm.eventName).then(function(promiseResolution) {
-                vm.completeLeaderboard = promiseResolution;
+            eventService.getMultiGameLeaderboard(vm.eventName).then(function then(model) {
+                vm.completeLeaderboard = model;
             });
 
             angular.element('#multiGameLeaderboardModal').openModal();
@@ -221,8 +223,8 @@
 
             vm.focusPlayer = inputPlayer;
 
-            eventService.getPlayerScores(vm.eventName, vm.gameList, vm.focusPlayer).then(function(promiseResolution) {
-                vm.playerScores = promiseResolution;
+            eventService.getPlayerScores(vm.eventName, vm.gameList, vm.focusPlayer).then(function then(model) {
+                vm.playerScores = model;
             });
 
             angular.element('#playerModal').openModal();

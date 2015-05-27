@@ -21,7 +21,7 @@
         function createMultiGameFinalStandings(inputEvent) {
 
             // Calculate the final standings of the event.
-            getMultiGameLeaderboard(inputEvent).then(function(promiseResolution) {
+            getMultiGameLeaderboard(inputEvent).then(function then(model) {
 
                 var ref = new Firebase(FIREBASEDATA.FBURL);
                 var inputEventStandings = $firebaseObject(
@@ -32,7 +32,7 @@
 
                 inputEventStandings.$loaded().then(function() {
 
-                    promiseResolution.forEach(function(standing) {
+                    model.forEach(function(standing) {
                         inputEventStandings[standing.key] = standing.position;
                     });
 
@@ -111,9 +111,9 @@
         	// We need to get the top 12 players for every game.
         	var playerPoints = {};
 
-        	getGamesList(inputEvent).then(function(promiseResolution) {
+        	getGamesList(inputEvent).then(function then(model) {
 
-        		var gamesList = promiseResolution;
+        		var gamesList = model;
         		gamesList.forEach(function(game) {
 
         			if (game.scores) {
