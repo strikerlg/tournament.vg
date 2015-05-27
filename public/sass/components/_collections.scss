@@ -1,0 +1,47 @@
+.collection .collection-item {
+
+	&.marker {
+
+		height: 65px;
+		padding-left: 72px;
+		position: relative;
+
+		.swatch {
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			overflow: hidden;
+			display: inline-block;
+			vertical-align: middle;
+			text-align: center;
+		}
+
+	}
+
+	&.avatar .tournament-badge {
+		position: absolute;
+		width: 47px;
+		height: 47px;
+		overflow: hidden;
+		left: 13px;
+		top: 8px;
+		display: inline-block;
+		vertical-align: middle;
+		padding: 5px;
+	}
+
+}
+
+.collection-item {
+
+	.premier-ribbon {
+		position: relative;
+		top: 25%
+	}
+
+	&.avatar {
+		height: 66px;
+		width: 100%;
+	}
+
+}

@@ -1,13 +1,17 @@
-var gulp        = require('gulp'),
-    jshint      = require('gulp-jshint'),
-    stylish     = require('jshint-stylish'),
-    ngAnnotate  = require('gulp-ng-annotate'),
-    uglify      = require('gulp-uglify'),
-    concat      = require('gulp-concat'),
-    sourcemaps  = require('gulp-sourcemaps'),
-    karma       = require('gulp-karma'),
-    del         = require('del'),
-    watch       = require('gulp-watch');
+var gulp         = require('gulp'),
+    sass         = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifycss    = require('gulp-minify-css'),
+    rename       = require('gulp-rename'),
+    jshint       = require('gulp-jshint'),
+    stylish      = require('jshint-stylish'),
+    ngAnnotate   = require('gulp-ng-annotate'),
+    uglify       = require('gulp-uglify'),
+    concat       = require('gulp-concat'),
+    sourcemaps   = require('gulp-sourcemaps'),
+    karma        = require('gulp-karma'),
+    del          = require('del'),
+    watch        = require('gulp-watch');
 
 gulp.task('default', ['launch']);
 
@@ -23,6 +27,17 @@ gulp.task('scripts', function() {
 	        .pipe(uglify({mangle: true}))
 	    .pipe(sourcemaps.write())
 	    .pipe(gulp.dest('./public/dist/js'))
+
+});
+
+gulp.task('styles', function() {
+
+	return sass('./public/sass/main.scss', { style: 'expanded' })
+	    .pipe(autoprefixer('last 2 version'))
+	    .pipe(gulp.dest('./public/dist/css'))
+	    .pipe(rename({suffix: '.min'}))
+	    .pipe(minifycss())
+	    .pipe(gulp.dest('./public/dist/css'))
 
 });
 

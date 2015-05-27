@@ -14,6 +14,7 @@
 		<div class="section" ng-if="event.eventProperties.badges.length > 0">
 			<ul class="collection z-depth-1">
 				<li class="collection-item avatar"
+				    style="height: 74px;"
 				    ng-repeat="badge in event.eventProperties.badges | orderBy:'-points'">
 				    <img ng-attr-src="{{ './images/badges/' + badge.image }}" class="tournament-badge z-depth-1">
 				    <span class="image-badge">{{ badge.points }}</span>

@@ -1,0 +1,41 @@
+.card-panel {
+
+	&.marker {
+		padding-left: 76px;
+		padding-top: 18px;
+		position: relative;
+		.swatch {
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			overflow: hidden;
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 5px;
+		}
+	}
+
+	.premier-ribbon {
+		position: relative;
+		top: 2%;
+	}
+
+	&.hoverable:hover {
+		box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		.swatch {
+			box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		}
+	}
+
+}
+
+.main-content-card {
+
+	position: absolute;
+	width: 100%;
+
+	.container {
+		margin-top: -50px;
+	}
+	
+}
