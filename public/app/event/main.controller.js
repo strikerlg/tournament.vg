@@ -77,7 +77,7 @@
 
             return userGamePoints;
 
-        };
+        }
 
         function getFirstPlaceScores() {
 

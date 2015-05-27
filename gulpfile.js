@@ -18,7 +18,7 @@ gulp.task('default', ['launch']);
 // Lint, annotate AngularJS dependencies, and minify JS.
 gulp.task('scripts', function() {
 
-	return gulp.src(['./public/app/**/*.module.js', './public/app/**/*.js'])
+	return gulp.src(['./public/app/**/*.module.js', './public/app/**/*.js', '!./public/app/**/*.spec.js'])
 	    .pipe(jshint())
 	    .pipe(jshint.reporter(stylish))
 	    .pipe(sourcemaps.init())
@@ -47,6 +47,7 @@ gulp.task('vendor', function() {
 	return gulp.src([
 			'./bower_components/firebase/firebase.js',
 			'./bower_components/angularfire/dist/angularfire.min.js',
+			'./bower_components/angular-mocks/angular-mocks.js',
 			'./bower_components/angular-animate/angular-animate.min.js',
 			'./bower_components/angular-ui-router/release/angular-ui-router.min.js',
 			'./bower_components/angular-validation-match/dist/angular-input-match.min.js',
@@ -63,7 +64,7 @@ gulp.task('vendor', function() {
 
 gulp.task('tests', function() {
 
-	return gulp.src('./public/app/**/*.js')
+	return gulp.src('./foobar')
 	    .pipe(karma({
 	    	configFile: 'karma.conf.js',
 	    	action: 'run'

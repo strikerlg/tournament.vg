@@ -6,8 +6,10 @@
         .service('authService', authService);
 
     /* @ngInject */
-    function authService($q, $rootScope, $state, $firebaseObject, AuthWrapper, FIREBASEDATA) {
+    function authService($q, $rootScope, $state, $window, $timeout, $firebaseObject, AuthWrapper, FIREBASEDATA) {
         
+        this.testData = 'hello world!';
+
     	this.checkIfUserExists = checkIfUserExists;
     	this.createNewUser = createNewUser;
         this.loginToAccount = loginToAccount;
@@ -20,17 +22,19 @@
     		var deferred = $q.defer();
 
     		var doesUserExist = false;
-    		var usersRef = new Firebase(FIREBASEDATA.FBURL + '/users');
+    		var usersRef = new $window.Firebase(FIREBASEDATA.FBURL + '/users');
 
     		usersRef.once('value', function(dataSnapshot) {
 
-    			dataSnapshot.forEach(function(user) {
-    				if (user.val().userName === inputUsername) {
-    					doesUserExist = true;
-    				}
-    			});
+                $timeout(function() {
+                    dataSnapshot.forEach(function(user) {
+                        if (user.val().userName === inputUsername) {
+                            doesUserExist = true;
+                        }
+                    });
 
-    			deferred.resolve(doesUserExist);
+                    deferred.resolve(doesUserExist);
+                });
 
     		});
 

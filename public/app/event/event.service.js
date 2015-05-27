@@ -76,7 +76,7 @@
                         deferred.resolve(game);
                     }
 
-                })
+                });
 
             });
 
@@ -149,7 +149,7 @@
         		playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
                 var haveBottomScorersFloor = false;
                 var floorRange = 0;
-        		for (var i = 0; i < playerPoints.length; i++) {
+        		for (var i = 0; i < playerPoints.length; i += 1) {
 
         			if (playerPoints[i-1] && playerPoints[i].points && playerPoints[i-1].points) {
 
@@ -168,11 +168,12 @@
                             if (!haveBottomScorersFloor) {
                                 // Get count of players in one position higher.
                                 var getScoreCountOf = playerPoints[i-1].points;
-                                playerPoints.forEach(function(pointsData) {
-                                    if (pointsData.points === getScoreCountOf) {
+
+                                for (var j = 0; j < playerPoints.length; j += 1) {
+                                    if (playerPoints[j].points === getScoreCountOf) {
                                         floorRange += 1;
                                     }
-                                });
+                                }
 
                                 haveBottomScorersFloor = true;
                             }
