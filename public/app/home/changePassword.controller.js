@@ -13,17 +13,7 @@
         
         vm.submitChangePassword = submitChangePassword;
 
-        activate();
-
         //////////////////
-
-        function activate() {
-            $timeout(function() {
-                angular.element('#contentView')
-                    .css('opacity', '1')
-                    .css('position', 'inherit');
-            }, 310);
-        }
 
         function submitChangePassword() {
 

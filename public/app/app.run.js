@@ -16,6 +16,7 @@
         $rootScope.$on('$stateChangeSuccess', function() {
 
             // If user is logged in, download their profile data to an object in $rootScope.
+            // FIXME: We shouldn't need to do this every successful state change.
             if (AuthWrapper.$getAuth()) {
                 
                 var authData = AuthWrapper.$getAuth();

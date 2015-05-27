@@ -21,6 +21,7 @@
                 vm.avatarData = model;
             });
 
+            // FIXME: This needs to be triggered by a $rootScope broadcast of when it receives profile data.
             $timeout(function() {
                 profileService.getBadgesData($rootScope.profile.userName).then(function then(model) {
                     vm.badgesData = model;

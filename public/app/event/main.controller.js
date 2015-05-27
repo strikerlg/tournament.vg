@@ -105,23 +105,6 @@
 
         function initEvent() {
 
-            // Enable Materialize.css collapsibles.
-            $timeout(function() {
-                $('.collapsible').collapsible({
-                    accordion: true
-                });
-
-                $('ul.tabs').tabs();
-            }, 1000);
-
-            $timeout(function() {
-                $('.collapsible').collapsible({
-                    accordion: true
-                });
-
-                $('ul.tabs').tabs();
-            }, 3000);
-
             eventService.getEventProperties(vm.eventName).then(function then(model) {
 
                 vm.eventProperties = model;
@@ -159,7 +142,13 @@
                         teamService.getTeamList(vm.eventName).then(function then(model) {
                             vm.teamList = model;
                         });
-                        
+
+                    }
+
+                    if (vm.eventProperties.state === 'upcoming') {
+                        $('.collapsible').collapsible({
+                            accordion: true
+                        });
                     }
 
                 });
