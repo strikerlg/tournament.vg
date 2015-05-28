@@ -94,55 +94,27 @@
 
         function initEvent() {
 
-            eventService.getEventProperties(vm.eventName).then(function then(model) {
+            eventService.loadEventProperties(vm.eventName);
 
+            $scope.$watch(function() { return eventService.getEventPropertiesObject(); }, function(model) {
                 vm.eventProperties = model;
+            }, true);
 
-                vm.eventProperties.$loaded().then(function() {
+            $scope.$watch(function() { return eventService.getGameListObject(); }, function(model) {
+                vm.gameList = model;
+            }, true);
 
-                    // If this is a multigame event, get the data needed for multigame components.
-                    if (vm.eventProperties.format.multiGame) {
+            $scope.$watch(function() { return eventService.getLeaderboardLengthValue(); }, function(model) {
+                vm.leaderboardLength = model;
+            }, true);
 
-                        eventService.getGamesList(vm.eventName).then(function then(model) {
-                            vm.gameList = model;
-                            getFirstPlaceScores();
-                        });
+            $scope.$watch(function() { return eventService.getSummarizedLeaderboardObject(); }, function(model) {
+                vm.summarizedLeaderboard = model;
+            }, true);
 
-                        eventService.getMultiGameLeaderboard(vm.eventName).then(function then(model) {
-                            var leaderboard = model;
-                            vm.leaderboardLength = leaderboard.length;
-                            vm.summarizedLeaderboard = leaderboard.slice(0, 8);
-                        });
-
-                    // If this is a single game event, get the data needed for single game components.
-                    } else {
-
-                        eventService.getSingleGameLeaderboard(vm.eventName).then(function then(model) {
-                            var leaderboard = model;
-                            vm.leaderboardLength = leaderboard.length;
-                            vm.summarizedLeaderboard = leaderboard;
-                        });
-
-                    }
-
-                    // If this is a team-based event, get the data needed for team event components.
-                    if (vm.eventProperties.format.teamBased) {
-
-                        teamService.getTeamList(vm.eventName).then(function then(model) {
-                            vm.teamList = model;
-                        });
-
-                    }
-
-                    if (vm.eventProperties.state === 'upcoming') {
-                        $('.collapsible').collapsible({
-                            accordion: true
-                        });
-                    }
-
-                });
-
-            });
+            $scope.$watch(function() { return eventService.getTeamListObject(); }, function(model) {
+                vm.teamList = model;
+            }, true);
 
             profileService.getAvatarData().then(function then(model) {
                 vm.avatarData = model;

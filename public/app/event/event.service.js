@@ -8,13 +8,25 @@
     /* @ngInject */
     function eventService($q, $filter, $firebaseObject, $firebaseArray, FIREBASEDATA) {
 
+        var _eventProperties = null;
+        var _gameList = null;
+        var _leaderboardLength = null;
+        var _summarizedLeaderboard = null;
+        var _teamList = null;
+
         this.createMultiGameFinalStandings = createMultiGameFinalStandings;
         this.getEventProperties = getEventProperties;
+        this.getEventPropertiesObject = getEventPropertiesObject;
         this.getGameData = getGameData;
+        this.getGameListObject = getGameListObject;
         this.getGamesList = getGamesList;
+        this.getLeaderboardLengthValue = getLeaderboardLengthValue;
         this.getMultiGameLeaderboard = getMultiGameLeaderboard;
-        this.getSingleGameLeaderboard = getSingleGameLeaderboard;
         this.getPlayerScores = getPlayerScores;
+        this.getSingleGameLeaderboard = getSingleGameLeaderboard;
+        this.getSummarizedLeaderboardObject = getSummarizedLeaderboardObject;
+        this.getTeamListObject = getTeamListObject;
+        this.loadEventProperties = loadEventProperties;
 
         ////////////////
 
@@ -62,6 +74,27 @@
 
         }
 
+        function getEventPropertiesObject() {
+            return _eventProperties;
+        }
+
+        function getFirstPlaceScores() {
+
+            _gameList.forEach(function(game) {
+
+                // If there are scores, get the top one.
+                if (game.scores) {
+
+                    var scoresArray = $.map(game.scores, function(el) { return el; });
+                    scoresArray = $filter('orderBy')(scoresArray, '-score');
+                    game.firstScore = scoresArray[0];
+
+                }
+
+            });
+
+        }
+
         function getGameData(inputEvent, inputGame) {
 
             var deferred = $q.defer();
@@ -84,6 +117,10 @@
 
         }
 
+        function getGameListObject() {
+            return _gameList;
+        }
+
         function getGamesList(inputEvent) {
 
         	var deferred = $q.defer();
@@ -102,6 +139,10 @@
 
         	return deferred.promise;
 
+        }
+
+        function getLeaderboardLengthValue() {
+            return _leaderboardLength;
         }
 
         function getMultiGameLeaderboard(inputEvent) {
@@ -211,6 +252,14 @@
 
         }
 
+        function getSummarizedLeaderboardObject() {
+            return _summarizedLeaderboard;
+        }
+
+        function getTeamListObject() {
+            return _teamList;
+        }
+
         function getPlayerScores(inputEvent, inputGamesList, inputPlayer) {
 
             var deferred = $q.defer();
@@ -261,6 +310,57 @@
             deferred.resolve(displayScores);
 
             return deferred.promise;
+
+        }
+
+        function loadEventProperties(inputEvent) {
+
+            var ref = new Firebase(FIREBASEDATA.FBURL);
+            var inputEventProperties = $firebaseObject(
+                ref
+                    .child('contests')
+                    .child(inputEvent)
+                    .child('properties')
+            );
+
+            inputEventProperties.$loaded().then(function() {
+                _eventProperties = inputEventProperties;
+
+                // If this is a multigame event, get the data needed for multigame components.
+                if (_eventProperties.format.multiGame) {
+
+                    getGamesList(inputEvent).then(function then(model) {
+                        _gameList = model;
+                        getFirstPlaceScores();
+                    });
+
+                    getMultiGameLeaderboard(inputEvent).then(function then(model) {
+                        var leaderboard = model;
+                        _leaderboardLength = leaderboard.length;
+                        _summarizedLeaderboard = leaderboard.slice(0, 8);
+                    });
+
+                // If this is a single game event, get the data needed for single game components.
+                } else {
+
+                    getSingleGameLeaderboard(inputEvent).then(function then(model) {
+                        var leaderboard = model;
+                        _leaderboardLength = leaderboard.length;
+                        _summarizedLeaderboard = leaderboard;
+                    });
+
+                }
+
+                // If this is a team-based event, get the data needed for team event components.
+                if (_eventProperties.format.teamBased) {
+
+                    teamService.getTeamList(vm.eventName).then(function then(model) {
+                        _teamList = model;
+                    });
+
+                }
+
+            });
 
         }
 
