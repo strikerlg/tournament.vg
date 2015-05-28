@@ -146,6 +146,7 @@
         		});
 
         		// Find and resolve ties.
+                console.debug(playerPoints);
         		playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
                 var haveBottomScorersFloor = false;
                 var floorRange = 0;
