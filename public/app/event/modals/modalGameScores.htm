@@ -2,7 +2,7 @@
 	<div id="gameModalContent" class="modal-content">
 		<h4 class="truncate">{{ event.gameData.name }}</h4>
 
-		<div class="divider"></div>
+		<div class="divider top15 bottom20"></div>
 
 		<p ng-if="event.gameData.mameSet">
 		    <span class="grey-text text-darken-4">MAME Romset</span>
@@ -10,7 +10,7 @@
 		    <span class="grey-text text-darken-1">{{ event.gameData.mameSet }}</span>
 		</p>
 
-		<div ng-if="event.gameData.mameSet" class="divider"></div>
+		<div ng-if="event.gameData.mameSet" class="divider top15"></div>
 
 		<p ng-if="event.gameData.rules">
 		    <span class="grey-text text-darken-4">Special Rules</span>
@@ -18,7 +18,7 @@
 		    <span class="grey-text text-darken-1 preline">{{ event.gameData.rules }}</span>
 		</p>
 
-		<div ng-if="event.gameData.rules" class="divider"></div>
+		<div ng-if="event.gameData.rules" class="divider top15 bottom15"></div>
 
 		<div class="section">
 			<span class="flow-text text-darken-4" ng-if="event.gameScores.length === 0">

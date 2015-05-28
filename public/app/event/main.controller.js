@@ -13,9 +13,6 @@
 
         vm.eventName = $stateParams.eventName;
 
-        vm.closeGameModal = closeGameModal;
-        vm.closeMultiGameLeaderboardModal = closeMultiGameLeaderboardModal;
-        vm.closePlayerModal = closePlayerModal;
         vm.createTeam = createTeam;
         vm.determinePoints = determinePoints;
         vm.getFirstPlaceScores = getFirstPlaceScores;
@@ -34,16 +31,8 @@
 
         /////////////////////////////////
 
-        function closeGameModal() {
-            angular.element('#gameModal').closeModal();
-        }
-
-        function closeMultiGameLeaderboardModal() {
-            angular.element('#multiGameLeaderboardModal').closeModal();
-        }
-
-        function closePlayerModal() {
-            angular.element('#playerModal').closeModal();
+        function closeModal() {
+            angular.element('.modal').closeModal();
         }
 
         function createTeam() {
@@ -98,7 +87,7 @@
 
         function goToPlayerProfile(inputPlayer) {
 
-            angular.element('#playerModal').closeModal();
+            closeModal();
             $state.go('profile', {username: inputPlayer});
 
         }
@@ -186,6 +175,7 @@
             });
 
             angular.element('#gameModal').openModal();
+            angular.element('#gameModal').addClass('.open-modal');
             angular.element('#gameModalContent').scrollTop(0);
 
         }
@@ -223,8 +213,7 @@
 
         function openGameModalFromPlayerModal(inputGame) {
 
-            closePlayerModal();
-
+            closeModal();
             $timeout(function() {
                 openGameModal(inputGame);
             }, 450);
@@ -233,8 +222,7 @@
 
         function openPlayerModalFromGameModal(inputPlayer) {
 
-            closeGameModal();
-
+            closeModal();
             $timeout(function() {
                 openPlayerModal(inputPlayer);
             }, 450);
@@ -243,8 +231,7 @@
 
         function openPlayerModalFromLeaderboardModal(inputPlayer) {
 
-            closeMultiGameLeaderboardModal();
-
+            closeModal();
             $timeout(function() {
                 openPlayerModal(inputPlayer);
             }, 450);

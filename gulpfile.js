@@ -24,7 +24,7 @@ gulp.task('scripts', function() {
 	    .pipe(sourcemaps.init())
 	        .pipe(concat('app.min.js', {newLine: ';'}))
 	        .pipe(ngAnnotate({add: true}))
-	        .pipe(uglify({mangle: true}))
+	        //.pipe(uglify({mangle: true}))
 	    .pipe(sourcemaps.write())
 	    .pipe(gulp.dest('./public/dist/js'))
 
