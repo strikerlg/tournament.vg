@@ -15,7 +15,6 @@
 
         vm.createTeam = createTeam;
         vm.determinePoints = determinePoints;
-        vm.getFirstPlaceScores = getFirstPlaceScores;
         vm.goToPlayerProfile = goToPlayerProfile;
         vm.openBadgesModal = openBadgesModal;
         vm.openGameModal = openGameModal;
@@ -65,23 +64,6 @@
             }
 
             return userGamePoints;
-
-        }
-
-        function getFirstPlaceScores() {
-
-            vm.gameList.forEach(function(game) {
-
-                // If there are scores, get the top one.
-                if (game.scores) {
-
-                    var scoresArray = $.map(game.scores, function(el) { return el; });
-                    scoresArray = $filter('orderBy')(scoresArray, '-score');
-                    game.firstScore = scoresArray[0];
-
-                }
-
-            });
 
         }
 
