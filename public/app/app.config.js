@@ -3,6 +3,9 @@
 
 	angular
 		.module('vg.app')
+		.constant('FIREBASEDATA', {
+			'FBURL': 'https://wolfscontests.firebaseio.com'
+		})
 		.config(config);
 
 	/* @ngInject */
@@ -12,112 +15,40 @@
 		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
-		    .state('index', {
+		    .state('home', {
 		    	url: '/',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: 'app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: 'app/home/home.htm',
-		    			controller: 'HomeController as home'
-		    		}
-		    	}
+		    	templateUrl: 'app/home/home.htm',
+		    	controller: 'HomeController as home'
 		    })
 
 		    .state('registerOrLogin', {
 		    	url: '/registerOrLogin',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/home/reg.htm',
-		    			controller: 'RegController as reg'
-		    		}
-		    	}
+		    	templateUrl: '/app/home/reg.htm',
+		    	controller: 'RegController as reg'
 		    })
 
 		    .state('profile', {
 		    	url: '/profile/:username',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/home/profile.htm',
-		    			controller: 'ProfileController as profile'
-		    		}
-		    	}
+		    	templateUrl: '/app/home/profile.htm',
+		    	controller: 'ProfileController as profile'
 		    })
 
 		    .state('leaderboard', {
 		    	url: '/leaderboard',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/home/leaderboard.htm',
-		    			controller: 'LeaderboardController as leaderboard'
-		    		}
-		    	}
+		    	templateUrl: '/app/home/leaderboard.htm',
+		    	controller: 'LeaderboardController as leaderboard'
 		    })
 
-		    .state('eventMain', {
+		    .state('event', {
 		    	url: '/event/:eventName/main',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/event/main.htm',
-		    			controller: 'EventMainController as event'
-		    		}
-		    	}
+		    	templateUrl: '/app/event/main.htm',
+		    	controller: 'EventMainController as event'
 		    })
 
 		    .state('customizeAvatar', {
 		    	url: '/customizeAvatar',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/home/avatar.htm',
-		    			controller: 'AvatarController as avatar'
-		    		}
-		    	},
+		    	templateUrl: '/app/home/avatar.htm',
+		    	controller: 'AvatarController as avatar',
 
 		    	resolve: {
 		    		'currentAuth': ['AuthWrapper', function(AuthWrapper) {
@@ -126,45 +57,15 @@
 		    	}
 		    })
 
-		    .state('passwordChange', {
-		    	url: '/passwordChange',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/home/passwordChange.htm',
-		    			controller: 'PasswordChangeController as pwchange'
-		    		}
-		    	},
+		    .state('changePassword', {
+		    	url: '/changePassword',
+		    	templateUrl: '/app/home/changePassword.htm',
+		    	controller: 'ChangePasswordController as pwchange',
 
 		    	resolve: {
 		    		'currentAuth': ['AuthWrapper', function(AuthWrapper) {
 		    			return AuthWrapper.$requireAuth();
 		    		}]
-		    	}
-		    })
-
-		    .state('eventGame', {
-		    	url: '/event/:eventName/game/:gameName',
-
-		    	views: {
-		    		'header': {
-		    			templateUrl: '/app/header/homeHeader.htm',
-		    			controller: 'HeaderController as header',
-		    			data: {
-		    				headerType: 'tall'
-		    			}
-		    		},
-		    		'content': {
-		    			templateUrl: '/app/event/game.htm',
-		    			controller: 'EventGameController as game'
-		    		}
 		    	}
 		    });
 	}

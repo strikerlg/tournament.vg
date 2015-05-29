@@ -1,37 +1,41 @@
-<ng-include src="'./app/event/modalGameScores.htm'"></ng-include>
-<ng-include src="'./app/event/modalMultiGameLeaderboard.htm'"></ng-include>
-<ng-include src="'./app/event/modalPlayer.htm'"></ng-include>
-<ng-include src="'./app/event/modalRules.htm'"></ng-include>
-<ng-include src="'./app/event/modalBadges.htm'"></ng-include>
-<ng-include src="'./app/event/modalSubmit.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalGameScores.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalMultiGameLeaderboard.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalPlayer.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalRules.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalBadges.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalSubmit.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalManagement.htm'"></ng-include>
 
-<div class="container" style="margin-top: -50px;" ng-init="event.initEvent()">
+<div class="container">
 	
 	<div class="card grey lighten-4 z-depth-2">
 
-		<nav>
+		<!-- Event Navbar -->
+		<nav class="event-nav">
 			<div class="nav-wrapper grey-text text-lighten-4" 
-			     ng-class="event.eventProperties.color" 
-			     style="padding-left: 20px; padding-right: 20px;">
-				<a ng-click="" class="brand-logo truncate" style="font-size: 1.6rem;">
-					<i class="mdi-action-turned-in-not small" 
-					   style="display: inline-block; vertical-align: sub;"
+			     ng-class="event.eventProperties.color">
+				<a ng-click="" class="brand-logo truncate">
+					<i class="mdi-action-turned-in-not small"
 					   ng-if="event.eventProperties.premier"></i>
 				    {{ event.eventProperties.name }}
 				</a>
 
 				<ul class="right">
-					<li>
+					<li ng-if="event.eventProperties.state !== 'concluded'">
+						<a class="waves-effect waves-light"
+						   ng-click="event.openModal('#managementModal')">
+						    <span class="grey-text text-lighten-4">Management</span>
+						</a>
+					</li>
+					<li ng-if="event.eventProperties.state !== 'upcoming'">
 					    <a class="waves-effect waves-light" 
-					       ng-click="event.openRulesModal()" 
-					       style="cursor: pointer;">
+					       ng-click="event.openModal('#rulesModal')">
 					        <span class="grey-text text-lighten-4">Rules</span>
 					    </a>
 					</li>
 					<li ng-if="event.eventProperties.premier">
 					    <a class="waves-effect waves-light"
-					       ng-click="event.openBadgesModal()"
-					       style="cursor: pointer;">
+					       ng-click="event.openModal('#badgesModal')">
 					        <span class="grey-text text-lighten-4">Badges</span>
 					    </a>
 					</li>
@@ -44,35 +48,73 @@
 			</div>
 		</nav>
 
-		<div class="card-content">
+		<div class="card-content" ng-if="event.eventProperties.state === 'upcoming'">
+
+			<!-- Sticky Message -->
+			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
+
+			<!-- Description -->
+			<div class="row">
+				<div class="col s12">
+					<h5 class="grey-text text-darken-4">Which team will claim victory in this year's IGBY?</h5>
+
+					<p class="grey-text text-darken-1">
+						It's that time again. Teams from the most popular classic gaming communities on the internet will 
+						get their chance to duke it out for retro gaming glory in one of the most hyped tournaments of the year. 
+						Returning once again are the powerhouse teams DKF and RU, as well as the newcomer MARP and Twin Galaxies teams. 
+						Register now, pledge to your team, and start competing when the tournament begins on July 1st!
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+			    <div class="col s12">
+			        <div class="divider bottom15 top30"></div>
+			    </div>
+			</div>
+
+			<!-- Rules -->
+			<div class="row">
+				<div class="col s12 l3">
+					<h5 class="grey-text text-darken-4">Rules</h5>
+				</div>
+				<div class="col s12 l9">
+
+					<ul class="collapsible" data-collapsible="accordion">
+						<li ng-repeat="rule in event.eventProperties.rules">
+							<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
+							    <i ng-class="rule.icon"></i>{{ rule.title }}
+							</div>
+							<div class="collapsible-body grey-text text-darken-1">
+								<p>
+								    {{ rule.content }}
+								</p>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="card-content" ng-if="event.eventProperties.state === 'inprogress' || event.eventProperties.state === 'concluded'">
 
 			<!-- Sticky Message -->
 			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
 
 			<!-- Leaderboard -->
 			<div ng-if="!event.eventProperties.format.multiGame">
-				<vg-single-game-leaderboard data="event.summarizedLeaderboard"
-				                            avatar-data="event.avatarData"
-				                            complete-length="event.leaderboardLength"
-				                            open-leaderboard-function="event.openSingleGameLeaderboardModal">
-				</vg-single-game-leaderboard>
+				<vg-single-game-leaderboard></vg-single-game-leaderboard>
 			</div>
 
 			<div ng-if="event.eventProperties.format.multiGame">
-				<vg-multi-game-leaderboard data="event.summarizedLeaderboard" 
-				                           avatar-data="event.avatarData"
-				                           complete-length="event.leaderboardLength"
-				                           open-player-function="event.openPlayerModal"
-				                           open-leaderboard-function="event.openMultiGameLeaderboardModal">
-				</vg-multi-game-leaderboard>
+				<vg-multi-game-leaderboard></vg-multi-game-leaderboard>
 			</div>
 
 			<!-- Games List -->
 			<div ng-if="event.eventProperties.format.multiGame">
-				<vg-games-list event-name="event.eventName"
-				               data="event.gameList"
-				               open-game-function="event.openGameModal">
-				</vg-games-list>
+				<vg-games-list></vg-games-list>
 			</div>
 
 		</div>

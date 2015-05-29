@@ -6,28 +6,36 @@
         .service('eventService', eventService);
 
     /* @ngInject */
-    function eventService($q, $filter, $firebaseObject, $firebaseArray) {
+    function eventService($q, $filter, $firebaseObject, $firebaseArray, FIREBASEDATA) {
 
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
+        var _eventProperties = null;
+        var _gameList = null;
+        var _leaderboardLength = null;
+        var _summarizedLeaderboard = null;
+        var _teamList = null;
 
         this.createMultiGameFinalStandings = createMultiGameFinalStandings;
         this.getEventProperties = getEventProperties;
+        this.getEventPropertiesObject = getEventPropertiesObject;
         this.getGameData = getGameData;
+        this.getGameListObject = getGameListObject;
         this.getGamesList = getGamesList;
+        this.getLeaderboardLengthValue = getLeaderboardLengthValue;
         this.getMultiGameLeaderboard = getMultiGameLeaderboard;
-        this.getSingleGameLeaderboard = getSingleGameLeaderboard;
         this.getPlayerScores = getPlayerScores;
+        this.getSingleGameLeaderboard = getSingleGameLeaderboard;
+        this.getSummarizedLeaderboardObject = getSummarizedLeaderboardObject;
+        this.getTeamListObject = getTeamListObject;
+        this.loadEventProperties = loadEventProperties;
 
         ////////////////
 
         function createMultiGameFinalStandings(inputEvent) {
 
             // Calculate the final standings of the event.
-            getMultiGameLeaderboard(inputEvent).then(function(promiseResolution) {
+            getMultiGameLeaderboard(inputEvent).then(function then(model) {
 
-                console.debug(promiseResolution);
-
-                var ref = new Firebase(FBURL);
+                var ref = new Firebase(FIREBASEDATA.FBURL);
                 var inputEventStandings = $firebaseObject(
                     ref
                         .child('standings')
@@ -36,7 +44,7 @@
 
                 inputEventStandings.$loaded().then(function() {
 
-                    promiseResolution.forEach(function(standing) {
+                    model.forEach(function(standing) {
                         inputEventStandings[standing.key] = standing.position;
                     });
 
@@ -52,7 +60,7 @@
 
             var deferred = $q.defer();
 
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
         	var eventProperties = $firebaseObject(
         		ref
         			.child('contests')
@@ -66,11 +74,32 @@
 
         }
 
+        function getEventPropertiesObject() {
+            return _eventProperties;
+        }
+
+        function getFirstPlaceScores() {
+
+            _gameList.forEach(function(game) {
+
+                // If there are scores, get the top one.
+                if (game.scores) {
+
+                    var scoresArray = $.map(game.scores, function(el) { return el; });
+                    scoresArray = $filter('orderBy')(scoresArray, '-score');
+                    game.firstScore = scoresArray[0];
+
+                }
+
+            });
+
+        }
+
         function getGameData(inputEvent, inputGame) {
 
             var deferred = $q.defer();
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             getGamesList(inputEvent).then(function(gamesList) {
 
@@ -80,7 +109,7 @@
                         deferred.resolve(game);
                     }
 
-                })
+                });
 
             });
 
@@ -88,11 +117,15 @@
 
         }
 
+        function getGameListObject() {
+            return _gameList;
+        }
+
         function getGamesList(inputEvent) {
 
         	var deferred = $q.defer();
 
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
         	var gamesList = $firebaseArray(
         		ref
         			.child('contests')
@@ -108,6 +141,10 @@
 
         }
 
+        function getLeaderboardLengthValue() {
+            return _leaderboardLength;
+        }
+
         function getMultiGameLeaderboard(inputEvent) {
 
         	var deferred = $q.defer();
@@ -115,9 +152,9 @@
         	// We need to get the top 12 players for every game.
         	var playerPoints = {};
 
-        	getGamesList(inputEvent).then(function(promiseResolution) {
+        	getGamesList(inputEvent).then(function then(model) {
 
-        		var gamesList = promiseResolution;
+        		var gamesList = model;
         		gamesList.forEach(function(game) {
 
         			if (game.scores) {
@@ -153,7 +190,7 @@
         		playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
                 var haveBottomScorersFloor = false;
                 var floorRange = 0;
-        		for (var i = 0; i < playerPoints.length; i++) {
+        		for (var i = 0; i < playerPoints.length; i += 1) {
 
         			if (playerPoints[i-1] && playerPoints[i].points && playerPoints[i-1].points) {
 
@@ -172,11 +209,12 @@
                             if (!haveBottomScorersFloor) {
                                 // Get count of players in one position higher.
                                 var getScoreCountOf = playerPoints[i-1].points;
-                                playerPoints.forEach(function(pointsData) {
-                                    if (pointsData.points === getScoreCountOf) {
+
+                                for (var j = 0; j < playerPoints.length; j += 1) {
+                                    if (playerPoints[j].points === getScoreCountOf) {
                                         floorRange += 1;
                                     }
-                                });
+                                }
 
                                 haveBottomScorersFloor = true;
                             }
@@ -200,7 +238,7 @@
 
             var deferred = $q.defer();
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
             var leaderboardData = $firebaseArray(
                 ref
                     .child('contests')
@@ -212,6 +250,14 @@
 
             return deferred.promise;
 
+        }
+
+        function getSummarizedLeaderboardObject() {
+            return _summarizedLeaderboard;
+        }
+
+        function getTeamListObject() {
+            return _teamList;
         }
 
         function getPlayerScores(inputEvent, inputGamesList, inputPlayer) {
@@ -264,6 +310,57 @@
             deferred.resolve(displayScores);
 
             return deferred.promise;
+
+        }
+
+        function loadEventProperties(inputEvent) {
+
+            var ref = new Firebase(FIREBASEDATA.FBURL);
+            var inputEventProperties = $firebaseObject(
+                ref
+                    .child('contests')
+                    .child(inputEvent)
+                    .child('properties')
+            );
+
+            inputEventProperties.$loaded().then(function() {
+                _eventProperties = inputEventProperties;
+
+                // If this is a multigame event, get the data needed for multigame components.
+                if (_eventProperties.format.multiGame) {
+
+                    getGamesList(inputEvent).then(function then(model) {
+                        _gameList = model;
+                        getFirstPlaceScores();
+                    });
+
+                    getMultiGameLeaderboard(inputEvent).then(function then(model) {
+                        var leaderboard = model;
+                        _leaderboardLength = leaderboard.length;
+                        _summarizedLeaderboard = leaderboard.slice(0, 8);
+                    });
+
+                // If this is a single game event, get the data needed for single game components.
+                } else {
+
+                    getSingleGameLeaderboard(inputEvent).then(function then(model) {
+                        var leaderboard = model;
+                        _leaderboardLength = leaderboard.length;
+                        _summarizedLeaderboard = leaderboard;
+                    });
+
+                }
+
+                // If this is a team-based event, get the data needed for team event components.
+                if (_eventProperties.format.teamBased) {
+
+                    teamService.getTeamList(vm.eventName).then(function then(model) {
+                        _teamList = model;
+                    });
+
+                }
+
+            });
 
         }
 

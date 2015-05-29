@@ -1,0 +1,102 @@
+.btn-flat {
+    transition: background-color .3s ease-out;
+
+    &:hover {
+        transition: background-color .3s ease-out;
+        background-color: rgba(153, 153, 153, 0.4);
+    }
+}
+
+input[type=text]:focus:not([readonly]), 
+input[type=password]:focus:not([readonly]), 
+input[type=email]:focus:not([readonly]), 
+input[type=url]:focus:not([readonly]), 
+input[type=time]:focus:not([readonly]), 
+input[type=date]:focus:not([readonly]), 
+input[type=datetime-local]:focus:not([readonly]), 
+input[type=tel]:focus:not([readonly]), 
+input[type=number]:focus:not([readonly]), 
+input[type=search]:focus:not([readonly]), 
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid $grey-darken-2;
+    box-shadow: 0 1px 0 0 $grey-darken-2;
+    transition: border-bottom 300ms, box-shadow 300ms;
+}
+
+input[type=text]:focus:not([readonly])+label, 
+input[type=password]:focus:not([readonly])+label, 
+input[type=email]:focus:not([readonly])+label, 
+input[type=url]:focus:not([readonly])+label, 
+input[type=time]:focus:not([readonly])+label, 
+input[type=date]:focus:not([readonly])+label, 
+input[type=datetime-local]:focus:not([readonly])+label, 
+input[type=tel]:focus:not([readonly])+label, 
+input[type=number]:focus:not([readonly])+label, 
+input[type=search]:focus:not([readonly])+label, 
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: $grey-darken-2;
+}
+
+input[type=text].invalid-field, 
+input[type=password].invalid-field, 
+input[type=email].invalid-field, 
+input[type=url].invalid-field, 
+input[type=time].invalid-field, 
+input[type=date].invalid-field, 
+input[type=datetime-local].invalid-field, 
+input[type=tel].invalid-field, 
+input[type=number].invalid-field, 
+input[type=search].invalid-field, 
+textarea.materialize-textarea.invalid-field {
+    border-bottom: 1px solid $red !important;
+    margin-bottom: 5px;
+}
+
+input[type=text].invalid-field:focus:not([readonly]), 
+input[type=password].invalid-field:focus:not([readonly]), 
+input[type=email].invalid-field:focus:not([readonly]), 
+input[type=url].invalid-field:focus:not([readonly]), 
+input[type=time].invalid-field:focus:not([readonly]), 
+input[type=date].invalid-field:focus:not([readonly]), 
+input[type=datetime-local].invalid-field:focus:not([readonly]), 
+input[type=tel].invalid-field:focus:not([readonly]), 
+input[type=number].invalid-field:focus:not([readonly]), 
+input[type=search].invalid-field:focus:not([readonly]), 
+textarea.materialize-textarea.invalid-field:focus:not([readonly]) {
+    border-bottom: 1px solid $red !important;
+    box-shadow: 0 1px 0 0 $red !important;
+    margin-bottom: 5px;
+}
+
+input[type=text].invalid-field:not([readonly])+label, 
+input[type=password].invalid-field:not([readonly])+label, 
+input[type=email].invalid-field:not([readonly])+label, 
+input[type=url].invalid-field:not([readonly])+label, 
+input[type=time].invalid-field:not([readonly])+label, 
+input[type=date].invalid-field:not([readonly])+label, 
+input[type=datetime-local].invalid-field:not([readonly])+label, 
+input[type=tel].invalid-field:not([readonly])+label, 
+input[type=number].invalid-field:not([readonly])+label, 
+input[type=search].invalid-field:not([readonly])+label, 
+textarea.materialize-textarea.invalid-field:not([readonly])+label {
+  color: $red;
+}
+
+input[type=text].invalid-field:focus:not([readonly])+label, 
+input[type=password].invalid-field:focus:not([readonly])+label, 
+input[type=email].invalid-field:focus:not([readonly])+label, 
+input[type=url].invalid-field:focus:not([readonly])+label, 
+input[type=time].invalid-field:focus:not([readonly])+label, 
+input[type=date].invalid-field:focus:not([readonly])+label, 
+input[type=datetime-local].invalid-field:focus:not([readonly])+label, 
+input[type=tel].invalid-field:focus:not([readonly])+label, 
+input[type=number].invalid-field:focus:not([readonly])+label, 
+input[type=search].invalid-field:focus:not([readonly])+label, 
+textarea.materialize-textarea.invalid-field:focus:not([readonly])+label {
+  color: $red;
+}
+
+.validation-text {
+    font-size: 0.8rem;
+    color: $red;
+}

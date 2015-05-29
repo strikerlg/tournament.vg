@@ -6,32 +6,29 @@
         .controller('LeaderboardController', LeaderboardController);
 
     /* @ngInject */
-    function LeaderboardController($q, $timeout, $firebaseArray, profileService) {
+    function LeaderboardController($q, $timeout, $firebaseArray, profileService, FIREBASEDATA) {
 
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
+        /* jshint validthis: true */
+    	var vm = this;
 
-        var vm = this;
-
-        $timeout(function() {
-        	angular.element('#contentView')
-                .css('opacity', '1')
-                .css('position', 'inherit');
-        }, 310);
-
-        getProfileScores().then(function then(model) {
-        	vm.profileScoreData = model;
-        });
-
-        profileService.getAvatarData().then(function then(model) {
-        	vm.avatarData = model;
-        });
+        activate();
 
         ////////////////
+
+        function activate() {
+            getProfileScores().then(function then(model) {
+                vm.profileScoreData = model;
+            });
+
+            profileService.getAvatarData().then(function then(model) {
+                vm.avatarData = model;
+            });
+        }
 
         function getProfileScores() {
 
         	var deferred = $q.defer();
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
 
         	var profileScoreData = $firebaseArray(
         		ref

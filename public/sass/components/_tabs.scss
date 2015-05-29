@@ -1,0 +1,12 @@
+.tabs {
+	.indicator {
+		background-color: $blue-grey;
+	}
+
+	.tab a {
+		color: $grey-darken-4;
+		&:hover {
+			color: $blue-grey;
+		}
+	}
+}

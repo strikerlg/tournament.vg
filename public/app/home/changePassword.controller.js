@@ -3,19 +3,14 @@
 
     angular
         .module('vg.app')
-        .controller('PasswordChangeController', PasswordChangeController);
+        .controller('ChangePasswordController', ChangePasswordController);
 
     /* @ngInject */
-    function PasswordChangeController($scope, $timeout, $state, AuthWrapper) {
+    function ChangePasswordController($scope, $timeout, $state, AuthWrapper) {
 
+        /* jshint validthis: true */
         var vm = this;
-
-        $timeout(function() {
-        	angular.element('#contentView')
-                .css('opacity', '1')
-                .css('position', 'inherit');
-        }, 310);
-
+        
         vm.submitChangePassword = submitChangePassword;
 
         //////////////////
@@ -32,7 +27,7 @@
 
                     Materialize.toast('Your password was changed.', 4000);
                     $timeout(function() {
-                        $state.go('index');
+                        $state.go('home');
                     }, 1000);
 
                 }).catch(function(error) {
@@ -45,7 +40,7 @@
 
             }
 
-        };
+        }
 
     }
 

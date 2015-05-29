@@ -6,9 +6,9 @@
         .factory('AuthWrapper', AuthWrapper);
 
     /* @ngInject */
-    function AuthWrapper($firebaseAuth) {
+    function AuthWrapper($firebaseAuth, FIREBASEDATA) {
 
-        var ref = new Firebase('https://wolfscontests.firebaseio.com');
+        var ref = new Firebase(FIREBASEDATA.FBURL);
         return $firebaseAuth(ref);
 
     }

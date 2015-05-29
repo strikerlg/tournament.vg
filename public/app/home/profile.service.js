@@ -6,11 +6,9 @@
         .service('profileService', profileService);
 
     /* @ngInject */
-    function profileService($rootScope, $q, $firebaseArray, $firebaseObject, eventService) {
+    function profileService($rootScope, $q, $firebaseArray, $firebaseObject, eventService, FIREBASEDATA) {
 
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
-
-        this.getAvatarData = getAvatarData;
+    	this.getAvatarData = getAvatarData;
         this.getBadgesData = getBadgesData;
     	this.getTournamentHistory = getTournamentHistory;
         this.getTournamentStandings = getTournamentStandings;
@@ -22,7 +20,7 @@
         function getAvatarData() {
 
             var deferred = $q.defer();
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             var avatarData = $firebaseObject(
                 ref
@@ -40,7 +38,7 @@
         function getBadgesData(inputUser) {
 
             var deferred = $q.defer();
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             var badgesData = $firebaseObject(
                 ref
@@ -59,7 +57,7 @@
         function getTournamentHistory(inputUserData) {
 
         	var deferred = $q.defer();
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
 
         	// Loop through each event in the pledgedTo object.
         	var eventsArray = [];
@@ -75,7 +73,7 @@
 
         function getTournamentStandings(inputTournamentHistory, inputUser) {
 
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             // Loop through each event in the user's history.
             var eventStandings = [];
@@ -147,7 +145,7 @@
         function getUserData(inputUser) {
 
         	var deferred = $q.defer();
-        	var ref = new Firebase(FBURL);
+        	var ref = new Firebase(FIREBASEDATA.FBURL);
 
         	var usersData = $firebaseArray(
         		ref
@@ -171,7 +169,7 @@
         // FIXME: Make this server-side.
         function saveAvatarLink(inputLink, inputUser) {
             
-            var ref = new Firebase(FBURL);
+            var ref = new Firebase(FIREBASEDATA.FBURL);
 
             var avatarData = $firebaseObject(
                 ref

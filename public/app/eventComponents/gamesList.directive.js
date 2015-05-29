@@ -7,30 +7,25 @@
 
     /* @ngInject */
     function vgGamesList () {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
             bindToController: true,
             controller: GamesListController,
             controllerAs: 'vm',
-            link: link,
             restrict: 'E',
             templateUrl: './app/eventComponents/gamesList.directive.htm',
-            scope: {
-            	data: '=',
-            	openGameFunction: '='
-            }
+            scope: false,
+            transclude: false
         };
         return directive;
-
-        function link(scope, element, attrs) {
-        }
     }
 
     /* @ngInject */
-    function GamesListController() {
+    function GamesListController($scope, eventService) {
+        /* jshint validthis: true */
     	var vm = this;
+
+        $scope.$watch(function() { return eventService.getGameListObject(); }, function(model) {
+            $scope.$parent.$parent.event.gameList = model;
+        }, true);
     }
 })();

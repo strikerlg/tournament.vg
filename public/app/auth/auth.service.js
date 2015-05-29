@@ -6,9 +6,9 @@
         .service('authService', authService);
 
     /* @ngInject */
-    function authService($q, $rootScope, $state, $firebaseObject, AuthWrapper) {
+    function authService($q, $rootScope, $state, $window, $timeout, $firebaseObject, AuthWrapper, FIREBASEDATA) {
         
-    	var FBURL = 'https://wolfscontests.firebaseio.com';
+        this.testData = 'hello world!';
 
     	this.checkIfUserExists = checkIfUserExists;
     	this.createNewUser = createNewUser;
@@ -22,17 +22,19 @@
     		var deferred = $q.defer();
 
     		var doesUserExist = false;
-    		var usersRef = new Firebase(FBURL + '/users');
+    		var usersRef = new $window.Firebase(FIREBASEDATA.FBURL + '/users');
 
     		usersRef.once('value', function(dataSnapshot) {
 
-    			dataSnapshot.forEach(function(user) {
-    				if (user.val().userName === inputUsername) {
-    					doesUserExist = true;
-    				}
-    			});
+                $timeout(function() {
+                    dataSnapshot.forEach(function(user) {
+                        if (user.val().userName === inputUsername) {
+                            doesUserExist = true;
+                        }
+                    });
 
-    			deferred.resolve(doesUserExist);
+                    deferred.resolve(doesUserExist);
+                });
 
     		});
 
@@ -50,7 +52,7 @@
     		}).then(function(userData) {
 
     			// Create a data entry for the new username.
-    			new Firebase(FBURL).child('users/' + userData.uid).set({
+    			new Firebase(FIREBASEDATA.FBURL).child('users/' + userData.uid).set({
 
     				userName: inputUsername,
     				role: 'User'
@@ -61,7 +63,7 @@
     			});
 
                 // Create a data entry for the user's avatar.
-                new Firebase(FBURL).child('avatars').child(inputUsername).set('http://api.adorable.io/avatars/42/' + inputUsername);
+                new Firebase(FIREBASEDATA.FBURL).child('avatars').child(inputUsername).set('http://api.adorable.io/avatars/42/' + inputUsername);
 
     			// Log the user in.
     			AuthWrapper.$authWithPassword({
@@ -113,8 +115,6 @@
         function logOut() {
             AuthWrapper.$unauth();
             $rootScope.unbindFunction();
-
-            $state.go('index');
         }
 
     }

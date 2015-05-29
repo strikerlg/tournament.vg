@@ -1,8 +1,8 @@
-<span class="flow-text text-darken-4" ng-if="vm.data.length === 0">
+<span class="flow-text text-darken-4" ng-if="event.summarizedLeaderboard.length === 0">
 	No scores have been submitted yet for this game.
 </span>
 
-<table class="responsive-table hoverable" ng-if="vm.data.length > 0">
+<table class="responsive-table hoverable" ng-if="event.summarizedLeaderboard.length > 0">
 
 	<thead>
 		<tr class="grey-text text-darken-1" style="font-weight: normal;">
@@ -14,13 +14,12 @@
 	</thead>
 
 	<tbody>
-		<tr ng-repeat="scoreData in vm.data | orderBy:'-score'" 
+		<tr ng-repeat="scoreData in event.summarizedLeaderboard | orderBy:'-score'" 
 		    class="grey-text text-darken-4">
 			<td>{{ $index + 1 }}</td>
 			<td>
-				<img ng-attr-src="{{ vm.avatarData[scoreData.$id] }}" class="avatar circle z-depth-1">
+				<img ng-attr-src="{{ event.avatarData[scoreData.$id] }}" class="avatar circle z-depth-1">
 			    <a class="hoverable"
-			       style="cursor: pointer;"
 			       ng-href="{{ '#/profile/' + scoreData.$id }}">
 			        {{ scoreData.$id }}
 			    </a>
@@ -36,7 +35,6 @@
 
 			    <a ng-attr-href="{{ 'http://' + scoreData.inpUrl }}" 
 			       class="grey-text text-darken-4 hoverable" 
-			       style="cursor: pointer;"
 			       ng-show="scoreData.inpUrl">
 			    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ scoreData.mameVersion | lowercase }}</span>
 			    </a>
@@ -46,4 +44,4 @@
 
 </table>
 
-<div class="divider" style="margin-bottom: 24px; margin-top: 30px;"></div>
+<div class="divider bottom25 top30"></div>

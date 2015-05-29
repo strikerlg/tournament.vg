@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="nz-animate/dist/nzAnimate.min.css">
 
 	<!-- Site Stylesheet -->
-	<link rel="stylesheet" href="tournaments.css">
+	<link rel="stylesheet" href="dist/css/main.min.css">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,12 +29,55 @@
 
 <body class="animate fadeIn">
 
-	<header>
-		<div ui-view="header"></div>
+	<header ng-controller="HeaderController as header">
+		<nav class="grey tall-header">
+			<div class="container">
+				<div class="nav-wrapper">
+
+					<ul class="left">
+						<li class="hide-on-med-and-up"><a ui-sref="home"><i class="mdi-action-home grey-text text-lighten-4"></i></a></li>
+					</ul>
+					
+					<a ui-sref="home" class="hide-on-small-only brand-logo grey-text text-lighten-4 left20">tournament.vg</a>
+					
+					<ul class="right">
+
+						<li>
+						    <a class="waves-effect" 
+						       ng-href="{{ $root.profile.$id ?  '#/profile/' + $root.profile.userName : '#/registerOrLogin' }}">
+						        <i ng-class="{'mdi-social-person': $root.profile.$id,
+						                      'mdi-action-perm-identity': !$root.profile.$id}" 
+						           class="grey-text text-lighten-4">
+						        </i>
+						    </a>
+						</li>
+
+						<li>
+							<a class="waves-effect" ui-sref="leaderboard">
+								<i class="mdi-action-bookmark-outline grey-text text-lighten-4"></i>
+							</a>
+						</li>
+
+						<li ng-if="$root.profile.$id">
+						    <a class="dropdown-button waves-effect" data-activates="quicklinksDropdown" ng-click="">
+						        <i class="mdi-navigation-more-vert grey-text text-lighten-4"></i>
+						    </a>
+						    <ul id="quicklinksDropdown" class="dropdown-content">
+						        <li><a ui-sref="customizeAvatar">Customize Avatar</a></li>
+						    	<li><a ui-sref="changePassword">Change Password</a></li>
+								<li><a ng-click="header.logOut()">Log Out</a></li>
+							</ul>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+		</nav>
 	</header>
 
 	<main>
-		<div id="contentView" ui-view="content" class="animate enter-fadeInDown exit-fadeOut" style="position: absolute; width: 100%;"></div>
+		<div id="contentView" ui-view class="animate enter-fadeInDown exit-fadeOut main-content-card"></div>
 	</main>
 
 	<script type="text/javascript" src="dist/js/vendor.js"></script>
