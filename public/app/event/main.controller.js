@@ -16,15 +16,10 @@
         vm.createTeam = createTeam;
         vm.determinePoints = determinePoints;
         vm.goToPlayerProfile = goToPlayerProfile;
-        vm.openBadgesModal = openBadgesModal;
         vm.openGameModal = openGameModal;
-        vm.openGameModalFromPlayerModal = openGameModalFromPlayerModal;
-        vm.openManagementModal = openManagementModal;
+        vm.openModal = openModal;
         vm.openMultiGameLeaderboardModal = openMultiGameLeaderboardModal;
         vm.openPlayerModal = openPlayerModal;
-        vm.openPlayerModalFromGameModal = openPlayerModalFromGameModal;
-        vm.openPlayerModalFromLeaderboardModal = openPlayerModalFromLeaderboardModal;
-        vm.openRulesModal = openRulesModal;
 
         initEvent();
 
@@ -104,10 +99,23 @@
 
         }
 
-        function openBadgesModal() {
+        function openModal(inputModal) {
 
-            angular.element('#badgesModal').openModal();
-            angular.element('#badgesModalContent').scrollTop(0);
+            // This will evaluate to true if a Materialize modal is open.
+            if (angular.element('#lean-overlay').length === 1) {
+
+                closeModal();
+                $timeout(function() {
+                    angular.element(inputModal).openModal();
+                    angular.element(inputModal + 'Content').scrollTop(0);
+                }, 450);
+
+            } else {
+
+                angular.element(inputModal).openModal();
+                angular.element(inputModal + 'Content').scrollTop(0);
+
+            }
 
         }
 
@@ -128,16 +136,7 @@
                 );
             });
 
-            angular.element('#gameModal').openModal();
-            angular.element('#gameModal').addClass('.open-modal');
-            angular.element('#gameModalContent').scrollTop(0);
-
-        }
-
-        function openManagementModal() {
-
-            angular.element('#managementModal').openModal();
-            angular.element('#managementModalContent').scrollTop(0);
+            openModal('#gameModal');
 
         }
 
@@ -147,8 +146,7 @@
                 vm.completeLeaderboard = model;
             });
 
-            angular.element('#multiGameLeaderboardModal').openModal();
-            angular.element('#multiGameLeaderboardModalContent').scrollTop(0);
+            openModal('#multiGameLeaderboardModal');
 
         }
 
@@ -160,40 +158,8 @@
                 vm.playerScores = model;
             });
 
-            angular.element('#playerModal').openModal();
-            angular.element('#playerModalContent').scrollTop(0);
+            openModal('#playerModal');
 
-        }
-
-        function openGameModalFromPlayerModal(inputGame) {
-
-            closeModal();
-            $timeout(function() {
-                openGameModal(inputGame);
-            }, 450);
-
-        }
-
-        function openPlayerModalFromGameModal(inputPlayer) {
-
-            closeModal();
-            $timeout(function() {
-                openPlayerModal(inputPlayer);
-            }, 450);
-
-        }
-
-        function openPlayerModalFromLeaderboardModal(inputPlayer) {
-
-            closeModal();
-            $timeout(function() {
-                openPlayerModal(inputPlayer);
-            }, 450);
-
-        }
-
-        function openRulesModal() {
-            angular.element('#rulesModal').openModal();
         }
 
     }

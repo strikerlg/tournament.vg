@@ -15,21 +15,17 @@
             bindToController: true,
             controller: MultiGameLeaderboardController,
             controllerAs: 'vm',
-            link: link,
             restrict: 'E',
             templateUrl: './app/eventComponents/multiGameLeaderboard.directive.htm',
             scope: {
             	data: '=',
                 avatarData: '=',
             	completeLength: '=',
-            	openPlayerFunction: '=',
-                openLeaderboardFunction: '='
+                openPlayerFunction: '=',
+            	openModalFunction: '='
             }
         };
         return directive;
-
-        function link(scope, element, attrs) {
-        }
     }
 
     /* @ngInject */

@@ -15,7 +15,6 @@
             bindToController: true,
             controller: SingleGameLeaderboardController,
             controllerAs: 'vm',
-            link: link,
             restrict: 'E',
             templateUrl: './app/eventComponents/singleGameLeaderboard.directive.htm',
             scope: {
@@ -26,9 +25,6 @@
             }
         };
         return directive;
-
-        function link(scope, element, attrs) {
-        }
     }
 
     /* @ngInject */

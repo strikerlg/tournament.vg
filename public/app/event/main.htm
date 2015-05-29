@@ -23,19 +23,19 @@
 				<ul class="right">
 					<li ng-if="event.eventProperties.state !== 'concluded'">
 						<a class="waves-effect waves-light"
-						   ng-click="event.openManagementModal()">
+						   ng-click="event.openModal('#managementModal')">
 						    <span class="grey-text text-lighten-4">Management</span>
 						</a>
 					</li>
 					<li ng-if="event.eventProperties.state !== 'upcoming'">
 					    <a class="waves-effect waves-light" 
-					       ng-click="event.openRulesModal()">
+					       ng-click="event.openModal('#rulesModal')">
 					        <span class="grey-text text-lighten-4">Rules</span>
 					    </a>
 					</li>
 					<li ng-if="event.eventProperties.premier">
 					    <a class="waves-effect waves-light"
-					       ng-click="event.openBadgesModal()">
+					       ng-click="event.openModal('#badgesModal')">
 					        <span class="grey-text text-lighten-4">Badges</span>
 					    </a>
 					</li>
@@ -117,7 +117,7 @@
 				                           avatar-data="event.avatarData"
 				                           complete-length="event.leaderboardLength"
 				                           open-player-function="event.openPlayerModal"
-				                           open-leaderboard-function="event.openMultiGameLeaderboardModal">
+				                           open-modal-function="event.openMultiGameLeaderboardModal">
 				</vg-multi-game-leaderboard>
 			</div>
 

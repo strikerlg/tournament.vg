@@ -10,7 +10,7 @@
 			</span>
 
 			<ul class="collection z-depth-1">
-				<a ng-click="event.openPlayerModalFromLeaderboardModal(playerData.key)" 
+				<a ng-click="event.openPlayerModal(playerData.key)" 
 				   ng-repeat="playerData in event.completeLeaderboard">
 				<li class="waves-effect waves-teal collection-item avatar hoverable" style="height: 62px;">
 				    <img ng-attr-src="{{ event.avatarData[playerData.key] }}" class="circle z-depth-1">

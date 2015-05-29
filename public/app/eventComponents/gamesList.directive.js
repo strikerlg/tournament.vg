@@ -15,7 +15,6 @@
             bindToController: true,
             controller: GamesListController,
             controllerAs: 'vm',
-            link: link,
             restrict: 'E',
             templateUrl: './app/eventComponents/gamesList.directive.htm',
             scope: {
@@ -24,9 +23,6 @@
             }
         };
         return directive;
-
-        function link(scope, element, attrs) {
-        }
     }
 
     /* @ngInject */
