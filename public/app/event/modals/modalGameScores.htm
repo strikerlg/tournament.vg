@@ -2,17 +2,23 @@
 	<div id="gameModalContent" class="modal-content">
 		<h4 class="truncate">{{ event.gameData.name }}</h4>
 
-		<div class="divider"></div>
+		<div class="divider top15 bottom20"></div>
 
-		<p ng-if="event.gameData.mameSet" style="white-space: pre-line;"><span class="grey-text text-darken-4">MAME Romset</span><br><span class="grey-text text-darken-1">{{ event.gameData.mameSet }}</span>
+		<p ng-if="event.gameData.mameSet">
+		    <span class="grey-text text-darken-4">MAME Romset</span>
+		    <br>
+		    <span class="grey-text text-darken-1">{{ event.gameData.mameSet }}</span>
 		</p>
 
-		<div ng-if="event.gameData.mameSet" class="divider"></div>
+		<div ng-if="event.gameData.mameSet" class="divider top15"></div>
 
-		<p ng-if="event.gameData.rules" style="white-space: pre-line;"><span class="grey-text text-darken-4">Special Rules</span><br><span class="grey-text text-darken-1">{{ event.gameData.rules }}</span>
+		<p ng-if="event.gameData.rules">
+		    <span class="grey-text text-darken-4">Special Rules</span>
+		    <br>
+		    <span class="grey-text text-darken-1 preline">{{ event.gameData.rules }}</span>
 		</p>
 
-		<div ng-if="event.gameData.rules" class="divider"></div>
+		<div ng-if="event.gameData.rules" class="divider top15 bottom15"></div>
 
 		<div class="section">
 			<span class="flow-text text-darken-4" ng-if="event.gameScores.length === 0">
@@ -22,7 +28,7 @@
 			<table class="responsive-table hoverable" ng-if="event.gameScores.length > 0">
 
 				<thead>
-					<tr class="grey-text text-darken-1" style="font-weight: normal;">
+					<tr class="grey-text text-darken-1">
 						<th>Position</th>
 						<th>Player</th>
 						<th>Score</th>
@@ -39,8 +45,7 @@
 						<td>{{ $index + 1 }}</td>
 						<td>
 						    <a class="hoverable"
-						       style="cursor: pointer;"
-						       ng-click="event.openPlayerModalFromGameModal(scoreData.$id)">
+						       ng-click="event.openPlayerModal(scoreData.$id)">
 						        {{ scoreData.$id }}
 						    </a>
 						</td>
@@ -48,8 +53,7 @@
 						<td>{{ event.determinePoints(scoreData, $index ) }}</td>
 						<td>
 							<a ng-attr-href="{{ 'http://' + scoreData.twitchUrl }}" 
-							   class="grey-text hoverable" 
-							   style="cursor: pointer;"
+							   class="grey-text hoverable"
 							   ng-class="{'text-lighten-1': event.determinePoints(scoreData, $index) === 0,
 					                      'text-darken-4':  event.determinePoints(scoreData, $index) > 0}"
 							   ng-show="scoreData.twitchUrl">
@@ -57,8 +61,7 @@
 						    </a>
 
 						    <a ng-attr-href="{{ 'http://' + scoreData.inpUrl }}" 
-						       class="grey-text hoverable" 
-						       style="cursor: pointer;"
+						       class="grey-text hoverable"
 						       ng-class="{'text-lighten-1': event.determinePoints(scoreData, $index) === 0,
 					                      'text-darken-4':  event.determinePoints(scoreData, $index) > 0}"
 						       ng-show="scoreData.inpUrl">

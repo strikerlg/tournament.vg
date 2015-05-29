@@ -7,15 +7,10 @@
 
     /* @ngInject */
     function vgStickyMessage () {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
             bindToController: true,
             controller: StickyMessageController,
             controllerAs: 'vm',
-            link: link,
             restrict: 'E',
             templateUrl: './app/eventComponents/stickyMessage.directive.htm',
             scope: {
@@ -23,13 +18,11 @@
             }
         };
         return directive;
-
-        function link(scope, element, attrs) {
-        }
     }
 
     /* @ngInject */
     function StickyMessageController($timeout) {
+        /* jshint validthis: true */
     	var vm = this;
     }
 })();

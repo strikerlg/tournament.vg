@@ -1,0 +1,44 @@
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+tr, th {
+	font-weight: normal;
+}
+
+.vg-header {
+	transition: 300ms ease all;
+}
+
+.tall-header {
+	height: 128px;
+}
+
+nav {
+	background-color: inherit;
+}
+
+.event-nav {
+	.nav-wrapper {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.brand-logo {
+		font-size: 1.6rem;
+	}
+	> {
+		div > a > i {
+			display: inline-block;
+			vertical-align: sub;
+		}
+		ul > li > a {
+			cursor: pointer;
+		}
+	}
+}

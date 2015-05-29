@@ -8,57 +8,25 @@
     /* @ngInject */
     function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, teamService, FIREBASEDATA) {
 
-        // Enable Materialize.css collapsibles.
-        $timeout(function() {
-            $('.collapsible').collapsible({
-                accordion: true
-            });
-
-            $('ul.tabs').tabs();
-        }, 1000);
-
-        $timeout(function() {
-            $('.collapsible').collapsible({
-                accordion: true
-            });
-
-            $('ul.tabs').tabs();
-        }, 3000);
-
+        /* jshint validthis: true */
         var vm = this;
 
         vm.eventName = $stateParams.eventName;
 
-        vm.closeGameModal = closeGameModal;
-        vm.closeMultiGameLeaderboardModal = closeMultiGameLeaderboardModal;
-        vm.closePlayerModal = closePlayerModal;
         vm.createTeam = createTeam;
         vm.determinePoints = determinePoints;
-        vm.getFirstPlaceScores = getFirstPlaceScores;
         vm.goToPlayerProfile = goToPlayerProfile;
-        vm.initEvent = initEvent;
-        vm.openBadgesModal = openBadgesModal;
         vm.openGameModal = openGameModal;
-        vm.openGameModalFromPlayerModal = openGameModalFromPlayerModal;
-        vm.openManagementModal = openManagementModal;
+        vm.openModal = openModal;
         vm.openMultiGameLeaderboardModal = openMultiGameLeaderboardModal;
         vm.openPlayerModal = openPlayerModal;
-        vm.openPlayerModalFromGameModal = openPlayerModalFromGameModal;
-        vm.openPlayerModalFromLeaderboardModal = openPlayerModalFromLeaderboardModal;
-        vm.openRulesModal = openRulesModal;
+
+        initEvent();
 
         /////////////////////////////////
 
-        function closeGameModal() {
-            angular.element('#gameModal').closeModal();
-        }
-
-        function closeMultiGameLeaderboardModal() {
-            angular.element('#multiGameLeaderboardModal').closeModal();
-        }
-
-        function closePlayerModal() {
-            angular.element('#playerModal').closeModal();
+        function closeModal() {
+            angular.element('.modal').closeModal();
         }
 
         function createTeam() {
@@ -92,88 +60,50 @@
 
             return userGamePoints;
 
-        };
-
-        function getFirstPlaceScores() {
-
-            vm.gameList.forEach(function(game) {
-
-                // If there are scores, get the top one.
-                if (game.scores) {
-
-                    var scoresArray = $.map(game.scores, function(el) { return el; });
-                    scoresArray = $filter('orderBy')(scoresArray, '-score');
-                    game.firstScore = scoresArray[0];
-
-                }
-
-            });
-
         }
 
         function goToPlayerProfile(inputPlayer) {
 
-            angular.element('#playerModal').closeModal();
+            closeModal();
             $state.go('profile', {username: inputPlayer});
 
         }
 
         function initEvent() {
 
-            eventService.getEventProperties(vm.eventName).then(function(promiseResolution) {
+            eventService.loadEventProperties(vm.eventName);
 
-                vm.eventProperties = promiseResolution;
-
-                vm.eventProperties.$loaded().then(function() {
-
-                    // If this is a multigame event, get the data needed for multigame components.
-                    if (vm.eventProperties.format.multiGame) {
-
-                        eventService.getGamesList(vm.eventName).then(function(promiseResolution) {
-                            vm.gameList = promiseResolution;
-                            getFirstPlaceScores();
-                        });
-
-                        eventService.getMultiGameLeaderboard(vm.eventName).then(function(promiseResolution) {
-                            var leaderboard = promiseResolution;
-                            vm.leaderboardLength = leaderboard.length;
-                            vm.summarizedLeaderboard = leaderboard.slice(0, 8);
-                        });
-
-                    // If this is a single game event, get the data needed for single game components.
-                    } else {
-
-                        eventService.getSingleGameLeaderboard(vm.eventName).then(function(promiseResolution) {
-                            var leaderboard = promiseResolution;
-                            vm.leaderboardLength = leaderboard.length;
-                            vm.summarizedLeaderboard = leaderboard;
-                        });
-
-                    }
-
-                    // If this is a team-based event, get the data needed for team event components.
-                    if (vm.eventProperties.format.teamBased) {
-
-                        teamService.getTeamList(vm.eventName).then(function then(model) {
-                            vm.teamList = model;
-                        });
-                        
-                    }
-
-                });
-
+            profileService.getAvatarData().then(function then(model) {
+                vm.avatarData = model;
             });
 
-            profileService.getAvatarData().then(function(promiseResolution) {
-                vm.avatarData = promiseResolution;
-            });
+            $scope.$watch(function() { return eventService.getEventPropertiesObject(); }, function(model) {
+                vm.eventProperties = model;
+            }, true);
+
+            $scope.$watch(function() { return eventService.getTeamListObject(); }, function(model) {
+                vm.teamList = model;
+            }, true);
 
         }
 
-        function openBadgesModal() {
+        function openModal(inputModal) {
 
-            angular.element('#badgesModal').openModal();
-            angular.element('#badgesModalContent').scrollTop(0);
+            // This will evaluate to true if a Materialize modal is open.
+            if (angular.element('#lean-overlay').length === 1) {
+
+                closeModal();
+                $timeout(function() {
+                    angular.element(inputModal).openModal();
+                    angular.element(inputModal + 'Content').scrollTop(0);
+                }, 450);
+
+            } else {
+
+                angular.element(inputModal).openModal();
+                angular.element(inputModal + 'Content').scrollTop(0);
+
+            }
 
         }
 
@@ -181,8 +111,8 @@
 
             var ref = new Firebase(FIREBASEDATA.FBURL);
 
-            eventService.getGameData(vm.eventName, inputGameName).then(function(promiseResolution) {
-                vm.gameData = promiseResolution;
+            eventService.getGameData(vm.eventName, inputGameName).then(function then(model) {
+                vm.gameData = model;
 
                 vm.gameScores = $firebaseArray(
                     ref
@@ -194,26 +124,17 @@
                 );
             });
 
-            angular.element('#gameModal').openModal();
-            angular.element('#gameModalContent').scrollTop(0);
-
-        }
-
-        function openManagementModal() {
-
-            angular.element('#managementModal').openModal();
-            angular.element('#managementModalContent').scrollTop(0);
+            openModal('#gameModal');
 
         }
 
         function openMultiGameLeaderboardModal() {
 
-            eventService.getMultiGameLeaderboard(vm.eventName).then(function(promiseResolution) {
-                vm.completeLeaderboard = promiseResolution;
+            eventService.getMultiGameLeaderboard(vm.eventName).then(function then(model) {
+                vm.completeLeaderboard = model;
             });
 
-            angular.element('#multiGameLeaderboardModal').openModal();
-            angular.element('#multiGameLeaderboardModalContent').scrollTop(0);
+            openModal('#multiGameLeaderboardModal');
 
         }
 
@@ -221,47 +142,12 @@
 
             vm.focusPlayer = inputPlayer;
 
-            eventService.getPlayerScores(vm.eventName, vm.gameList, vm.focusPlayer).then(function(promiseResolution) {
-                vm.playerScores = promiseResolution;
+            eventService.getPlayerScores(vm.eventName, vm.gameList, vm.focusPlayer).then(function then(model) {
+                vm.playerScores = model;
             });
 
-            angular.element('#playerModal').openModal();
-            angular.element('#playerModalContent').scrollTop(0);
+            openModal('#playerModal');
 
-        }
-
-        function openGameModalFromPlayerModal(inputGame) {
-
-            closePlayerModal();
-
-            $timeout(function() {
-                openGameModal(inputGame);
-            }, 450);
-
-        }
-
-        function openPlayerModalFromGameModal(inputPlayer) {
-
-            closeGameModal();
-
-            $timeout(function() {
-                openPlayerModal(inputPlayer);
-            }, 450);
-
-        }
-
-        function openPlayerModalFromLeaderboardModal(inputPlayer) {
-
-            closeMultiGameLeaderboardModal();
-
-            $timeout(function() {
-                openPlayerModal(inputPlayer);
-            }, 450);
-
-        }
-
-        function openRulesModal() {
-            angular.element('#rulesModal').openModal();
         }
 
     }

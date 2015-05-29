@@ -1,0 +1,17 @@
+.modal {
+	max-height: 80%;
+	&.modal-fixed-footer {
+		height: 80%;
+	}
+}
+
+.player-modal-name {
+	line-height: 2.9rem;
+}
+
+.player-modal-avatar {
+	width: 42px; 
+	vertical-align: sub; 
+	height: 42px; 
+	margin-right: 9px;
+}

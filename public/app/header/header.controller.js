@@ -8,24 +8,27 @@
     /* @ngInject */
     function HeaderController($timeout, $rootScope, $window, $state, authService) {
 
-        $timeout(function() {
-            angular.element('.dropdown-button')
-                .dropdown({
-                    inDuration: 300,
-                    outDuration: 225,
-                    constrain_width: false, // Does not change width of dropdown to that of the activator
-                    hover: false, // Activate on hover
-                    gutter: -114, // Spacing from edge
-                    belowOrigin: true // Displays dropdown below the button
-                });
-        }, 400);
-
+        /* jshint validthis: true */
         var vm = this;
-        vm.headerType = $state.current.views.header.data.headerType;
-
         vm.logOut = logOut;
 
+        activate();
+
         //////////////////////////
+
+        function activate() {
+            $timeout(function() {
+                angular.element('.dropdown-button')
+                    .dropdown({
+                        inDuration: 300,
+                        outDuration: 225,
+                        constrain_width: false,
+                        hover: false,
+                        gutter: -114,
+                        belowOrigin: true
+                    });
+            }, 400);
+        }
 
         function logOut() {
             authService.logOut();
