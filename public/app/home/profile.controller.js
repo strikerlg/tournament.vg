@@ -24,10 +24,6 @@
                     var tournamentHistoryData = model;
                     vm.eventStandings = profileService.getTournamentStandings(tournamentHistoryData, $stateParams.username);
                 });
-
-                $('.collapsible').collapsible({
-                    accordion: true
-                });
             });
 
             profileService.getAvatarData().then(function then(model) {
@@ -36,6 +32,14 @@
 
             profileService.getBadgesData($stateParams.username).then(function then(model) {
                 vm.badgesData = model;
+
+                $timeout(function() {
+
+                    angular.element('.collapsible').collapsible({
+                        accordion: true
+                    });
+
+                }, 200);
             });
 
         }

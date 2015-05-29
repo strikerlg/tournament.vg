@@ -7,10 +7,6 @@
 
     /* @ngInject */
     function vgMultiGameLeaderboard () {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
             bindToController: true,
             controller: MultiGameLeaderboardController,

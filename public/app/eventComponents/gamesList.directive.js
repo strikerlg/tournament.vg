@@ -7,10 +7,6 @@
 
     /* @ngInject */
     function vgGamesList () {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
             bindToController: true,
             controller: GamesListController,

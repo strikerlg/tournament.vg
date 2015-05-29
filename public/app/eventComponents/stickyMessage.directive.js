@@ -7,10 +7,6 @@
 
     /* @ngInject */
     function vgStickyMessage () {
-        // Usage:
-        //
-        // Creates:
-        //
         var directive = {
             bindToController: true,
             controller: StickyMessageController,

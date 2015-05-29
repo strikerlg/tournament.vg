@@ -29,15 +29,15 @@
 						Badges
 					</span>
 
-					<p class="col s12 grey-text text-darken-1" ng-if="profile.badgesData.profileScore === 0">
+					<p class="col s12 grey-text text-darken-1" ng-if="!profile.badgesData.profileScore">
 						{{ profile.profileData.userName }} has not won any badges.
 					</p>
 
-					<div class="col s12">
+					<div class="col s12" ng-if="profile.badgesData.profileScore">
 						<ul class="collapsible" data-collapsible="accordion">
 
 							<li ng-repeat="badgeEvent in profile.badgesData" ng-if="badgeEvent.eventName">
-								<div class="collapsible-header hoverable">{{ badgeEvent.eventName }}</div>
+								<div class="collapsible-header hoverable waves-effect waves-teal">{{ badgeEvent.eventName }}</div>
 								<div class="collapsible-body">
 									
 								<div class="col s6" ng-repeat="award in badgeEvent.awards">

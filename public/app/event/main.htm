@@ -105,28 +105,16 @@
 
 			<!-- Leaderboard -->
 			<div ng-if="!event.eventProperties.format.multiGame">
-				<vg-single-game-leaderboard data="event.summarizedLeaderboard"
-				                            avatar-data="event.avatarData"
-				                            complete-length="event.leaderboardLength"
-				                            open-leaderboard-function="event.openSingleGameLeaderboardModal">
-				</vg-single-game-leaderboard>
+				<vg-single-game-leaderboard></vg-single-game-leaderboard>
 			</div>
 
 			<div ng-if="event.eventProperties.format.multiGame">
-				<vg-multi-game-leaderboard data="event.summarizedLeaderboard" 
-				                           avatar-data="event.avatarData"
-				                           complete-length="event.leaderboardLength"
-				                           open-player-function="event.openPlayerModal"
-				                           open-modal-function="event.openMultiGameLeaderboardModal">
-				</vg-multi-game-leaderboard>
+				<vg-multi-game-leaderboard></vg-multi-game-leaderboard>
 			</div>
 
 			<!-- Games List -->
 			<div ng-if="event.eventProperties.format.multiGame">
-				<vg-games-list event-name="event.eventName"
-				               data="event.gameList"
-				               open-game-function="event.openGameModal">
-				</vg-games-list>
+				<vg-games-list></vg-games-list>
 			</div>
 
 		</div>

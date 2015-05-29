@@ -1,8 +1,8 @@
-<span class="flow-text text-darken-4" ng-if="vm.data.length === 0">
+<span class="flow-text text-darken-4" ng-if="event.summarizedLeaderboard.length === 0">
 	No scores have been submitted yet for this game.
 </span>
 
-<table class="responsive-table hoverable" ng-if="vm.data.length > 0">
+<table class="responsive-table hoverable" ng-if="event.summarizedLeaderboard.length > 0">
 
 	<thead>
 		<tr class="grey-text text-darken-1" style="font-weight: normal;">
@@ -14,11 +14,11 @@
 	</thead>
 
 	<tbody>
-		<tr ng-repeat="scoreData in vm.data | orderBy:'-score'" 
+		<tr ng-repeat="scoreData in event.summarizedLeaderboard | orderBy:'-score'" 
 		    class="grey-text text-darken-4">
 			<td>{{ $index + 1 }}</td>
 			<td>
-				<img ng-attr-src="{{ vm.avatarData[scoreData.$id] }}" class="avatar circle z-depth-1">
+				<img ng-attr-src="{{ event.avatarData[scoreData.$id] }}" class="avatar circle z-depth-1">
 			    <a class="hoverable"
 			       ng-href="{{ '#/profile/' + scoreData.$id }}">
 			        {{ scoreData.$id }}
