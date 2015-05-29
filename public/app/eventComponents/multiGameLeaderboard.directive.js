@@ -17,20 +17,23 @@
             controllerAs: 'vm',
             restrict: 'E',
             templateUrl: './app/eventComponents/multiGameLeaderboard.directive.htm',
-            scope: {
-            	data: '=',
-                avatarData: '=',
-            	completeLength: '=',
-                openPlayerFunction: '=',
-            	openModalFunction: '='
-            }
+            scope: false,
+            transclude: false
         };
         return directive;
     }
 
     /* @ngInject */
-    function MultiGameLeaderboardController() {
+    function MultiGameLeaderboardController($scope, eventService) {
         /* jshint validthis: true */
     	var vm = this;
+
+        $scope.$watch(function() { return eventService.getLeaderboardLengthValue(); }, function(model) {
+            $scope.$parent.$parent.event.leaderboardLength = model;
+        }, true);
+
+        $scope.$watch(function() { return eventService.getSummarizedLeaderboardObject(); }, function(model) {
+            $scope.$parent.$parent.event.summarizedLeaderboard = model;
+        }, true);
     }
 })();

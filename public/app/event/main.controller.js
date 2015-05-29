@@ -73,29 +73,17 @@
 
             eventService.loadEventProperties(vm.eventName);
 
+            profileService.getAvatarData().then(function then(model) {
+                vm.avatarData = model;
+            });
+
             $scope.$watch(function() { return eventService.getEventPropertiesObject(); }, function(model) {
                 vm.eventProperties = model;
-            }, true);
-
-            $scope.$watch(function() { return eventService.getGameListObject(); }, function(model) {
-                vm.gameList = model;
-            }, true);
-
-            $scope.$watch(function() { return eventService.getLeaderboardLengthValue(); }, function(model) {
-                vm.leaderboardLength = model;
-            }, true);
-
-            $scope.$watch(function() { return eventService.getSummarizedLeaderboardObject(); }, function(model) {
-                vm.summarizedLeaderboard = model;
             }, true);
 
             $scope.$watch(function() { return eventService.getTeamListObject(); }, function(model) {
                 vm.teamList = model;
             }, true);
-
-            profileService.getAvatarData().then(function then(model) {
-                vm.avatarData = model;
-            });
 
         }
 
