@@ -77,11 +77,11 @@
                 vm.avatarData = model;
             });
 
-            $scope.$watch(function() { return eventService.getEventPropertiesObject(); }, function(model) {
+            $scope.$watchCollection(function() { return eventService.getEventPropertiesObject(); }, function(model) {
                 vm.eventProperties = model;
             }, true);
 
-            $scope.$watch(function() { return eventService.getTeamListObject(); }, function(model) {
+            $scope.$watchCollection(function() { return eventService.getTeamListObject(); }, function(model) {
                 vm.teamList = model;
             }, true);
 

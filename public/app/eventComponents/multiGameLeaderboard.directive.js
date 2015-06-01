@@ -24,11 +24,11 @@
         /* jshint validthis: true */
     	var vm = this;
 
-        $scope.$watch(function() { return eventService.getLeaderboardLengthValue(); }, function(model) {
+        $scope.$watchCollection(function() { return eventService.getLeaderboardLengthValue(); }, function(model) {
             $scope.$parent.$parent.event.leaderboardLength = model;
         }, true);
 
-        $scope.$watch(function() { return eventService.getSummarizedLeaderboardObject(); }, function(model) {
+        $scope.$watchCollection(function() { return eventService.getSummarizedLeaderboardObject(); }, function(model) {
             $scope.$parent.$parent.event.summarizedLeaderboard = model;
         }, true);
     }

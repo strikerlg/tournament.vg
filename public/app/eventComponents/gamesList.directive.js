@@ -24,7 +24,7 @@
         /* jshint validthis: true */
     	var vm = this;
 
-        $scope.$watch(function() { return eventService.getGameListObject(); }, function(model) {
+        $scope.$watchCollection(function() { return eventService.getGameListObject(); }, function(model) {
             $scope.$parent.$parent.event.gameList = model;
         }, true);
     }
