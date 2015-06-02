@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col s12 l3">
+		<h5 class="grey-text text-darken-4">Rules</h5>
+	</div>
+	<div class="col s12 l9">
+
+		<ul class="collapsible" data-collapsible="accordion">
+			<li ng-repeat="rule in event.eventProperties.rules">
+				<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
+				    <i ng-class="rule.icon"></i>{{ rule.title }}
+				</div>
+				<div class="collapsible-body grey-text text-darken-1">
+					<p>
+					    {{ rule.content }}
+					</p>
+				</div>
+			</li>
+		</ul>
+
+	</div>
+</div>

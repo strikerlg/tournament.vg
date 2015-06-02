@@ -6,7 +6,7 @@
         .service('eventService', eventService);
 
     /* @ngInject */
-    function eventService($q, $filter, $firebaseObject, $firebaseArray, FIREBASEDATA) {
+    function eventService($q, $filter, $firebaseObject, $firebaseArray, FIREBASEDATA, teamService) {
 
         var _eventProperties = null;
         var _gameList = null;
@@ -354,7 +354,7 @@
                 // If this is a team-based event, get the data needed for team event components.
                 if (_eventProperties.format.teamBased) {
 
-                    teamService.getTeamList(vm.eventName).then(function then(model) {
+                    teamService.getTeamList(inputEvent).then(function then(model) {
                         _teamList = model;
                     });
 

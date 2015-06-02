@@ -83,7 +83,14 @@
 
             $scope.$watchCollection(function() { return eventService.getTeamListObject(); }, function(model) {
                 vm.teamList = model;
+                console.debug(vm.teamList);
             }, true);
+
+            // FIXME: There should be a better way to initialize Materialize.css components.
+            $timeout(function() {
+                angular.element('ul.tabs').tabs();
+                angular.element('select').material_select();
+            }, 600);
 
         }
 

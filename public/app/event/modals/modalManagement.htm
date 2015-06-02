@@ -20,9 +20,20 @@
 				<!-- Team Editing -->
 			    <div class="row top5">
 			    	<span class="s12 flow-text grey-text text-darken-4">Edit Team</span>
-			    	<p class="s12 grey-text text-darken-1 top0">
-			    	    This is a test description.
+			    	<p class="s12 grey-text text-darken-1 top0 bottom25">
+			    	    Use this form to make changes to a team in the event. (still in development)
 			    	</p>
+
+			    	<form name="editTeamForm">
+
+						<div class="col s12 m6">
+							<label>Choose Team</label>
+							<select ng-options="team as team.fullName for team in event.teamList"
+							        ng-model="event.selectedEditTeam">
+							</select>
+						</div>
+
+			    	</form>
 			    </div>
 
 			    <div class="row">
@@ -70,15 +81,15 @@
 			</div>
 
 		    <div id="tabPlayers" class="col s12 animate fadeIn">
-		        Test 2
+		        <span class="grey-text text-darken-1">(still in development)</span>
 		    </div>
 
 		    <div id="tabGames" class="col s12 animate fadeIn">
-		        Test 3
+		        <span class="grey-text text-darken-1">(still in development)</span>
 		    </div>
 
 		    <div id="tabEvent" class="col s12 animate fadeIn">
-		        Test 4
+		        <span class="grey-text text-darken-1">(still in development)</span>
 		    </div>
 		</div>
 		
