@@ -97,7 +97,8 @@
 					</p>
 				</div>
 
-				<form name="event.regForm">
+				<!-- Team-Based Registration Form -->
+				<form name="event.regForm" ng-if="$root.profile.$id">
 					<div class="row">
 						<div class="col s12 m6" style="margin: 0 auto; float: none;" ng-if="!event.playerPool[$root.profile.$id]">
 							<label>Choose Team</label>
