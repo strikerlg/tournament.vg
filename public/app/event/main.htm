@@ -98,6 +98,16 @@
 				</div>
 
 				<!-- Team-Based Registration Form -->
+				<div ng-if="!$root.profile.$id">
+					<div class="row">
+						<div class="col s12">
+							<p class="grey-text text-darken-1 center-text" style="text-align: center;">
+								You must be logged in to register for an event.
+							</p>
+						</div>
+					</div>
+				</div>
+
 				<form name="event.regForm" ng-if="$root.profile.$id">
 					<div class="row">
 						<div class="col s12 m6" style="margin: 0 auto; float: none;" ng-if="!event.playerPool[$root.profile.$id]">
