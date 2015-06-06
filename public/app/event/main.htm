@@ -21,7 +21,9 @@
 				</a>
 
 				<ul class="right">
-					<li ng-if="event.eventProperties.state !== 'concluded'">
+					<li ng-if="event.eventProperties.state !== 'concluded' &&
+					           (event.playerPool[$root.profile.$id].status === 'admin' ||
+					            event.playerPool[$root.profile.$id].status === 'coadmin')">
 						<a class="waves-effect waves-light"
 						   ng-click="event.openModal('#managementModal')">
 						    <span class="grey-text text-lighten-4">Management</span>
@@ -75,6 +77,82 @@
 
 			<!-- Rules -->
 			<vg-rules-display></vg-rules-display>
+
+			<div class="row">
+			    <div class="col s12">
+			        <div class="divider bottom15 top30"></div>
+			    </div>
+			</div>
+
+			<!-- Register -->
+			<div class="row">
+				<div class="col s12 bottom15">
+					<h5 class="grey-text text-darken-4">Register</h5>
+
+					<p class="grey-text text-darken-1">
+						All who wish to participate in IGBY2 are required to register prior to the start of the event.
+						Since this is a team-based event, you must choose what team to pledge your allegiance to. Your team
+						selection can be altered at any time before the event begins. Once the event begins, you will be frozen
+						into your team selection, and only the event organizer can change your team.
+					</p>
+				</div>
+
+				<form name="event.regForm">
+					<div class="row">
+						<div class="col s12 m6" style="margin: 0 auto; float: none;" ng-if="!event.playerPool[$root.profile.$id]">
+							<label>Choose Team</label>
+							<select class="browser-default"
+							        name="team"
+							        ng-options="team as team.fullName for team in event.teamList"
+							        ng-model="event.selectedRegTeam"
+							        ng-class="{'invalid-field': event.regForm.team.$error.required && event.regForm.$submitted}"
+							        required>
+							</select>
+							<span ng-if="event.regForm.team.$error.required && event.regForm.$submitted" class="validation-text">
+								Please select a team.
+							</span>
+						</div>
+					</div>
+
+					<div class="row center-align">
+						<div class="col s12">
+
+							<button type="submit" 
+							        class="btn waves-effect" 
+							        ng-click="event.registerForEvent()"
+							        ng-disabled="event.disableRegisterButton"
+							        ng-if="!event.playerPool[$root.profile.$id]">
+							    Register
+							</button>
+
+							<span class="grey-text text-darken-1" ng-if="event.playerPool[$root.profile.$id]">
+							    You are registered for IGBY2 on team {{ event.playerPool[$root.profile.$id].team }}.
+							</span>
+
+						</div>
+					</div>
+				</form>
+
+				<!-- Team List and Roster -->
+				<div class="row">
+					<div class="col s12" ng-repeat="team in event.teamList">
+						
+						<ul class="collapsible" data-collapsible="accordion">
+							<li>
+								<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
+								    {{ team.fullName }}
+								</div>
+								<div class="collapsible-body grey-text text-darken-1">
+									<div class="col s4" ng-repeat="(key, value) in team.players">
+										<p style="text-align: center;">{{ key }}</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
 
 		</div>
 

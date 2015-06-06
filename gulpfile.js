@@ -21,11 +21,11 @@ gulp.task('scripts', function() {
 	return gulp.src(['./public/app/**/*.module.js', './public/app/**/*.js', '!./public/app/**/*.spec.js'])
 	    .pipe(jshint())
 	    .pipe(jshint.reporter(stylish))
-	    .pipe(sourcemaps.init())
+	    //.pipe(sourcemaps.init())
 	        .pipe(concat('app.min.js', {newLine: ';'}))
 	        .pipe(ngAnnotate({add: true}))
 	        .pipe(uglify({mangle: true}))
-	    .pipe(sourcemaps.write())
+	    //.pipe(sourcemaps.write())
 	    .pipe(gulp.dest('./public/dist/js'))
 
 });
@@ -55,9 +55,9 @@ gulp.task('vendor', function() {
 			'./bower_components/ng-file-upload/ng-file-upload-all.min.js',
 			'./bower_components/ng-imgur/dist/ng-imgur.min.js'
 		])
-		.pipe(sourcemaps.init())
+		//.pipe(sourcemaps.init())
 		    .pipe(concat('vendor.js', {newLine: ';'}))
-		.pipe(sourcemaps.write())
+		//.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/dist/js'))
 
 });

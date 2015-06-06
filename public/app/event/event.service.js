@@ -23,10 +23,12 @@
         this.getLeaderboardLengthValue = getLeaderboardLengthValue;
         this.getMultiGameLeaderboard = getMultiGameLeaderboard;
         this.getPlayerScores = getPlayerScores;
+        this.getPlayerPool = getPlayerPool;
         this.getSingleGameLeaderboard = getSingleGameLeaderboard;
         this.getSummarizedLeaderboardObject = getSummarizedLeaderboardObject;
         this.getTeamListObject = getTeamListObject;
         this.loadEventProperties = loadEventProperties;
+        this.submitTeamBasedRegistration = submitTeamBasedRegistration;
 
         ////////////////
 
@@ -260,6 +262,24 @@
             return _teamList;
         }
 
+        function getPlayerPool(inputEvent) {
+
+            var deferred = $q.defer();
+
+            var ref = new Firebase(FIREBASEDATA.FBURL);
+            var playerPoolData = $firebaseObject(
+                ref
+                    .child('contests')
+                    .child(inputEvent)
+                    .child('playerPool')
+            );
+
+            deferred.resolve(playerPoolData);
+
+            return deferred.promise;
+
+        }
+
         function getPlayerScores(inputEvent, inputGamesList, inputPlayer) {
 
             var deferred = $q.defer();
@@ -361,6 +381,62 @@
                 }
 
             });
+
+        }
+
+        function submitTeamBasedRegistration(inputEvent, inputTeamObject, inputUID, inputUsername) {
+
+            console.debug(arguments);
+
+            var ref = new Firebase(FIREBASEDATA.FBURL);
+            
+            var eventData = $firebaseObject(
+                ref
+                    .child('contests')
+                    .child(inputEvent)
+            );
+
+            var teamPlayers = $firebaseObject(
+                ref
+                    .child('contests')
+                    .child(inputEvent)
+                    .child('teamPool')
+                    .child(inputTeamObject.$id)
+                    .child('players')
+            );
+
+            var profilePledgedData = $firebaseObject(
+                ref
+                    .child('users')
+                    .child(inputUID)
+                    .child('pledgedTo')
+            );
+
+            eventData.$loaded().then(function() {
+
+                eventData.playerPool[inputUID] = {
+                    status: 'active',
+                    team: inputTeamObject.$id,
+                    userName: inputUsername
+                };
+
+                eventData.$save();
+
+            });
+
+            teamPlayers.$loaded().then(function() {
+
+                teamPlayers[inputUsername] = true;
+                teamPlayers.$save();
+
+            });
+
+            profilePledgedData.$loaded().then(function() {
+                profilePledgedData[inputEvent] = true;
+                profilePledgedData.$save();
+            });
+
+            Materialize.toast('You are now registered for IGBY2.', 4000);
 
         }
 

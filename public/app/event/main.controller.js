@@ -6,7 +6,7 @@
         .controller('EventMainController', EventMainController);
 
     /* @ngInject */
-    function EventMainController($scope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, teamService, FIREBASEDATA) {
+    function EventMainController($scope, $rootScope, $filter, $stateParams, $state, $timeout, $firebaseArray, eventService, authService, profileService, teamService, FIREBASEDATA) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -20,6 +20,7 @@
         vm.openModal = openModal;
         vm.openMultiGameLeaderboardModal = openMultiGameLeaderboardModal;
         vm.openPlayerModal = openPlayerModal;
+        vm.registerForEvent = registerForEvent;
 
         initEvent();
 
@@ -85,6 +86,10 @@
                 vm.teamList = model;
                 console.debug(vm.teamList);
             }, true);
+
+            eventService.getPlayerPool(vm.eventName).then(function then(model) {
+                vm.playerPool = model;
+            });
 
             // FIXME: There should be a better way to initialize Materialize.css components.
             $timeout(function() {
@@ -154,6 +159,23 @@
             });
 
             openModal('#playerModal');
+
+        }
+
+        function registerForEvent() {
+
+            if (vm.regForm.$valid) {
+
+                // Disable the register button.
+                vm.disableRegisterButton = true;
+                
+                if (vm.eventProperties.format.teamBased) {
+                    eventService.submitTeamBasedRegistration(vm.eventName, vm.selectedRegTeam, $rootScope.profile.$id, $rootScope.profile.userName);
+                } else {
+                    // TODO: Registration for non team-based events.
+                }
+
+            }
 
         }
 
