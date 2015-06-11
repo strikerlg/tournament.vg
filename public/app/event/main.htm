@@ -56,6 +56,7 @@
 			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
 
 			<!-- Description -->
+			<!-- FIXME: This needs to come from the backend. -->
 			<div class="row">
 				<div class="col s12">
 					<h5 class="grey-text text-darken-4">Which team will claim victory in this year's IGBY?</h5>
@@ -89,6 +90,7 @@
 				<div class="col s12 bottom15">
 					<h5 class="grey-text text-darken-4">Register</h5>
 
+					<!-- FIXME: This needs to come from the backend. -->
 					<p class="grey-text text-darken-1">
 						All who wish to participate in IGBY2 are required to register prior to the start of the event.
 						Since this is a team-based event, you must choose what team to pledge your allegiance to. Your team
@@ -148,14 +150,18 @@
 				<div class="row">
 					<div class="col s12" ng-repeat="team in event.teamList">
 						
-						<ul class="collapsible" data-collapsible="accordion">
+						<ul class="collapsible" 
+						    data-collapsible="accordion"
+						    ng-if="team.players">
 							<li>
 								<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
-								    {{ team.fullName }}
+								    {{ team.fullName }} &ndash; {{ Utils.keys(team.players).length }}
 								</div>
 								<div class="collapsible-body grey-text text-darken-1">
 									<div class="col s4" ng-repeat="(key, value) in team.players">
-										<p style="text-align: center;">{{ key }}</p>
+										<p style="text-align: center;">
+										    <a ng-href="{{ '#/profile/' + key }}" class="grey-text text-darken-1 hoverable">{{ key }}</a>
+										</p>
 									</div>
 								</div>
 							</li>

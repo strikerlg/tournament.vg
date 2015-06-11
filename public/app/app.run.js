@@ -31,6 +31,10 @@
 
         });
 
+        $rootScope.Utils = {
+            keys: Object.keys
+        };
+
     }
 
 })();
