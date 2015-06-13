@@ -41,8 +41,9 @@
 					        <span class="grey-text text-lighten-4">Badges</span>
 					    </a>
 					</li>
-					<li ng-if="event.eventProperties.state === 'inprogress'">
-					    <a class="waves-effect waves-light" href="#">
+					<li ng-if="event.eventProperties.state === 'upcoming'">
+					    <a class="waves-effect waves-light"
+					       ng-click="event.openModal('#submitModal')">
 					        <span class="grey-text text-lighten-4">Submit</span>
 					    </a>
 					</li>
