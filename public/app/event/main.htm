@@ -41,8 +41,9 @@
 					        <span class="grey-text text-lighten-4">Badges</span>
 					    </a>
 					</li>
-					<li ng-if="event.eventProperties.state === 'inprogress'">
-					    <a class="waves-effect waves-light" href="#">
+					<li ng-if="event.eventProperties.state === 'ongoing'">
+					    <a class="waves-effect waves-light"
+					       ng-click="event.openModal('#submitModal')">
 					        <span class="grey-text text-lighten-4">Submit</span>
 					    </a>
 					</li>
@@ -151,8 +152,7 @@
 					<div class="col s12" ng-repeat="team in event.teamList">
 						
 						<ul class="collapsible" 
-						    data-collapsible="accordion"
-						    ng-if="team.players">
+						    data-collapsible="accordion">
 							<li>
 								<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
 								    {{ team.fullName }} &ndash; {{ Utils.keys(team.players).length }}
