@@ -155,7 +155,7 @@
 						    data-collapsible="accordion">
 							<li>
 								<div class="collapsible-header hoverable grey-text text-darken-4 waves-effect waves-teal">
-								    {{ team.fullName }} &ndash; {{ Utils.keys(team.players).length || "0" }}
+								    {{ team.fullName }} &ndash; {{ team.players ? Utils.keys(team.players).length : "0" }}
 								</div>
 								<div class="collapsible-body grey-text text-darken-1">
 									<div class="col s4" ng-repeat="(key, value) in team.players">
