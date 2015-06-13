@@ -107,6 +107,10 @@
 							<p class="grey-text text-darken-1 center-text" style="text-align: center;">
 								You must be logged in to register for an event.
 							</p>
+
+							<p class="grey-text text-darken-1 center-text" style="text-align: center;">
+								{{ Utils.keys(event.playerPool).length }} players have registered for IGBY2.
+							</p>
 						</div>
 					</div>
 				</div>
@@ -138,6 +142,10 @@
 							        ng-if="!event.playerPool[$root.profile.$id]">
 							    Register
 							</button>
+
+							<p class="grey-text text-darken-1 center-text" style="text-align: center;">
+								{{ Utils.keys(event.playerPool).length }} players have registered for IGBY2.
+							</p>
 
 							<span class="grey-text text-darken-1" ng-if="event.playerPool[$root.profile.$id]">
 							    You are registered for IGBY2 on team {{ event.playerPool[$root.profile.$id].team }}.
