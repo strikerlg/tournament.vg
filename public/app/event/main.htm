@@ -158,9 +158,14 @@
 								    {{ team.fullName }} &ndash; {{ team.players ? Utils.keys(team.players).length : "0" }}
 								</div>
 								<div class="collapsible-body grey-text text-darken-1">
-									<div class="col s4" ng-repeat="(key, value) in team.players">
+									<div class="col s4" ng-repeat="(key, value) in team.players" ng-if="team.players">
 										<p style="text-align: center;">
 										    <a ng-href="{{ '#/profile/' + key }}" class="grey-text text-darken-1 hoverable">{{ key }}</a>
+										</p>
+									</div>
+									<div class="col s12" ng-if="!team.players">
+										<p class="grey-text text-darken-1">
+											No players have registered to team {{ team.fullName }}.
 										</p>
 									</div>
 								</div>
