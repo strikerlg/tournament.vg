@@ -316,6 +316,7 @@
                             if (teamTracker[scoresArray[i].team] <= 5) {
 
                                 playerPoints[scoresArray[i].userName].points += totalAward;
+                                playerPoints[scoresArray[i].userName].team = scoresArray[i].team;
 
                                 if (totalAward > 0) {
                                     totalAward -= 1;
@@ -331,6 +332,7 @@
 
                 playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
 
+                console.debug(playerPoints);
                 resolve(playerPoints);
 
             });

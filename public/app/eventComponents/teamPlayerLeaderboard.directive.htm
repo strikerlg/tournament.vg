@@ -20,7 +20,7 @@
 			    style="height: 62px; width: 100%">
 			    <img ng-attr-src="{{ event.avatarData[playerData.key] }}" class="circle z-depth-1">
 				<span class="title grey-text text-darken-4">{{ playerData.key }}</span><br>
-				<span class="grey-text text-darken-1">{{ $index + 1 | ordinal }} &ndash; {{ playerData.points }}</span>
+				<span class="grey-text text-darken-1">{{ $index + 1 | ordinal }} &ndash; {{ playerData.points }}, {{ playerData.team }}</span>
 			</li>
 		</a>
 	</ul>
