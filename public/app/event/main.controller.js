@@ -155,6 +155,11 @@
                 return;
             }
 
+            if (inputModal === '#submitModal' && !$rootScope.profile.pledgedTo.igby2) {
+                Materialize.toast('You must be registered to IGBY2 to submit a score.', 4000);
+                return;
+            }
+
             // This will evaluate to true if a Materialize modal is open.
             if (angular.element('#lean-overlay').length === 1) {
 
