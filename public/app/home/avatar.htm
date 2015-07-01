@@ -9,9 +9,9 @@
 						Customize Avatar
 					</span>
 					<p class="col s12 grey-text text-darken-1">
-						If your profile score is at least 20, you can upload a custom avatar that others will see throughout the site.
+						You can upload a custom avatar that others will see throughout the site.
 						Simply drag and drop your image into the circle below. Your avatar will automatically
-						be converted into a circle. Please ensure your file is less than or equal to 300kb in size.
+						be converted into a circle. <strong>Please ensure your file is less than or equal to 300kb in size.</strong>
 					</p>
 				</div>
 			</div>
@@ -32,21 +32,13 @@
 				</div>
 			</div>
 
-			<div class="row" ng-if="avatar.badgesData.profileScore >= 20">
+			<div class="row">
 				<div class="col s12 center">
 					<button class="waves-effect waves-light btn" 
 					        ng-disabled="!avatar.file[0] || avatar.disableButton" 
 					        ng-click="avatar.uploadAvatar()">
 					    Upload
 					</button>
-				</div>
-			</div>
-
-			<div class="row" ng-if="avatar.badgesData.profileScore < 20 || !avatar.badgesData.profileScore">
-				<div class="col s12 center">
-					<p class="blue-grey-text">
-						You need a profile score of 20 or higher to use a custom avatar.
-					</p>
 				</div>
 			</div>
 
