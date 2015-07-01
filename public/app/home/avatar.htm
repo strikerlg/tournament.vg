@@ -11,7 +11,7 @@
 					<p class="col s12 grey-text text-darken-1">
 						You can upload a custom avatar that others will see throughout the site.
 						Simply drag and drop your image into the circle below. Your avatar will automatically
-						be converted into a circle. <strong>Please ensure your file is less than or equal to 300kb in size.</strong>
+						be converted into a circle. <strong>Please ensure your file is less than or equal to 1mb in size.</strong>
 					</p>
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 				<div class="col s12">
 					<div class="drop-avatar center" ngf-drag-over-class="dragover"
 					     ngf-drop ngf-select ng-model="avatar.file" ngf-multiple="false" ngf-allow-dir="false"
-					     ngf-accept="'image/*'" ngf-max-size='300000'>
+					     ngf-accept="'image/*'" ngf-max-size='1000000'>
 
 					     <img ng-if="!avatar.file[0]" ng-attr-src="{{ avatar.avatarData[$root.profile.userName] }}"
 					          class="drop-avatar" style="margin-left: -3px; padding: 5px;">
