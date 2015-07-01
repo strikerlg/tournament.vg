@@ -383,10 +383,12 @@
                         gamePoints.push({
                             name: game.name,
                             camelName: game.camelName,
-                            points: teamPoints[inputTeam].points
+                            points: (teamPoints[inputTeam] && teamPoints[inputTeam].points) ? teamPoints[inputTeam].points : 0
                         });
 
-                        teamPoints[inputTeam].points = 0;
+                        if (teamPoints[inputTeam] && teamPoints[inputTeam].points) {
+                            teamPoints[inputTeam].points = 0;
+                        }
 
                     }
 
