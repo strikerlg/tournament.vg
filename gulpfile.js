@@ -11,6 +11,7 @@ var gulp         = require('gulp'),
     sourcemaps   = require('gulp-sourcemaps'),
     karma        = require('gulp-karma'),
     del          = require('del'),
+    bust         = require('gulp-buster'),
     watch        = require('gulp-watch');
 
 gulp.task('default', ['launch']);
@@ -27,6 +28,8 @@ gulp.task('scripts', function() {
 	        .pipe(uglify({mangle: true}))
 	    //.pipe(sourcemaps.write())
 	    .pipe(gulp.dest('./public/dist/js'))
+	    .pipe(bust())
+	    .pipe(gulp.dest('./public'))
 
 });
 

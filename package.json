@@ -24,6 +24,7 @@
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.3.0",
+    "gulp-buster": "^1.0.0",
     "gulp-concat": "^2.5.2",
     "gulp-jshint": "^1.10.0",
     "gulp-karma": "0.0.4",
