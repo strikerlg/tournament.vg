@@ -31,6 +31,7 @@
 					<tr class="grey-text text-darken-1">
 						<th>Position</th>
 						<th>Player</th>
+						<th ng-if="event.eventProperties.format.teamBased">Team</th>
 						<th>Score</th>
 						<th>Points Earned</th>
 						<th>Links</th>
@@ -40,8 +41,10 @@
 				<tbody>
 					<tr ng-repeat="scoreData in event.gameScores | orderBy:'-score'" 
 					    class="grey-text"
-					    ng-class="{'text-lighten-1': event.determinePoints(scoreData, $index) === 0,
-					               'text-darken-4':  event.determinePoints(scoreData, $index) > 0}">
+					    ng-class="{'text-lighten-1': (!event.eventProperties.format.teamBased && event.determinePoints(scoreData, $index) === 0) ||
+					                                 (event.eventProperties.format.teamBased && scoreData.points === 0),
+					               'text-darken-4':  (!event.eventProperties.format.teamBased && event.determinePoints(scoreData, $index) > 0) ||
+					                                 (event.eventProperties.format.teamBased && scoreData.points > 0)}">
 						<td>{{ $index + 1 }}</td>
 						<td>
 						    <a class="hoverable"
@@ -49,8 +52,12 @@
 						        {{ scoreData.$id }}
 						    </a>
 						</td>
+						<td ng-if="event.eventProperties.format.teamBased">
+							{{ scoreData.team }}
+						</td>
 						<td>{{ scoreData.score | number }}</td>
-						<td>{{ event.determinePoints(scoreData, $index ) }}</td>
+						<td ng-if="!event.eventProperties.format.teamBased">{{ event.determinePoints(scoreData, $index) }}</td>
+						<td ng-if="event.eventProperties.format.teamBased">{{ scoreData.points }}</td>
 						<td>
 							<a ng-attr-href="{{ 'http://' + scoreData.twitchUrl }}" 
 							   class="grey-text hoverable"
@@ -59,6 +66,15 @@
 							   ng-show="scoreData.twitchUrl"
 							   target="_blank">
 						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
+						    </a>
+
+						    <a ng-attr-href="{{ 'http://' + scoreData.screenshotUrl }}" 
+							   class="grey-text hoverable"
+							   ng-class="{'text-lighten-1': event.determinePoints(scoreData, $index) === 0,
+					                      'text-darken-4':  event.determinePoints(scoreData, $index) > 0}"
+							   ng-show="scoreData.screenshotUrl"
+							   target="_blank">
+						        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
 						    </a>
 
 						    <a ng-attr-href="{{ 'http://' + scoreData.inpUrl }}" 

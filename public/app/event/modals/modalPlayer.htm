@@ -4,7 +4,10 @@
 			<h4 class="player-modal-name truncate">
 			    <img ng-src="{{event.avatarData[event.focusPlayer]}}"
 			         class="circle z-depth-1 player-modal-avatar">
-			    {{ event.focusPlayer }}
+			    {{ event.focusPlayer }} 
+			    <span ng-if="event.playerTeam">
+			    &mdash; {{ event.playerTeam }}
+			    </span>
 			</h4>
 		</a>
 
@@ -48,6 +51,15 @@
 							   ng-show="scoreData.twitchUrl"
 							   target="_blank">
 						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
+						    </a>
+
+						    <a ng-attr-href="{{ 'http://' + scoreData.screenshotUrl }}" 
+							   class="grey-text hoverable"
+							   ng-class="{'text-lighten-1': scoreData.pointsEarned === 0,
+					                      'text-darken-4':  scoreData.pointsEarned > 0}"
+							   ng-show="scoreData.screenshotUrl"
+							   target="_blank">
+						        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
 						    </a>
 
 						    <a ng-attr-href="{{ 'http://' + scoreData.inpUrl }}" 

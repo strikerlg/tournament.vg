@@ -85,7 +85,50 @@
 		    </div>
 
 		    <div id="tabGames" class="col s12 animate fadeIn">
-		        <span class="grey-text text-darken-1">(still in development)</span>
+		        
+				<form class="s12">
+
+					<div class="row">
+						<div class="col s12">
+							<span class="s12 flow-text grey-text text-darken-4">Add Game</span>
+							<p class="s12 grey-text text-darken-1 top0 bottom25">
+					    	    Use this form to add a game to the event.
+					    	</p>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="formalGameName" 
+							       type="text"
+							       ng-model="event.newGame.inputFormalGameName">
+							<label for="formalGameName">Formal Game Name (ie - Donkey Kong)</label>
+						</div>
+
+						<div class="input-field col s6">
+							<input id="mameRomset" 
+							       type="text"
+							       ng-model="event.newGame.inputMameRomset">
+							<label for="mameRomset">MAME Romset</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s12">
+							<textarea id="gameRules" 
+							          class="materialize-textarea" 
+							          ng-model="event.newGame.inputRules">
+							</textarea>
+							<label for="gameRules">Game Rules</label>
+						</div>
+					</div>
+
+					<div class="col s12 right-align">
+						<button class="btn-flat waves-effect" ng-click="event.addGame()">Create</button>
+					</div>
+
+				</form>
+
 		    </div>
 
 		    <div id="tabEvent" class="col s12 animate fadeIn">

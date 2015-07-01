@@ -1,38 +1,95 @@
 <div id="submitModal" class="modal modal-fixed-footer">
 	<div id="submitModalContent" class="modal-content">
+
 		<h4 class="truncate">Submit</h4>
 
 		<div class="divider"></div>
 
-		<p class="grey-text text-darken-4">
-			Badges can be won during any <em>premier</em> competition and are a way to log your
-			achievements across multiple tournaments. After they have been won, badges permanently
-			appear on your site profile and raise your profile score, which can be used in a number of
-			ways throughout the site. 
-		</p>
+		<form name="event.scoreSubmitForm" class="col s12" novalidate>
 
-		<div class="section" ng-if="event.eventProperties.badges.length > 0">
-			<ul class="collection z-depth-1">
-				<li class="waves-effect waves-teal collection-item avatar hoverable" 
-				    style="height: 62px; width: 100%"
-				    ng-repeat="badge in event.eventProperties.badges | orderBy:'-points'">
-				    <img ng-attr-src="{{ './images/badges/' + badge.image }}" class="tournament-badge z-depth-1">
-				    <span class="image-badge">{{ badge.points }}</span>
-					<span class="title grey-text text-darken-4">{{ badge.title }}</span><br>
-					<span class="grey-text text-darken-1">{{ badge.description }}</span>
-				</li>
-			</ul>
-			<div class="divider bottom25 top30" ng-if="!$last" ng-repeat-end></div>
-		</div>
+			<div class="row">
+				<p class="flow-text">Required</p>
+			</div>
 
-		<div class="section" ng-if="event.eventProperties.badges.length === 0">
-			<span class="flow-text text-darken-4" ng-if="event.eventProperties.rules.length === 0">
-				This event does not have any badges.
-			</span>
-		</div>
+			<!-- Team-Based: Game Selection -->
+			<div class="row" ng-if="event.eventProperties.format.teamBased">
+				<div class="col s6">
+					<label for="gameSelect">Game</label>
+					<select name="game"
+					        class="browser-default"
+					        ng-options="game as game.name for game in event.gameList | orderBy:'name'"
+					        ng-model="event.submitSelectedGame">
+					</select>
+				</div>
+			</div>
+
+			<!-- Team-Based: Score Input -->
+			<div class="row" ng-if="event.eventProperties.format.teamBased">
+				<div class="input-field col s12 m6">
+					<label for="userTeam" class="active">Team</label>
+					<input id="userTeam" 
+					       name="userTeam" 
+					       type="text" 
+					       ng-model="event.playerPool[$root.profile.$id].team"
+					       disabled>
+				</div>
+
+				<div class="input-field col s12 m6">
+					<label for="inputScore">Score</label>
+					<input id="inputScore" name="score" type="text" ng-model="event.submitUserScore" numbers-only>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s12">
+					<p>
+						<input type="checkbox" id="isLegit" ng-model="event.submitLegit">
+						<label for="isLegit" class="grey-text text-darken-1">
+						    The submitted information is legit and I have followed the game's rules to the best of my ability.
+						</label>
+					</p>
+				</div>
+			</div>
+
+			<div class="divider top25 bottom20"></div>
+
+			<div class="row">
+				<p class="flow-text">Optional &mdash; Screenshots, Highlights, and INPs</p>
+				<span class="grey-text text-darken-1">
+					Please be aware that for the time being, tournament.vg does not provide an upload service
+					for MAME INPs or screenshots. Please upload your INP somewhere such as MARP, Dropbox, Google Drive,
+					Mega.nz, or a Twin Galaxies submission and paste the link to it here. A good place to upload screenshots is imgur.com.
+				</span>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<label for="twitchUrl">Twitch / Video URL</label>
+					<input id="twitchUrl" name="twitchUrl" type="text" ng-model="event.submitTwitchUrl">
+				</div>
+				<div class="input-field col s12 m6">
+					<label for="screenshotUrl">Screenshot URL</label>
+					<input id="screenshotUrl" name="screenshotUrl" type="text" ng-model="event.submitScreenshotUrl">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<label for="inpUrl">Replay / INP URL</label>
+					<input id="inpUrl" name="inpUrl" type="text" ng-model="event.submitInpUrl">
+				</div>
+				<div class="input-field col s12 m6">
+					<label for="inpMameVersion">MAME Version</label>
+					<input id="inpMameVersion" name="inpMameVersion" type="text" ng-model="event.submitInpMameVersion">
+				</div>
+			</div>
+
+		</form>
+
 	</div>
 
 	<div class="modal-footer">
+		<a ng-click="event.submitScore()" class="modal-action waves-effect btn-flat">Submit</a>
 		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
 	</div>
 </div>

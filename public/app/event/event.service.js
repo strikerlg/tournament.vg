@@ -6,14 +6,17 @@
         .service('eventService', eventService);
 
     /* @ngInject */
-    function eventService($q, $filter, $firebaseObject, $firebaseArray, FIREBASEDATA, teamService) {
+    function eventService($q, $filter, $rootScope, $firebaseObject, $firebaseArray, FIREBASEDATA, teamService) {
 
         var _eventProperties = null;
         var _gameList = null;
         var _leaderboardLength = null;
         var _summarizedLeaderboard = null;
+        var _teamLeaderboardLength = null;
+        var _teamSummarizedLeaderboard = null;
         var _teamList = null;
 
+        this.addGame = addGame;
         this.createMultiGameFinalStandings = createMultiGameFinalStandings;
         this.getEventProperties = getEventProperties;
         this.getEventPropertiesObject = getEventPropertiesObject;
@@ -23,14 +26,38 @@
         this.getLeaderboardLengthValue = getLeaderboardLengthValue;
         this.getMultiGameLeaderboard = getMultiGameLeaderboard;
         this.getPlayerScores = getPlayerScores;
+        this.getPlayerTeamScores = getPlayerTeamScores;
         this.getPlayerPool = getPlayerPool;
         this.getSingleGameLeaderboard = getSingleGameLeaderboard;
         this.getSummarizedLeaderboardObject = getSummarizedLeaderboardObject;
+        this.getTeamBasedMultiGamePlayerLeaderboard = getTeamBasedMultiGamePlayerLeaderboard;
+        this.getTeamGameScores = getTeamGameScores;
+        this.getTeamLeaderboardLengthValue = getTeamLeaderboardLengthValue;
         this.getTeamListObject = getTeamListObject;
+        this.getTeamSummarizedLeaderboardObject = getTeamSummarizedLeaderboardObject;
         this.loadEventProperties = loadEventProperties;
         this.submitTeamBasedRegistration = submitTeamBasedRegistration;
+        this.submitTeamMultiGameScore = submitTeamMultiGameScore;
 
         ////////////////
+
+        function addGame(inputEvent, inputFormalGameName, inputMameRomset, inputRules) {
+
+            return $q(function(resolve, reject) {
+
+                var newGame = {
+                    name: inputFormalGameName,
+                    mameSet: inputMameRomset,
+                    rules: inputRules
+                };
+
+                _gameList.$add(newGame);
+
+                resolve();
+
+            });
+
+        }
 
         function createMultiGameFinalStandings(inputEvent) {
 
@@ -107,7 +134,7 @@
 
                 gamesList.forEach(function(game) {
 
-                    if (game.camelName === inputGame) {
+                    if (game.name === inputGame) {
                         deferred.resolve(game);
                     }
 
@@ -258,6 +285,187 @@
             return _summarizedLeaderboard;
         }
 
+        function getTeamBasedMultiGamePlayerLeaderboard(inputEvent) {
+
+            return $q(function(resolve, reject) {
+
+                var playerPoints = {};
+                _gameList.forEach(function(game) {
+
+                    if (game.scores) {
+
+                        var scoresArray = $.map(game.scores, function(el) { return el; });
+                        scoresArray = $filter('orderBy')(scoresArray, '-score');
+                        var totalAward = _teamList.length * 5;
+                        var teamTracker = {};
+
+                        for (var i = 0; i < scoresArray.length; i++) {
+
+                            if (!teamTracker[scoresArray[i].team]) {
+                                teamTracker[scoresArray[i].team] = 1;
+                            } else {
+                                teamTracker[scoresArray[i].team] += 1;
+                            }
+
+                            if (!playerPoints[scoresArray[i].userName]) {
+                                playerPoints[scoresArray[i].userName] = {
+                                    points: 0
+                                };
+                            }
+
+                            if (teamTracker[scoresArray[i].team] <= 5) {
+
+                                playerPoints[scoresArray[i].userName].points += totalAward;
+
+                                if (totalAward > 0) {
+                                    totalAward -= 1;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                });
+
+                playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
+
+                resolve(playerPoints);
+
+            });
+
+        }
+
+        function getTeamGameScores(inputEvent, inputTeam) {
+
+            return $q(function(resolve, reject) {
+
+                var playerPoints = {};
+                var teamPoints = {};
+                var gamePoints = [];
+
+                _gameList.forEach(function(game) {
+
+                    if (game.scores) {
+
+                        var scoresArray = $.map(game.scores, function(el) { return el; });
+                        scoresArray = $filter('orderBy')(scoresArray, '-score');
+                        var totalAward = _teamList.length * 5;
+                        var teamTracker = {};
+
+                        for (var i = 0; i < scoresArray.length; i++) {
+
+                            if (!teamTracker[scoresArray[i].team]) {
+                                teamTracker[scoresArray[i].team] = 1;
+                            } else {
+                                teamTracker[scoresArray[i].team] += 1;
+                            }
+
+                            if (!teamPoints[scoresArray[i].team]) {
+                                teamPoints[scoresArray[i].team] = {
+                                    points: 0
+                                };
+                            }
+
+                            if (teamTracker[scoresArray[i].team] <= 5) {
+
+                                teamPoints[scoresArray[i].team].points += totalAward;
+
+                                if (totalAward > 0) {
+                                    totalAward -= 1;
+                                }
+
+                            }
+
+                        }
+
+                        gamePoints.push({
+                            name: game.name,
+                            camelName: game.camelName,
+                            points: teamPoints[inputTeam].points
+                        });
+
+                        teamPoints[inputTeam].points = 0;
+
+                    }
+
+                });
+
+                teamPoints = $filter('orderObjectBy')(teamPoints, 'points', true);
+                resolve(gamePoints);
+
+            });
+
+        }
+
+        function getTeamLeaderboard(inputEvent) {
+
+            return $q(function(resolve, reject) {
+
+                var playerPoints = {};
+                var teamPoints = {};
+                _gameList.forEach(function(game) {
+
+                    if (game.scores) {
+
+                        var scoresArray = $.map(game.scores, function(el) { return el; });
+                        scoresArray = $filter('orderBy')(scoresArray, '-score');
+                        var totalAward = _teamList.length * 5;
+                        var teamTracker = {};
+
+                        for (var i = 0; i < scoresArray.length; i++) {
+
+                            if (!teamTracker[scoresArray[i].team]) {
+                                teamTracker[scoresArray[i].team] = 1;
+                            } else {
+                                teamTracker[scoresArray[i].team] += 1;
+                            }
+
+                            if (!teamPoints[scoresArray[i].team]) {
+                                teamPoints[scoresArray[i].team] = {
+                                    points: 0
+                                };
+                            }
+
+                            if (teamTracker[scoresArray[i].team] <= 5) {
+
+                                teamPoints[scoresArray[i].team].points += totalAward;
+
+                                if (totalAward > 0) {
+                                    totalAward -= 1;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                });
+
+                teamPoints = $filter('orderObjectBy')(teamPoints, 'points', true);
+
+                // Get the full name of the teams.
+                teamPoints.forEach(function(team) {
+
+                    // Find this team in the teamList array.
+                    _teamList.forEach(function(completeTeam) {
+
+                        if (team.key === completeTeam.$id) {
+                            team.fullName = completeTeam.fullName;
+                        }
+
+                    });
+
+                });
+
+                resolve(teamPoints);
+
+            });
+
+        }
+
         function getTeamListObject() {
             return _teamList;
         }
@@ -277,6 +485,74 @@
             deferred.resolve(playerPoolData);
 
             return deferred.promise;
+
+        }
+
+        function getPlayerTeamScores(inputEvent, inputGamesList, inputPlayer) {
+
+            return $q(function(resolve, reject) {
+
+                var displayScores = [];
+                var playerPoints = {};
+                var teamTracker = {};
+
+                // Iterate through every game.
+                inputGamesList.forEach(function(game) {
+
+                    if (game.scores) {
+
+                        var scoresArray = $.map(game.scores, function(el) { return el; });
+                        scoresArray = $filter('orderBy')(scoresArray, '-score');
+                        var totalAward = _teamList.length * 5;
+                        var teamTracker = {};
+
+                        for (var i = 0; i < scoresArray.length; i++) {
+
+                            if (!teamTracker[scoresArray[i].team]) {
+                                teamTracker[scoresArray[i].team] = 1;
+                            } else {
+                                teamTracker[scoresArray[i].team] += 1;
+                            }
+
+                            if (!playerPoints[scoresArray[i].userName]) {
+                                playerPoints[scoresArray[i].userName] = {
+                                    points: 0
+                                };
+                            }
+
+                            if (scoresArray[i].userName === inputPlayer) {
+
+                                var newScoreObject = {};
+                                newScoreObject.position = i+1;
+                                newScoreObject.name = game.name;
+                                newScoreObject.team = scoresArray[i].team;
+                                newScoreObject.score = scoresArray[i].score;
+                                newScoreObject.inpUrl = scoresArray[i].inpUrl ? scoresArray[i].inpUrl : null;
+                                newScoreObject.twitchUrl = scoresArray[i].twitchUrl ? scoresArray[i].twitchUrl : null;
+                                newScoreObject.screenshotUrl = scoresArray[i].screenshotUrl ? scoresArray[i].screenshotUrl : null;
+                                newScoreObject.mameVersion = scoresArray[i].mameVersion ? scoresArray[i].mameVersion : null;
+
+                                if (teamTracker[scoresArray[i].team] <= 5) {
+                                    newScoreObject.pointsEarned = totalAward;
+                                } else {
+                                    newScoreObject.pointsEarned = 0;
+                                }
+
+                                displayScores.push(newScoreObject);
+
+                            } else {
+                                totalAward -= 1;
+                            }
+
+                        }
+
+                    }
+
+                });
+
+                resolve(displayScores);
+
+            });
 
         }
 
@@ -333,6 +609,14 @@
 
         }
 
+        function getTeamLeaderboardLengthValue() {
+            return _teamLeaderboardLength;
+        }
+
+        function getTeamSummarizedLeaderboardObject() {
+            return _teamSummarizedLeaderboard;
+        }
+
         function loadEventProperties(inputEvent) {
 
             var ref = new Firebase(FIREBASEDATA.FBURL);
@@ -354,11 +638,34 @@
                         getFirstPlaceScores();
                     });
 
-                    getMultiGameLeaderboard(inputEvent).then(function then(model) {
-                        var leaderboard = model;
-                        _leaderboardLength = leaderboard.length;
-                        _summarizedLeaderboard = leaderboard.slice(0, 8);
-                    });
+                    // Is this a team-based event?
+                    if (!_eventProperties.format.teamBased) {
+
+                        getMultiGameLeaderboard(inputEvent).then(function then(model) {
+                            var leaderboard = model;
+                            _leaderboardLength = leaderboard.length;
+                            _summarizedLeaderboard = leaderboard.slice(0, 8);
+                        });
+
+                    } else {
+
+                        teamService.getTeamList(inputEvent).then(function then(model) {
+                            _teamList = model;
+
+                            getTeamBasedMultiGamePlayerLeaderboard(inputEvent).then(function then(model) {
+                                var leaderboard = model;
+                                _leaderboardLength = leaderboard.length;
+                                _summarizedLeaderboard = leaderboard.slice(0, 8);
+                            });
+
+                            getTeamLeaderboard(inputEvent).then(function then(model) {
+                                var leaderboard = model;
+                                _teamLeaderboardLength = leaderboard.length;
+                                _teamSummarizedLeaderboard = leaderboard.slice(0, 8);
+                            });
+                        });
+
+                    }
 
                 // If this is a single game event, get the data needed for single game components.
                 } else {
@@ -385,8 +692,6 @@
         }
 
         function submitTeamBasedRegistration(inputEvent, inputTeamObject, inputUID, inputUsername) {
-
-            console.debug(arguments);
 
             var ref = new Firebase(FIREBASEDATA.FBURL);
             
@@ -437,6 +742,71 @@
             });
 
             Materialize.toast('You are now registered for IGBY2.', 4000);
+
+        }
+
+        function submitTeamMultiGameScore(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion) {
+
+            return $q(function(resolve, reject) {
+
+                var ref = new Firebase(FIREBASEDATA.FBURL);
+
+                var userGameScore = $firebaseObject(
+                    ref
+                        .child('contests')
+                        .child(inputEvent)
+                        .child('activeGames')
+                        .child(inputGame.$id)
+                        .child('scores')
+                );
+
+                userGameScore.$loaded().then(function() {
+
+                    // Prompt http(s) removal.
+                    // FIXME: Handle this automatically. This is half-assed for the time being.
+                    if (inputTwitchUrl) {
+                        if (inputTwitchUrl.indexOf('http') !== -1) {
+                            Materialize.toast('Please remove http:// or https:// from your link.', 4000);
+                            reject('invalid');
+                            return;
+                        }
+                    }
+
+                    if (inputInpUrl) {
+                        if (inputInpUrl.indexOf('http') !== -1) {
+                            Materialize.toast('Please remove http:// or https:// from your link.', 4000);
+                            reject('invalid');
+                            return;
+                        }
+                    }
+
+                    if (inputScreenshotUrl) {
+                        if (inputScreenshotUrl.indexOf('http') !== -1) {
+                            Materialize.toast('Please remove http:// or https:// from your link.', 4000);
+                            reject('invalid');
+                            return;
+                        }
+                    }
+
+                    userGameScore[$rootScope.profile.userName] = {
+                        score: Number(inputScore),
+                        userName: $rootScope.profile.userName,
+                        twitchUrl: inputTwitchUrl ? inputTwitchUrl : null,
+                        inpUrl: inputInpUrl ? inputInpUrl : null,
+                        mameVersion: inputMameVersion ? inputMameVersion : null,
+                        screenshotUrl: inputScreenshotUrl ? inputScreenshotUrl : null,
+                        team: inputTeam
+                    };
+
+                    userGameScore.$save();
+                    Materialize.toast('Your score was submitted!', 4000);
+                    resolve();
+
+                    // TODO: Add to recent activity.
+
+                });
+
+            });
 
         }
 

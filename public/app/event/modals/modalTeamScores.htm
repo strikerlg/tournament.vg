@@ -1,0 +1,46 @@
+<div id="teamScoresModal" class="modal modal-fixed-footer">
+	<div id="teamScoresModalContent" class="modal-content">
+		<a class="grey-text text-darken-4">
+			<h4 class="player-modal-name truncate">
+			    {{ event.focusTeam.fullName || "No Name" }}
+			</h4>
+		</a>
+
+		<div class="divider"></div>
+
+		<div class="section">
+			<span class="flow-text text-darken-4" ng-if="event.teamScores.length === 0">
+				This team does not have any points in the competition.
+			</span>
+
+			<table class="responsive-table hoverable" ng-if="event.teamScores.length > 0">
+
+				<thead>
+					<tr class="grey-text text-darken-1">
+						<th>Game</th>
+						<th>Points Earned</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="scoreData in event.teamScores | orderBy:['-points', 'name']" 
+					    class="grey-text"
+					    ng-class="{'text-lighten-1': scoreData.points === 0,
+					               'text-darken-4':  scoreData.points > 0}">
+						<td>
+						    <a ng-click="event.openGameModal(scoreData.camelName)" class="hoverable">
+						        {{ scoreData.name }}
+						    </a>
+						</td>
+						<td>{{ scoreData.points }}</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>

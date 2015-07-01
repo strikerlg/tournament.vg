@@ -5,6 +5,7 @@
 <ng-include src="'./app/event/modals/modalBadges.htm'"></ng-include>
 <ng-include src="'./app/event/modals/modalSubmit.htm'"></ng-include>
 <ng-include src="'./app/event/modals/modalManagement.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalTeamScores.htm'"></ng-include>
 
 <div class="container">
 	
@@ -14,8 +15,8 @@
 		<nav class="event-nav">
 			<div class="nav-wrapper grey-text text-lighten-4" 
 			     ng-class="event.eventProperties.color">
-				<a ng-click="" class="brand-logo truncate">
-					<i class="mdi-action-turned-in-not small"
+				<a ng-click="" class="brand-logo truncate hide-on-small-only">
+					<i class="mdi-action-turned-in-not small hide-on-small-only"
 					   ng-if="event.eventProperties.premier"></i>
 				    {{ event.eventProperties.name }}
 				</a>
@@ -37,11 +38,12 @@
 					</li>
 					<li ng-if="event.eventProperties.premier">
 					    <a class="waves-effect waves-light"
-					       ng-click="event.openModal('#badgesModal')">
+					       ng-click="event.openModal('#badgesModal')"
+					       ng-if="event.eventProperties.name !== 'Internet Gaming Bash of the Year 2'">
 					        <span class="grey-text text-lighten-4">Badges</span>
 					    </a>
 					</li>
-					<li ng-if="event.eventProperties.state === 'ongoing'">
+					<li ng-if="event.eventProperties.state === 'inprogress'">
 					    <a class="waves-effect waves-light"
 					       ng-click="event.openModal('#submitModal')">
 					        <span class="grey-text text-lighten-4">Submit</span>
@@ -186,18 +188,30 @@
 
 		</div>
 
-		<div class="card-content" ng-if="event.eventProperties.state === 'inprogress' || event.eventProperties.state === 'concluded'">
+		<div class="card-content" ng-if="event.eventProperties.state === 'concluded' || event.eventProperties.state === 'inprogress'">
 
 			<!-- Sticky Message -->
 			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
 
-			<!-- Leaderboard -->
-			<div ng-if="!event.eventProperties.format.multiGame">
-				<vg-single-game-leaderboard></vg-single-game-leaderboard>
+			<!-- Individual-Based Leaderboard -->
+			<div ng-if="!event.eventProperties.format.teamBased">
+				<div ng-if="!event.eventProperties.format.multiGame">
+					<vg-single-game-leaderboard></vg-single-game-leaderboard>
+				</div>
+
+				<div ng-if="event.eventProperties.format.multiGame">
+					<vg-multi-game-leaderboard></vg-multi-game-leaderboard>
+				</div>
 			</div>
 
-			<div ng-if="event.eventProperties.format.multiGame">
-				<vg-multi-game-leaderboard></vg-multi-game-leaderboard>
+			<!-- Team-Based Leaderboards -->
+			<div ng-if="event.eventProperties.format.teamBased" class="row">
+				<vg-team-teams-leaderboard></vg-team-teams-leaderboard>
+				<vg-team-player-leaderboard></vg-team-player-leaderboard>				
+			</div>
+
+			<div ng-if="event.eventProperties.format.teamBased">		
+				<div class="divider bottom25 top30"></div>
 			</div>
 
 			<!-- Games List -->

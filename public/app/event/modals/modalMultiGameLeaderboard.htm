@@ -1,6 +1,11 @@
 <div id="multiGameLeaderboardModal" class="modal modal-fixed-footer">
 	<div id="multiGameLeaderboardModalContent" class="modal-content">
-		<h4 class="truncate">Leaderboard</h4>
+		<h4 class="truncate" ng-if="!event.eventProperties.format.teamBased">
+			Leaderboard
+		</h4>
+		<h4 class="truncate" ng-if="event.eventProperties.format.teamBased">
+			Player Leaderboard
+		</h4>
 
 		<div class="divider"></div>
 
@@ -15,7 +20,12 @@
 				<li class="waves-effect waves-teal collection-item avatar hoverable" style="height: 62px;">
 				    <img ng-attr-src="{{ event.avatarData[playerData.key] }}" class="circle z-depth-1">
 					<span class="title grey-text text-darken-4">{{ playerData.key }}</span><br>
-					<span class="grey-text text-darken-1">{{ playerData.position | ordinal }} &ndash; {{ playerData.points }}</span>
+					<span class="grey-text text-darken-1" ng-if="!playerData.position && playerData.points !== 0">
+					    {{ (playerData.position | ordinal) || $index+1 | ordinal }} &ndash; {{ playerData.points }}
+					</span>
+					<span class="grey-text text-darken-1" ng-if="!playerData.position && playerData.points === 0">
+						0
+					</span>
 				</li>
 				</a>
 			</ul>
