@@ -331,8 +331,6 @@
                 });
 
                 playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
-
-                console.debug(playerPoints);
                 resolve(playerPoints);
 
             });
