@@ -278,6 +278,11 @@
 
         function submitScore() {
 
+            if (!vm.submitTwitchUrl && !vm.submitScreenshotUrl && !vm.submitInpUrl) {
+                Materialize.toast('At least one form of evidence is required.', 4000);
+                return;
+            }
+
             if (vm.scoreSubmitForm.$valid) {
 
                 if (vm.eventProperties.format.teamBased && vm.eventProperties.format.multiGame) {

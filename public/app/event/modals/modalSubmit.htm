@@ -13,25 +13,13 @@
 
 			<!-- Team-Based: Game Selection -->
 			<div class="row" ng-if="event.eventProperties.format.teamBased">
-				<div class="col s6">
+				<div class="col s12 m6">
 					<label for="gameSelect">Game</label>
 					<select name="game"
 					        class="browser-default"
 					        ng-options="game as game.name for game in event.gameList | orderBy:'name'"
 					        ng-model="event.submitSelectedGame">
 					</select>
-				</div>
-			</div>
-
-			<!-- Team-Based: Score Input -->
-			<div class="row" ng-if="event.eventProperties.format.teamBased">
-				<div class="input-field col s12 m6">
-					<label for="userTeam" class="active">Team</label>
-					<input id="userTeam" 
-					       name="userTeam" 
-					       type="text" 
-					       ng-model="event.playerPool[$root.profile.$id].team"
-					       disabled>
 				</div>
 
 				<div class="input-field col s12 m6">
@@ -40,21 +28,10 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col s12">
-					<p>
-						<input type="checkbox" id="isLegit" ng-model="event.submitLegit">
-						<label for="isLegit" class="grey-text text-darken-1">
-						    The submitted information is legit and I have followed the game's rules to the best of my ability.
-						</label>
-					</p>
-				</div>
-			</div>
-
 			<div class="divider top25 bottom20"></div>
 
 			<div class="row">
-				<p class="flow-text">Optional &mdash; Screenshots, Highlights, and INPs</p>
+				<p class="flow-text">Provide One &mdash; Screenshots, Highlights, and INPs</p>
 				<span class="grey-text text-darken-1">
 					Please be aware that for the time being, tournament.vg does not provide an upload service
 					for MAME INPs or screenshots. Please upload your INP somewhere such as MARP, Dropbox, Google Drive,
@@ -64,7 +41,7 @@
 
 			<div class="row">
 				<div class="input-field col s12 m6">
-					<label for="twitchUrl">Twitch / Video URL</label>
+					<label for="twitchUrl">Twitch / YouTube / Video URL</label>
 					<input id="twitchUrl" name="twitchUrl" type="text" ng-model="event.submitTwitchUrl">
 				</div>
 				<div class="input-field col s12 m6">
@@ -75,7 +52,7 @@
 
 			<div class="row">
 				<div class="input-field col s12 m6">
-					<label for="inpUrl">Replay / INP URL</label>
+					<label for="inpUrl">INP / Replay URL</label>
 					<input id="inpUrl" name="inpUrl" type="text" ng-model="event.submitInpUrl">
 				</div>
 				<div class="input-field col s12 m6">
