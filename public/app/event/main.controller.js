@@ -150,6 +150,11 @@
 
         function openModal(inputModal) {
 
+            if (inputModal === '#submitModal' && !$rootScope.profile) {
+                $state.go('registerOrLogin');
+                return;
+            }
+
             // This will evaluate to true if a Materialize modal is open.
             if (angular.element('#lean-overlay').length === 1) {
 
