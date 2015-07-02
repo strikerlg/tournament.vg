@@ -4,7 +4,7 @@
 			Active Streamers
 		</span>
 	</div>
-	<div ng-repeat="streamer in vm.activeStreamerList" class="col s12 m4 l3">
+	<div ng-repeat="streamer in vm.activeStreamerList" class="col s12 m4">
 		<a ng-href="{{ 'http://twitch.tv/' + streamer.twitch }}" target="_blank" class="hoverable">
 			<p class="col s12 m4 grey-text text-darken-4 hoverable" style="padding-bottom: 10px;">
 				{{ streamer.userName }}, {{ streamer.team }}
