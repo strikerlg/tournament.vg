@@ -2,6 +2,8 @@
 	<div id="teamScoresModalContent" class="modal-content">
 		<a class="grey-text text-darken-4">
 			<h4 class="player-modal-name truncate">
+				<img ng-src="{{ '../../../images/teams/' + event.focusTeam.key + '.png' }}"
+				     class="circle z-depth-1 player-modal-avatar">
 			    {{ event.focusTeam.fullName || "No Name" }}
 			</h4>
 		</a>
