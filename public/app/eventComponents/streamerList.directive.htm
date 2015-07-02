@@ -1,0 +1,16 @@
+<div class="row" ng-if="vm.activeStreamerList">
+	<div class="col s12">
+		<span class="col s12 flow-text grey-text text-darken-4" style="padding-left: 5px;">
+			Active Streamers
+		</span>
+	</div>
+	<div ng-repeat="streamer in vm.activeStreamerList" class="col s12 m4 l3">
+		<a ng-href="{{ 'http://twitch.tv/' + streamer.twitch }}" target="_blank" class="hoverable">
+			<p class="col s12 m4 l3 grey-text text-darken-4 hoverable">
+				{{ streamer.userName }}
+			</p>
+		</a>
+	</div>
+</div>
+
+<div ng-if="vm.activeStreamerList" class="divider bottom25 top30"></div>

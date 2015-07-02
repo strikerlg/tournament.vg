@@ -78,6 +78,18 @@ a.hoverable:hover {
           transition: color .3s ease-out;
 }
 
+p.hoverable {
+  -webkit-transition: color .3s ease-out;
+          transition: color .3s ease-out;
+  color: inherit;
+  cursor: pointer;
+}
+p.hoverable:hover {
+  color: #607d8b !important;
+  -webkit-transition: color .3s ease-out;
+          transition: color .3s ease-out;
+}
+
 .collapsible-header.hoverable {
   -webkit-transition: background-color 1s ease-out;
           transition: background-color 1s ease-out;

@@ -27,6 +27,17 @@ a.hoverable {
     }
 }
 
+p.hoverable {
+    transition: color .3s ease-out;
+    color: inherit;
+    cursor: pointer;
+    &:hover {
+        color: $blue-grey !important;
+        transition: color .3s ease-out;
+    }
+}
+
+
 .collapsible-header.hoverable {
     transition: background-color 1s ease-out;
     &:hover {

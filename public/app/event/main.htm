@@ -193,6 +193,11 @@
 			<!-- Sticky Message -->
 			<vg-sticky-message properties="event.eventProperties"></vg-sticky-message>
 
+			<!-- Streamer List -->
+			<div ng-if="event.eventProperties.state === 'inprogress'">
+				<vg-streamer-list></vg-streamer-list>
+			</div>
+
 			<!-- Individual-Based Leaderboard -->
 			<div ng-if="!event.eventProperties.format.teamBased">
 				<div ng-if="!event.eventProperties.format.multiGame">
