@@ -39,3 +39,126 @@
 	}
 	
 }
+
+.bg10yard::after {
+	background: url('../../../images/games/10yard.png');
+}
+
+.bgastdelux::after {
+	background: url('../../../images/games/astdelux.png');
+}
+
+.bgbgaregga::after {
+	background: url('../../../images/games/bgaregga.png');
+}
+
+.bgbublbob2::after {
+	background: url('../../../images/games/bublbob2.png');
+}
+
+.bgdkong3::after {
+	background: url('../../../images/games/dkong3.png');
+}
+
+.bgdkongx::after {
+	background: url('../../../images/games/dkongx.png');
+}
+
+.bgdowild::after {
+	background: url('../../../images/games/dowild.png');
+}
+
+.bggekisou::after {
+	background: url('../../../images/games/gekisou.png');
+}
+
+.bgintrepid::after {
+	background: url('../../../images/games/intrepid.png');
+}
+
+.bgladybug::after {
+	background: url('../../../images/games/ladybug.png');
+}
+
+.bgmspacman::after {
+	background: url('../../../images/games/mspacman.png');
+}
+
+.bgmustache::after {
+	background: url('../../../images/games/mustache.png');
+}
+
+.bgs1945::after {
+	background: url('../../../images/games/s1945.png');
+}
+
+.bgsbrkout::after {
+	background: url('../../../images/games/sbrkout.png');
+}
+
+.bgshocktro::after {
+	background: url('../../../images/games/shocktro.png');
+}
+
+.bgsonson::after {
+	background: url('../../../images/games/sonson.png');
+}
+
+.bgspacfury::after {
+	background: url('../../../images/games/spacfury.png');
+}
+
+.bgstarfigh::after {
+	background: url('../../../images/games/starfigh.png');
+}
+
+.bgstarforc::after {
+	background: url('../../../images/games/starforc.png');
+}
+
+.bgtimescan::after {
+	background: url('../../../images/games/timescan.png');
+}
+
+.bgtoutrun::after {
+	background: url('../../../images/games/toutrun.png');
+}
+
+.bgtetrisp2::after {
+	background: url('../../../images/games/tetrisp2.png');
+}
+
+.bgtp84::after {
+	background: url('../../../images/games/tp84.png');
+}
+
+.bgtriplep::after {
+	background: url('../../../images/games/triplep.png');
+}
+
+.bgturtles::after {
+	background: url('../../../images/games/turtles.png');
+}
+
+.bgtutankhm::after {
+	background: url('../../../images/games/tutankhm.png');
+}
+
+.bgrainbow::after {
+	background: url('../../../images/games/rainbow.png')
+}
+
+.bgsf2ce::after {
+	background: url('../../../images/games/sf2ce.png');
+}
+
+.game-card::after {
+	content: "";
+	opacity: 0.05;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+	z-index: -1;
+}

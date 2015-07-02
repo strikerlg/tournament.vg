@@ -163,6 +163,7 @@
         	);
 
         	_gameList.$loaded().then(function() {
+
                 getFirstPlaceScores();
 
                 _gameList.$watch(function(event) {
