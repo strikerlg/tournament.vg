@@ -13,8 +13,11 @@
 				<div class="row valign-wrapper">
 					<div class="col s12">
 						<h6 class="truncate grey-text text-darken-4"><strong>{{ game.name }}</strong></h6>
-						<p class="truncate grey-text text-darken-4">
+						<p class="truncate grey-text text-darken-4" ng-if="!event.eventProperties.format.teamBased">
 						    {{ game.firstScore.userName }} &ndash; {{ game.firstScore.score | number }}
+						</p>
+						<p class="truncate grey-text text-darken-4" ng-if="event.eventProperties.format.teamBased">
+						    {{game.firstScore.team}}.{{ game.firstScore.userName }} &ndash; {{ game.firstScore.score | number }}
 						</p>
 					</div>
 				</div>
