@@ -155,15 +155,21 @@
         	var deferred = $q.defer();
 
         	var ref = new Firebase(FIREBASEDATA.FBURL);
-        	var gamesList = $firebaseArray(
+        	_gameList = $firebaseArray(
         		ref
         			.child('contests')
         			.child(inputEvent)
         			.child('activeGames')
         	);
 
-        	gamesList.$loaded().then(function() {
-        		deferred.resolve(gamesList);
+        	_gameList.$loaded().then(function() {
+                getFirstPlaceScores();
+
+                _gameList.$watch(function(event) {
+                    getFirstPlaceScores();
+                });
+
+        		deferred.resolve(_gameList);
         	});
 
         	return deferred.promise;
@@ -636,7 +642,6 @@
                 if (_eventProperties.format.multiGame) {
 
                     getGamesList(inputEvent).then(function then(model) {
-                        _gameList = model;
                         getFirstPlaceScores();
                     });
 

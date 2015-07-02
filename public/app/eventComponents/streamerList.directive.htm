@@ -1,4 +1,4 @@
-<div class="row" ng-if="vm.activeStreamerList">
+<div class="row" ng-if="vm.activeStreamerList.length > 0">
 	<div class="col s12">
 		<span class="col s12 flow-text grey-text text-darken-4" style="padding-left: 5px;">
 			Active Streamers
@@ -13,4 +13,4 @@
 	</div>
 </div>
 
-<div ng-if="vm.activeStreamerList" class="divider bottom25 top30"></div>
+<div ng-if="vm.activeStreamerList.length > 0" class="divider bottom25 top30"></div>
