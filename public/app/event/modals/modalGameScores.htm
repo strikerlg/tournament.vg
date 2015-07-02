@@ -58,7 +58,7 @@
 						<td>{{ scoreData.score | number }}</td>
 						<td ng-if="!event.eventProperties.format.teamBased">{{ event.determinePoints(scoreData, $index) }}</td>
 						<td ng-if="event.eventProperties.format.teamBased">{{ scoreData.points }}</td>
-						<td>
+						<td ng-if="!event.eventProperties.format.teamBased">
 							<a ng-attr-href="{{ 'http://' + scoreData.twitchUrl }}" 
 							   class="grey-text hoverable"
 							   ng-class="{'text-lighten-1': event.determinePoints(scoreData, $index) === 0,
@@ -81,6 +81,33 @@
 						       class="grey-text hoverable"
 						       ng-class="{'text-lighten-1': event.determinePoints(scoreData, $index) === 0,
 					                      'text-darken-4':  event.determinePoints(scoreData, $index) > 0}"
+						       ng-show="scoreData.inpUrl">
+						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ scoreData.mameVersion | lowercase }}</span>
+						    </a>
+						</td>
+						<td ng-if="event.eventProperties.format.teamBased">
+							<a ng-attr-href="{{ 'http://' + scoreData.twitchUrl }}" 
+							   class="grey-text hoverable"
+							   ng-class="{'text-lighten-1': scoreData.points === 0,
+					                      'text-darken-4':  scoreData.points > 0}"
+							   ng-show="scoreData.twitchUrl"
+							   target="_blank">
+						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
+						    </a>
+
+						    <a ng-attr-href="{{ 'http://' + scoreData.screenshotUrl }}" 
+							   class="grey-text hoverable"
+							   ng-class="{'text-lighten-1': scoreData.points === 0,
+					                      'text-darken-4':  scoreData.points > 0}"
+							   ng-show="scoreData.screenshotUrl"
+							   target="_blank">
+						        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
+						    </a>
+
+						    <a ng-attr-href="{{ 'http://' + scoreData.inpUrl }}" 
+						       class="grey-text hoverable"
+						       ng-class="{'text-lighten-1': scoreData.points === 0,
+					                      'text-darken-4':  scoreData.points > 0}"
 						       ng-show="scoreData.inpUrl">
 						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ scoreData.mameVersion | lowercase }}</span>
 						    </a>
