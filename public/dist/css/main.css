@@ -551,6 +551,11 @@ textarea.materialize-textarea.invalid-field:focus:not([readonly]) + label {
   background: url("../../../images/games/sf2ce.png");
 }
 
+.shoutbox-panel {
+  max-height: 150px;
+  overflow-x: scroll;
+}
+
 .game-card::after {
   content: "";
   opacity: 0.05;

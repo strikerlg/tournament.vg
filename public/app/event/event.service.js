@@ -773,27 +773,15 @@
                     // Prompt http(s) removal.
                     // FIXME: Handle this automatically. This is half-assed for the time being.
                     if (inputTwitchUrl) {
-                        if (inputTwitchUrl.indexOf('http') !== -1) {
-                            Materialize.toast('Please remove http:// or https:// from your link.', 4000);
-                            reject('invalid');
-                            return;
-                        }
+                        inputTwitchUrl = inputTwitchUrl.replace(/.*?:\/\//g, "");
                     }
 
                     if (inputInpUrl) {
-                        if (inputInpUrl.indexOf('http') !== -1) {
-                            Materialize.toast('Please remove http:// or https:// from your link.', 4000);
-                            reject('invalid');
-                            return;
-                        }
+                        inputInpUrl = inputInpUrl.replace(/.*?:\/\//g, "");
                     }
 
                     if (inputScreenshotUrl) {
-                        if (inputScreenshotUrl.indexOf('http') !== -1) {
-                            Materialize.toast('Please remove http:// or https:// from your link.', 4000);
-                            reject('invalid');
-                            return;
-                        }
+                        inputScreenshotUrl = inputScreenshotUrl.replace(/.*?:\/\//g, "");
                     }
 
                     userGameScore[$rootScope.profile.userName] = {

@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col s12">
+		<span class="flow-text grey-text text-darken-4">
+			Shoutbox
+		</span>
+	</div>
+
+	<div class="col s12 shoutbox-panel">
+		<p ng-repeat="message in vm.shoutboxData">
+			{{ message.team }}.{{ message.user }}: &nbsp;{{ message.message }}
+		</p>
+	</div>
+
+	<div class="col s12" style="margin-top: 10px;">
+		<form class="col s12">
+			<div class="row">
+
+				<div class="input-field col s10">
+					<input id="shoutboxMessage" type="text" ng-model="vm.newMessage">
+					<label for="shoutboxMessage">Message</label>
+				</div>
+
+				<div class="col s2">
+					<button type="submit" class="waves-effect btn-flat" style="margin-top: 30px;" ng-click="vm.postMessage()">Submit</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
