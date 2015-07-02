@@ -6,8 +6,8 @@
 	</div>
 	<div ng-repeat="streamer in vm.activeStreamerList" class="col s12 m4 l3">
 		<a ng-href="{{ 'http://twitch.tv/' + streamer.twitch }}" target="_blank" class="hoverable">
-			<p class="col s12 m4 l3 grey-text text-darken-4 hoverable">
-				{{ streamer.userName }}
+			<p class="col s12 m4 grey-text text-darken-4 hoverable">
+				{{ streamer.userName }}, {{ streamer.team }}
 			</p>
 		</a>
 	</div>

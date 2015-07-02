@@ -75,10 +75,9 @@
                                     if (data.stream) {
                                         vm.activeStreamerList.push({
                                             userName: playerRef.userName,
-                                            twitch: playerRef.twitch
+                                            twitch: playerRef.twitch,
+                                            team: element.team
                                         });
-
-                                        console.debug(vm.activeStreamerList);
                                     }
 
                                 });
@@ -87,8 +86,6 @@
                     });
 
                 });
-
-                console.debug(vm.activeStreamerList);
 
             });
 
