@@ -21,7 +21,7 @@
 				    <img ng-attr-src="{{ event.avatarData[playerData.key] }}" class="circle z-depth-1">
 					<span class="title grey-text text-darken-4">{{ playerData.key }}</span><br>
 					<span class="grey-text text-darken-1" ng-if="!playerData.position && playerData.points !== 0">
-					    {{ (playerData.position | ordinal) || $index+1 | ordinal }} &ndash; {{ playerData.points }}
+					    {{ (playerData.position | ordinal) || $index+1 | ordinal }} &ndash; {{ playerData.points }}, {{ playerData.team }}
 					</span>
 					<span class="grey-text text-darken-1" ng-if="!playerData.position && playerData.points === 0">
 						0
