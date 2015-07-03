@@ -35,6 +35,7 @@
         this.getTeamLeaderboardLengthValue = getTeamLeaderboardLengthValue;
         this.getTeamListObject = getTeamListObject;
         this.getTeamSummarizedLeaderboardObject = getTeamSummarizedLeaderboardObject;
+        this.incrementSubmissions = incrementSubmissions;
         this.loadEventProperties = loadEventProperties;
         this.submitTeamBasedRegistration = submitTeamBasedRegistration;
         this.submitTeamMultiGameScore = submitTeamMultiGameScore;
@@ -624,6 +625,11 @@
 
         function getTeamSummarizedLeaderboardObject() {
             return _teamSummarizedLeaderboard;
+        }
+
+        function incrementSubmissions() {
+            _eventProperties.submissions += 1;
+            _eventProperties.$save();
         }
 
         function loadEventProperties(inputEvent) {

@@ -30,7 +30,6 @@
 
         $scope.$watchCollection(function() { return eventService.getTeamSummarizedLeaderboardObject(); }, function(model) {
             $scope.$parent.$parent.event.teamSummarizedLeaderboard = model;
-            console.debug(model);
         }, true);
     }
 })();

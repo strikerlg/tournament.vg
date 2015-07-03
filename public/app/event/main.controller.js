@@ -295,6 +295,7 @@
                                                           vm.submitInpUrl, 
                                                           vm.submitInpMameVersion)
                         .then(function then(model) {
+                            eventService.incrementSubmissions();
                             $timeout(function() {
                                 closeModal();
                             }, 300);
