@@ -30,6 +30,12 @@
 						    <span class="grey-text text-lighten-4">Management</span>
 						</a>
 					</li>
+					<li ng-if="event.eventProperties.state === 'inprogress'">
+						<a class="waves-effect waves-light"
+						   ng-click="event.openModal('#logsModal')">
+						    <span class="grey-text text-lighten-4">Logs</span>
+						</a>
+					</li>
 					<li ng-if="event.eventProperties.state !== 'upcoming'">
 					    <a class="waves-effect waves-light" 
 					       ng-click="event.openModal('#rulesModal')">
