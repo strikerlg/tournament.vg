@@ -11,7 +11,12 @@
 			</p>
 
 			<p class="grey-text text-darken-4" ng-repeat="log in event.eventLogs | orderBy:'-$id' | limitTo:100">
-				{{ log.team }}.{{ log.userName }} scored {{ log.score | number }} on {{ log.game }}.&nbsp;
+				<span ng-if="log.time">
+				{{ log.team }}.{{ log.userName }} scored {{ log.score | number }} on {{ log.game }} at {{ log.time | date:'MM/dd/yyyy h:mma'}}.
+				</span>
+				<span ng-if="!log.time">
+				    {{ log.team }}.{{ log.userName }} scored {{ log.score | number }} on {{ log.game }}.
+				</span>
 				<a ng-attr-href="{{ 'http://' + log.twitchUrl }}" 
 				   class="grey-text hoverable"
 				   ng-show="log.twitchUrl"

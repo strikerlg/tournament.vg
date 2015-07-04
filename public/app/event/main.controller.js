@@ -154,6 +154,7 @@
             eventService.getLogs(vm.eventName).then(function then(model) {
 
                 vm.eventLogs = model;
+                console.debug(model);
 
                 // This will evaluate to true if a Materialize modal is open.
                 if (angular.element('#lean-overlay').length === 1) {

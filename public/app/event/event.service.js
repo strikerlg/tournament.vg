@@ -61,7 +61,7 @@
 
         }
 
-        function addScoreToLogs(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion) {
+        function addScoreToLogs(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion, inputTime) {
 
             var newLog = {
                 game: inputGame.name,
@@ -71,7 +71,8 @@
                 twitchUrl: inputTwitchUrl ? inputTwitchUrl : null,
                 screenshotUrl: inputScreenshotUrl ? inputScreenshotUrl : null,
                 inpUrl: inputInpUrl ? inputInpUrl : null,
-                mameVersion: inputMameVersion ? inputMameVersion : null
+                mameVersion: inputMameVersion ? inputMameVersion : null,
+                time: inputTime
             };
 
             getLogs(inputEvent).then(function(eventLogs) {
@@ -834,11 +835,12 @@
                         inpUrl: inputInpUrl ? inputInpUrl : null,
                         mameVersion: inputMameVersion ? inputMameVersion : null,
                         screenshotUrl: inputScreenshotUrl ? inputScreenshotUrl : null,
-                        team: inputTeam
+                        team: inputTeam,
+                        time: Firebase.ServerValue.TIMESTAMP
                     };
 
                     userGameScore.$save();
-                    addScoreToLogs(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion);
+                    addScoreToLogs(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion, userGameScore[$rootScope.profile.userName].time);
                     Materialize.toast('Your score was submitted!', 4000);
                     resolve();
 
