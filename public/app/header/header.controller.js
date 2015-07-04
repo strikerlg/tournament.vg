@@ -43,6 +43,18 @@
                         belowOrigin: true
                     });
             }, 1000);
+
+            $timeout(function() {
+                angular.element('.dropdown-button')
+                    .dropdown({
+                        inDuration: 300,
+                        outDuration: 225,
+                        constrain_width: false,
+                        hover: false,
+                        gutter: -114,
+                        belowOrigin: true
+                    });
+            }, 5000);
         }
 
         function logOut() {
