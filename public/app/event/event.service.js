@@ -24,6 +24,7 @@
         this.getGameListObject = getGameListObject;
         this.getGamesList = getGamesList;
         this.getLeaderboardLengthValue = getLeaderboardLengthValue;
+        this.getLogs = getLogs;
         this.getMultiGameLeaderboard = getMultiGameLeaderboard;
         this.getPlayerScores = getPlayerScores;
         this.getPlayerTeamScores = getPlayerTeamScores;
@@ -56,6 +57,25 @@
 
                 resolve();
 
+            });
+
+        }
+
+        function addScoreToLogs(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion) {
+
+            var newLog = {
+                game: inputGame.name,
+                team: inputTeam,
+                score: inputScore,
+                userName: $rootScope.profile.userName,
+                twitchUrl: inputTwitchUrl ? inputTwitchUrl : null,
+                screenshotUrl: inputScreenshotUrl ? inputScreenshotUrl : null,
+                inpUrl: inputInpUrl ? inputInpUrl : null,
+                mameVersion: inputMameVersion ? inputMameVersion : null
+            };
+
+            getLogs(inputEvent).then(function(eventLogs) {
+                eventLogs.$add(newLog);
             });
 
         }
@@ -180,6 +200,25 @@
 
         function getLeaderboardLengthValue() {
             return _leaderboardLength;
+        }
+
+        function getLogs(inputEvent) {
+
+            return $q(function(resolve, reject) {
+
+                var ref = new Firebase(FIREBASEDATA.FBURL);
+                var eventLogs = $firebaseArray(
+                    ref
+                        .child('logs')
+                        .child(inputEvent)
+                );
+
+                eventLogs.$loaded().then(function() {
+                    resolve(eventLogs);
+                });
+
+            })
+
         }
 
         function getMultiGameLeaderboard(inputEvent) {
@@ -776,8 +815,6 @@
 
                 userGameScore.$loaded().then(function() {
 
-                    // Prompt http(s) removal.
-                    // FIXME: Handle this automatically. This is half-assed for the time being.
                     if (inputTwitchUrl) {
                         inputTwitchUrl = inputTwitchUrl.replace(/.*?:\/\//g, "");
                     }
@@ -801,6 +838,7 @@
                     };
 
                     userGameScore.$save();
+                    addScoreToLogs(inputEvent, inputGame, inputTeam, inputScore, inputTwitchUrl, inputScreenshotUrl, inputInpUrl, inputMameVersion);
                     Materialize.toast('Your score was submitted!', 4000);
                     resolve();
 

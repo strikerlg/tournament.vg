@@ -6,6 +6,7 @@
 <ng-include src="'./app/event/modals/modalSubmit.htm'"></ng-include>
 <ng-include src="'./app/event/modals/modalManagement.htm'"></ng-include>
 <ng-include src="'./app/event/modals/modalTeamScores.htm'"></ng-include>
+<ng-include src="'./app/event/modals/modalLogs.htm'"></ng-include>
 
 <div class="container">
 	
@@ -32,7 +33,7 @@
 					</li>
 					<li ng-if="event.eventProperties.state === 'inprogress'">
 						<a class="waves-effect waves-light"
-						   ng-click="event.openModal('#logsModal')">
+						   ng-click="event.openLogsModal()">
 						    <span class="grey-text text-lighten-4">Logs</span>
 						</a>
 					</li>
