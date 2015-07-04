@@ -35,6 +35,10 @@
 						<th>Score</th>
 						<th>Points Earned</th>
 						<th>Links</th>
+						<th ng-if="(event.playerPool[$root.profile.$id].status === 'admin' ||
+					                event.playerPool[$root.profile.$id].status === 'coadmin')">
+					        Admin
+					    </th>
 					</tr>
 				</thead>
 
@@ -112,6 +116,12 @@
 						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ scoreData.mameVersion | lowercase }}</span>
 						    </a>
 						</td>
+						<td ng-if="(event.playerPool[$root.profile.$id].status === 'admin' ||
+					                event.playerPool[$root.profile.$id].status === 'coadmin')">
+					        <i class="fa fa-lg fa-times hoverable" 
+					           style="cursor: pointer;" 
+					           ng-click="event.gameScores.$remove(scoreData)"></i>
+					    </td>
 					</tr>
 				</tbody>
 
