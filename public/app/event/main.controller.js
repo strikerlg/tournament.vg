@@ -18,6 +18,7 @@
         vm.determinePoints = determinePoints;
         vm.goToPlayerProfile = goToPlayerProfile;
         vm.openGameModal = openGameModal;
+        vm.openLogsModal = openLogsModal;
         vm.openModal = openModal;
         vm.openMultiGameLeaderboardModal = openMultiGameLeaderboardModal;
         vm.openPlayerModal = openPlayerModal;
@@ -145,6 +146,32 @@
                 angular.element('ul.tabs').tabs();
                 angular.element('select').material_select();
             }, 600);
+
+        }
+
+        function openLogsModal() {
+
+            eventService.getLogs(vm.eventName).then(function then(model) {
+
+                vm.eventLogs = model;
+
+                // This will evaluate to true if a Materialize modal is open.
+                if (angular.element('#lean-overlay').length === 1) {
+
+                    closeModal();
+                    $timeout(function() {
+                        angular.element('#logsModal').openModal();
+                        angular.element('#logsModalContent').scrollTop(0);
+                    }, 450);
+
+                } else {
+
+                    angular.element('#logsModal').openModal();
+                    angular.element('#logsModalContent').scrollTop(0);
+
+                }
+
+            });
 
         }
 

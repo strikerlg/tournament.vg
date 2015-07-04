@@ -1,0 +1,42 @@
+<div id="logsModal" class="modal modal-fixed-footer">
+	<div id="logsModalContent" class="modal-content">
+		<h4 class="truncate">Submission Logs</h4>
+
+		<div class="divider"></div>
+
+		<div class="section">
+
+			<p class="grey-text text-darken-4">
+				{{ event.eventProperties.submissions }} submissions.
+			</p>
+
+			<p class="grey-text text-darken-4" ng-repeat="log in event.eventLogs | orderBy:'-$id' | limitTo:100">
+				{{ log.userName }} scored {{ log.score }} on {{ log.game }}.&nbsp;
+				<a ng-attr-href="{{ 'http://' + log.twitchUrl }}" 
+				   class="grey-text hoverable"
+				   ng-show="log.twitchUrl"
+				   target="_blank">
+			        <i class="fa fa-lg fa-twitch"></i>&nbsp;
+			    </a>
+
+			    <a ng-attr-href="{{ 'http://' + log.screenshotUrl }}" 
+				   class="grey-text hoverable"
+				   ng-show="log.screenshotUrl"
+				   target="_blank">
+			        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
+			    </a>
+
+			    <a ng-attr-href="{{ 'http://' + log.inpUrl }}" 
+			       class="grey-text hoverable"
+			       ng-show="log.inpUrl">
+			    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ log.mameVersion | lowercase }}</span>
+			    </a>
+			</p>
+
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>
