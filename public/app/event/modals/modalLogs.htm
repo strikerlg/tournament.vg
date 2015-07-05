@@ -31,21 +31,21 @@
 					    <td>{{ logData.score | number }}</td>
 					    <td>
 					    	<a ng-attr-href="{{ 'http://' + log.twitchUrl }}" 
-							   class="grey-text hoverable"
+							   class="grey-text text-darken-4 hoverable"
 							   ng-show="logData.twitchUrl"
 							   target="_blank">
 						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
 						    </a>
 
 						    <a ng-attr-href="{{ 'http://' + log.screenshotUrl }}" 
-							   class="grey-text hoverable"
+							   class="grey-text text-darken-4 hoverable"
 							   ng-show="logData.screenshotUrl"
 							   target="_blank">
 						        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
 						    </a>
 
 						    <a ng-attr-href="{{ 'http://' + log.inpUrl }}" 
-						       class="grey-text hoverable"
+						       class="grey-text text-darken-4 hoverable"
 						       ng-show="logData.inpUrl">
 						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ log.mameVersion | lowercase }}</span>
 						    </a>
