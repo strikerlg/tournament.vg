@@ -220,7 +220,7 @@
 							     style="height: 90px; width: 100%;">
 								<div class="row valign-wrapper">
 									<div class="col s12">
-										<h6 class="truncate grey-text text-darken-4"><strong>{{ activity.game }}</strong></h6>
+										<h6 class="truncate grey-text text-darken-4"><strong>{{ activity.game }} @ {{ (activity.time | date:'h:mma') || "unknown" }}</strong></h6>
 										<p class="truncate grey-text text-darken-4" ng-if="event.eventProperties.format.teamBased">
 										    {{activity.team}}.{{ activity.userName }} &ndash; {{ activity.score | number }}
 										</p>
