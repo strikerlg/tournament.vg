@@ -116,9 +116,24 @@
 
         }
 
+        function getRecentActivity() {
+
+            var ref = new Firebase(FIREBASEDATA.FBURL + '/logs/' + vm.eventName);
+            var query = ref.limitToLast(3);
+            var refToSameLocation = query.ref();
+            vm.recentActivity = $firebaseArray(query);
+
+            vm.recentActivity.$loaded().then(function() {
+                console.debug(vm.recentActivity);
+            });
+
+        }
+
         function initEvent() {
 
             eventService.loadEventProperties(vm.eventName);
+
+            getRecentActivity();
 
             profileService.getAvatarData().then(function then(model) {
                 vm.avatarData = model;
@@ -154,7 +169,6 @@
             eventService.getLogs(vm.eventName).then(function then(model) {
 
                 vm.eventLogs = model;
-                console.debug(model);
 
                 // This will evaluate to true if a Materialize modal is open.
                 if (angular.element('#lean-overlay').length === 1) {

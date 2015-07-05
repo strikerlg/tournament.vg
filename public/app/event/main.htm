@@ -205,6 +205,35 @@
 				<vg-streamer-list></vg-streamer-list>
 			</div>
 
+			<!-- Recent Activity -->
+			<div ng-if="event.eventProperties.state === 'inprogress'">
+				<div class="row">
+					<span class="col s12 flow-text grey-text text-darken-4">
+						Recent Activity
+					</span>
+				</div>
+
+ 				<div class="row">
+					<div class="col l4 m6 s12" ng-repeat="activity in event.recentActivity | orderBy:'-$id'">
+						<a class="modal-trigger" ng-click="event.openGameModal(activity.game)">
+							<div class="card-panel hoverable z-depth-1 grey lighten-2 waves-effect waves-teal game-card" 
+							     style="height: 90px; width: 100%;">
+								<div class="row valign-wrapper">
+									<div class="col s12">
+										<h6 class="truncate grey-text text-darken-4"><strong>{{ activity.game }}</strong></h6>
+										<p class="truncate grey-text text-darken-4" ng-if="event.eventProperties.format.teamBased">
+										    {{activity.team}}.{{ activity.userName }} &ndash; {{ activity.score | number }}
+										</p>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="divider bottom25 top30"></div>
+			</div>
+
 			<!-- Individual-Based Leaderboard -->
 			<div ng-if="!event.eventProperties.format.teamBased">
 				<div ng-if="!event.eventProperties.format.multiGame">
