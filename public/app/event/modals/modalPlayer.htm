@@ -31,7 +31,7 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="scoreData in event.playerScores | orderBy:['position', 'name']" 
+					<tr ng-repeat="scoreData in event.playerScores | orderBy:['-pointsEarned', 'name']" 
 					    class="grey-text"
 					    ng-class="{'text-lighten-1': scoreData.pointsEarned === 0,
 					               'text-darken-4':  scoreData.pointsEarned > 0}">

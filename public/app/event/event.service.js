@@ -364,7 +364,7 @@
                                 playerPoints[scoresArray[i].userName].points += totalAward;
                                 playerPoints[scoresArray[i].userName].team = scoresArray[i].team;
 
-                                if (totalAward > 0) {
+                                if (teamTracker[scoresArray[i].team] <= 5) {
                                     totalAward -= 1;
                                 }
 
@@ -680,7 +680,7 @@
 
                                 displayScores.push(newScoreObject);
 
-                            } else {
+                            } else if (teamTracker[scoresArray[i].team] <= 5) {
                                 totalAward -= 1;
                             }
 
