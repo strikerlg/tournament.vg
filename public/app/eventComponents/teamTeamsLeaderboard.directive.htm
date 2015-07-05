@@ -8,9 +8,20 @@
 		   ng-repeat="teamData in event.teamSummarizedLeaderboard | orderBy:'-points'">
 			<li class="waves-effect waves-teal collection-item avatar hoverable" 
 			    style="height: 62px; width: 100%">
+
 			    <img ng-attr-src="{{ '../../../images/teams/' + teamData.key + '.png' }}" class="circle z-depth-1">
+
+			    <div style="margin-top: 11px;">
+				    <span class="grey-text text-darken-1" style="font-size: 25px;">{{ $index + 1 }}</span>
+				    <span class="grey-text text-darken-4" style="vertical-align: top; padding-left: 20px;">{{ teamData.fullName }}</span>
+				    <span class="grey-text text-darken-1" style="float: right;">{{ teamData.points | number }}</span>
+			    </div>
+
+			    <!--
 				<span class="title grey-text text-darken-4">{{ teamData.fullName || "No Name" }}</span><br>
 				<span class="grey-text text-darken-1">{{ $index + 1 | ordinal }} &ndash; {{ teamData.points }}</span>
+				-->
+
 			</li>
 		</a>
 	</ul>
