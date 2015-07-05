@@ -516,10 +516,27 @@
                 playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
                 teamPoints = $filter('orderObjectBy')(teamPoints, 'points', true);
 
+                // Get the roster.
+                var ref = new Firebase(FIREBASEDATA.FBURL);
+                var roster = $firebaseArray(
+                    ref
+                        .child('contests')
+                        .child(inputEvent)
+                        .child('teamPool')
+                        .child(inputTeam)
+                        .child('players')
+                );
+
                 var returnArray = [];
-                returnArray.push(gamePoints);
-                returnArray.push(playerPoints);
-                resolve(returnArray);
+
+                roster.$loaded().then(function() {
+
+                    returnArray.push(gamePoints);
+                    returnArray.push(playerPoints);
+                    returnArray.push(roster);
+                    resolve(returnArray);
+
+                });
 
             });
 
