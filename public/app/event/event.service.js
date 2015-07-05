@@ -808,7 +808,7 @@
                             getTeamLeaderboard(inputEvent).then(function then(model) {
                                 var leaderboard = model;
                                 _teamLeaderboardLength = leaderboard.length;
-                                _teamSummarizedLeaderboard = leaderboard.slice(0, 8);
+                                _teamSummarizedLeaderboard = leaderboard;
                             });
                         });
 

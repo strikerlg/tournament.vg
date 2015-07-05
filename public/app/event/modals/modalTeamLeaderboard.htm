@@ -1,0 +1,29 @@
+<div id="teamLeaderboardModal" class="modal modal-fixed-footer">
+	<div id="teamLeaderboardModalContent" class="modal-content">
+		<h4 class="truncate">Team Leaderboard</h4>
+
+		<div class="divider"></div>
+
+		<ul class="collection z-depth-1">
+			<a ng-click="event.openTeamScoresModal(teamData)" 
+			   ng-repeat="teamData in event.teamSummarizedLeaderboard | orderBy:'-points'">
+				<li class="waves-effect waves-teal collection-item avatar hoverable" 
+				    style="height: 62px; width: 100%">
+
+				    <img ng-attr-src="{{ '../../../images/teams/' + teamData.key + '.png' }}" class="circle z-depth-1">
+
+				    <div style="margin-top: 11px;">
+					    <span class="grey-text text-darken-1" style="font-size: 25px;">{{ $index + 1 }}</span>
+					    <span class="grey-text text-darken-4" style="vertical-align: top; padding-left: 20px;">{{ teamData.fullName }}</span>
+					    <span class="grey-text text-darken-1" style="float: right;">{{ teamData.points | number }}</span>
+				    </div>
+
+				</li>
+			</a>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<a ng-click="" class="modal-action modal-close waves-effect btn-flat">Close</a>
+	</div>
+</div>
