@@ -23,8 +23,9 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="logData in event.eventLogs | orderBy:'-$id' | limitTo: 100" 
-					    class="grey-text text-darken-4">
+					<tr ng-repeat="logData in event.eventLogs | orderBy:'-time' | limitTo: 100" 
+					    class="grey-text text-darken-4"
+					    ng-if="logData.time">
 						<td>{{ (logData.time | date:'MM/dd h:mma') || "unknown" }}</td>
 					    <td>{{ logData.userName }}</td>
 					    <td>{{ logData.game }}</td>

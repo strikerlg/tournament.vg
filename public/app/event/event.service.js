@@ -208,12 +208,9 @@
 
             return $q(function(resolve, reject) {
 
-                var ref = new Firebase(FIREBASEDATA.FBURL);
-                var eventLogs = $firebaseArray(
-                    ref
-                        .child('logs')
-                        .child(inputEvent)
-                );
+                var ref = new Firebase(FIREBASEDATA.FBURL + '/logs/' + inputEvent);
+                var query = ref.limitToLast(100);
+                var eventLogs = $firebaseArray(query);
 
                 eventLogs.$loaded().then(function() {
                     resolve(eventLogs);
