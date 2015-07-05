@@ -35,6 +35,7 @@
         this.getTeamGameScores = getTeamGameScores;
         this.getTeamLeaderboardLengthValue = getTeamLeaderboardLengthValue;
         this.getTeamListObject = getTeamListObject;
+        this.getTeamPlayerScores = getTeamPlayerScores;
         this.getTeamSummarizedLeaderboardObject = getTeamSummarizedLeaderboardObject;
         this.incrementSubmissions = incrementSubmissions;
         this.loadEventProperties = loadEventProperties;
@@ -385,6 +386,66 @@
 
         }
 
+        function getTeamPlayerScores(inputEvent, inputTeam) {
+         
+            return $q(function(resolve, reject) {
+
+                var playerScores = [];
+                var teamPoints = {};
+
+                _gameList.forEach(function(game) {
+
+                    if (game.scores) {
+
+                        var scoresArray = $.map(game.scores, function(el) { return el; });
+                        scoresArray = $filter('orderBy')(scoresArray, '-score');
+                        var totalAward = _teamList.length * 5;
+                        var teamTracker = {};
+
+                        for (var i = 0; i < scoresArray.length; i++) {
+
+                            if (!teamTracker[scoresArray[i].team]) {
+                                teamTracker[scoresArray[i].team] = 1;
+                            } else {
+                                teamTracker[scoresArray[i].team] += 1;
+                            }
+
+                            if (scoresArray[i].team === inputTeam) {
+
+                                if (playerScores[scoresArray[i].$id]) {
+                                    playerScores[scoresArray[i].$id] += totalAward;
+                                } else {
+                                    playerScores[scoresArray[i].$id] = totalAward;
+                                }
+
+                            }
+
+                            if (!teamPoints[scoresArray[i].team]) {
+                                teamPoints[scoresArray[i].team] = {
+                                    points: 0
+                                };
+                            }
+
+                            if (teamTracker[scoresArray[i].team] <= 5) {
+
+                                teamPoints[scoresArray[i].team].points += totalAward;
+
+                                if (totalAward > 0) {
+                                    totalAward -= 1;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                });
+
+            });
+
+        }
+
         function getTeamGameScores(inputEvent, inputTeam) {
 
             return $q(function(resolve, reject) {
@@ -420,6 +481,16 @@
 
                                 teamPoints[scoresArray[i].team].points += totalAward;
 
+                                if (scoresArray[i].team === inputTeam) {
+                                    if (playerPoints[scoresArray[i].userName]) {
+                                        playerPoints[scoresArray[i].userName].points += totalAward;
+                                    } else {
+                                        playerPoints[scoresArray[i].userName] = {
+                                            points: totalAward
+                                        };
+                                    }
+                                }
+
                                 if (totalAward > 0) {
                                     totalAward -= 1;
                                 }
@@ -442,8 +513,13 @@
 
                 });
 
+                playerPoints = $filter('orderObjectBy')(playerPoints, 'points', true);
                 teamPoints = $filter('orderObjectBy')(teamPoints, 'points', true);
-                resolve(gamePoints);
+
+                var returnArray = [];
+                returnArray.push(gamePoints);
+                returnArray.push(playerPoints);
+                resolve(returnArray);
 
             });
 

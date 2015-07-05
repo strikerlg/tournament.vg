@@ -280,7 +280,8 @@
             vm.focusTeam = inputTeam;
 
             eventService.getTeamGameScores(vm.eventName, vm.focusTeam.key).then(function then(model) {
-                vm.teamScores = model;
+                vm.teamScores = model[0];
+                vm.teamPlayerScores = model[1];
             });
 
             openModal('#teamScoresModal');

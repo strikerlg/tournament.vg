@@ -11,6 +11,44 @@
 		<div class="divider"></div>
 
 		<div class="section">
+			<h5>Player Rankings</h5>
+
+			<span class="flow-text text-darken-4" ng-if="event.teamPlayerScores.length === 0">
+				No players from this team have points in the competition.
+			</span>
+
+			<table class="responsive-table hoverable" ng-if="event.teamPlayerScores">
+
+				<thead>
+					<tr class="grey-text text-darken-1">
+						<th>Position</th>
+						<th>Player</th>
+						<th>Points Earned</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="playerData in event.teamPlayerScores" class="grey-text text-darken-4">
+						<td>{{ $index + 1}}</td>
+						<td>
+							<a ng-click="event.openPlayerModal(playerData.key)" class="hoverable">
+								{{ playerData.key }}
+							</a>
+						</td>
+						<td>
+						    {{ playerData.points }}
+						</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+
+		<div class="divider"></div>
+
+		<div class="section">
+			<h5>Game Rankings</h5>
+
 			<span class="flow-text text-darken-4" ng-if="event.teamScores.length === 0">
 				This team does not have any points in the competition.
 			</span>
