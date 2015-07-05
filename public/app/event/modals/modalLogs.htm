@@ -31,21 +31,21 @@
 					    <td>{{ logData.game }}</td>
 					    <td>{{ logData.score | number }}</td>
 					    <td>
-					    	<a ng-attr-href="{{ 'http://' + log.twitchUrl }}" 
+					    	<a ng-attr-href="{{ 'http://' + logData.twitchUrl }}" 
 							   class="grey-text text-darken-4 hoverable"
 							   ng-show="logData.twitchUrl"
 							   target="_blank">
 						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
 						    </a>
 
-						    <a ng-attr-href="{{ 'http://' + log.screenshotUrl }}" 
+						    <a ng-attr-href="{{ 'http://' + logData.screenshotUrl }}" 
 							   class="grey-text text-darken-4 hoverable"
 							   ng-show="logData.screenshotUrl"
 							   target="_blank">
 						        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
 						    </a>
 
-						    <a ng-attr-href="{{ 'http://' + log.inpUrl }}" 
+						    <a ng-attr-href="{{ 'http://' + logData.inpUrl }}" 
 						       class="grey-text text-darken-4 hoverable"
 						       ng-show="logData.inpUrl">
 						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ log.mameVersion | lowercase }}</span>
@@ -55,55 +55,6 @@
 				</tbody>
 
 			</table>
-
-			<!--
-			<table class="responsive-table hoverable">
-
-				<thead>
-					<tr class="grey-text text-darken-1">
-						<th>Timestamp</th>
-						<th>Player</th>
-						<th>Game</th>
-						<th>Score</th>
-						<th>Links</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<tr ng-repeat="log in event.eventLogs | orderBy:'-$id' | limitTo: 100"
-					    class="grey-text text-darken-4">
-
-					    <td>{{ log.time | date:'MM/dd/yyyy h:mma'}}</td>
-					    <td>{{ log.userName }}</td>
-					    <td>{{ log.game }}</td>
-					    <td>{{ log.score | number }}</td>
-					    <td>
-					    	<a ng-attr-href="{{ 'http://' + log.twitchUrl }}" 
-							   class="grey-text hoverable"
-							   ng-show="log.twitchUrl"
-							   target="_blank">
-						        <i class="fa fa-lg fa-twitch"></i>&nbsp;
-						    </a>
-
-						    <a ng-attr-href="{{ 'http://' + log.screenshotUrl }}" 
-							   class="grey-text hoverable"
-							   ng-show="log.screenshotUrl"
-							   target="_blank">
-						        <i class="fa fa-lg fa-file-image-o"></i>&nbsp;
-						    </a>
-
-						    <a ng-attr-href="{{ 'http://' + log.inpUrl }}" 
-						       class="grey-text hoverable"
-						       ng-show="log.inpUrl">
-						    	<i class="fa fa-lg fa-file-video-o"></i>&nbsp;<span>{{ log.mameVersion | lowercase }}</span>
-						    </a>
-					    </td>
-
-					</tr>
-				</tbody>
-
-			</table>
-			-->
 
 		</div>
 	</div>
