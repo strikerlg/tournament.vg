@@ -32,7 +32,7 @@
 						    <span class="grey-text text-lighten-4">Management</span>
 						</a>
 					</li>
-					<li ng-if="event.eventProperties.state === 'inprogress'">
+					<li ng-if="event.eventProperties.state === 'inprogress' || event.eventProperties.state === 'concluded'">
 						<a class="waves-effect waves-light"
 						   ng-click="event.openLogsModal()">
 						    <span class="grey-text text-lighten-4">Logs</span>
