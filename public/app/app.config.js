@@ -4,7 +4,7 @@
 	angular
 		.module('vg.app')
 		.constant('FIREBASEDATA', {
-			'FBURL': 'https://wolfscontests.firebaseio.com'
+			'FBURL': 'https://.firebaseio.com'
 		})
 		.config(config);
 
